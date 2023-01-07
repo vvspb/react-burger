@@ -1,0 +1,18 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cardPrice {
+    display: flex;
+    align-items: center;
+}
+
+.description {
+    margin-right: 9px;
+}
+
+.descriptionName{
+   text-align: center;
+}
