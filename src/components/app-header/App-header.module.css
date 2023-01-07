@@ -18,7 +18,7 @@ header {
     justify-content: space-between;
 }
 
-.nav__ul {
+.navUl {
     padding: 0;
     display: flex;
     flex-direction: row;
@@ -42,7 +42,7 @@ header {
     width: 197px;
 }
 
-.link_profile {
+.linkProfile {
     width: 207px;
 }
 
@@ -50,7 +50,7 @@ header {
     color: #F2F2F3;
 }
 
-.wrapper__logo {
+.wrapperLogo {
     position: absolute;
     right: 50%;
     transform: translateX(50%);

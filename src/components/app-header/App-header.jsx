@@ -23,7 +23,7 @@ const AppHeader = () => {
         <header className={styles.header}>
             <div className={styles.container}>
                 <nav className={styles.nav}>
-                  <ul className={styles.nav__ul}>
+                  <ul className={styles.navUl}>
                     <li className={styles.link} 
                         id='BurgerIcon'  
                         onMouseEnter ={handleMouseEnter} 
@@ -45,11 +45,11 @@ const AppHeader = () => {
                     </li>
                     </ul>
                 </nav>
-                <div className={styles.wrapper__logo}>
+                <div className={styles.wrapperLogo}>
                     <Logo/>
                 </div>
                 <div 
-                  className={`${styles.link} ${styles.link_profile}`} 
+                  className={`${styles.link} ${styles.linkProfile}`} 
                   id='ProfileIcon'    
                   onMouseEnter ={handleMouseEnter}
                   onMouseLeave ={handleMouseLeave}
