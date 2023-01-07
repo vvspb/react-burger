@@ -18,11 +18,6 @@ header {
     justify-content: space-between;
 }
 
-/* .nav {
-    position: absolute;
-    left: 16.667%;
-} */
-
 .nav__ul {
     padding: 0;
     display: flex;
