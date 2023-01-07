@@ -4,8 +4,9 @@ import styles from './Burger-ingredients.module.css';
 import mockData from '../../utils/data.json'
 
 const BurgerIngredients = () => {
-    // eslint-disable-next-line no-undef
+    
     const [current, setCurrent] = React.useState('one');
+    
     return (
         <section aria-label='Ингредиенты для бургера' className={styles.menuBurgerIngredients}>
             <h1 className={'text text_type_main-large mt-10 mb-5'}>Соберите бургер</h1>
@@ -20,7 +21,7 @@ const BurgerIngredients = () => {
                     <p className='text text_type_main-default'>Начинки</p>
                 </Tab>
             </div>
-            <div className={styles.container}>
+            <div className={`${styles.container} custom-scroll`}>
                 <section aria-label='Булки' className={`${styles.cardsBurgerIngredients} mt-10`}>
                     <h2 className={`${styles.subtitle} mb-6 text text_type_main-medium`} id='bun'>
                         Булки

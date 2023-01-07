@@ -1,0 +1,23 @@
+.burgerConstructor {
+    position: absolute;
+    right: 340px;
+    top: 88px;
+    max-width: 635px;
+    height: 912px;
+}
+
+.cardBurgerConstructor {
+    display: flex;
+    align-items: center;
+    max-width: 568px;
+}
+
+.scrollBox{
+    overflow: auto;
+    height: 445px;
+}
+.orderBuy {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}

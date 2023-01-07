@@ -9,23 +9,23 @@
 
 .container {
     width: 100%;
-    max-height: 746px;
+    max-height: 756px;
     overflow-y: scroll;
 }
 
-.container::-webkit-scrollbar {
+/* scroll как на макете */
+/* .container::-webkit-scrollbar {
     width: 8px;
 }
 .container::-webkit-scrollbar-track {
     background: #2F2F37;
-    scroll-padding-block-end: 52px;
     margin-bottom: 3em;
     margin-top: 3em;
 }
 
 .container::-webkit-scrollbar-thumb {
     background: #8585AD;
-}
+} */
 
 .cardsBurgerIngredients {
     display: flex;
