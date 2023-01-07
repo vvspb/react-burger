@@ -5,3 +5,10 @@
   box-sizing: border-box;
 }
 
+.Main {
+  max-width: 1240px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin: 0 auto;
+}

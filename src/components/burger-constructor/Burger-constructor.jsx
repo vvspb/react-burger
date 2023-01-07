@@ -14,8 +14,8 @@ const BurgerConstructor = () => {
     const [choiceIngredients, setChoiceIngredients] = useState(ingredientsArr)
 
     return (
-        <section className={`${styles.burgerConstructor} pt-25 ml-10`}>
-            <div style={{ display: 'flex', flexDirection: 'column'}} className='ml-4 mr-4'>
+        <section className={`${styles.burgerConstructor} pt-25`}>
+            <div style={{ display: 'flex', flexDirection: 'column'}}>
                 <div className={`${styles.cardBurgerConstructor} ml-8`}>
                     <ConstructorElement
                         type="top"

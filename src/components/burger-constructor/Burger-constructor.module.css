@@ -1,8 +1,5 @@
 .burgerConstructor {
-    position: absolute;
-    right: 340px;
-    top: 88px;
-    max-width: 635px;
+    max-width: 592px;
     height: 912px;
 }
 
@@ -16,6 +13,11 @@
     overflow: auto;
     height: 445px;
 }
+
+.scrollBox::-webkit-scrollbar-track{
+  border-radius: 6px;
+}
+
 .orderBuy {
     display: flex;
     align-items: center;
