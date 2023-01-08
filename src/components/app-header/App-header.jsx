@@ -10,9 +10,9 @@ const AppHeader = () => {
     })
 
     const handleMouseEnter = (e) => {
-        if ( e.target.id === 'BurgerIcon') setState({...state, burgerIcon: 'primary'})
-           else if ( e.target.id === 'ProfileIcon') setState({...state, profileIcon: 'primary'})
-            else if ( e.target.id === 'ListIcon') setState({...state, listIcon: 'primary'})    
+        if ( e.target.id === 'BurgerIcon') setState({...state, burgerIcon: 'primary', profileIcon: 'secondary', listIcon: 'secondary'})
+           else if ( e.target.id === 'ProfileIcon') setState({...state, profileIcon: 'primary', burgerIcon: 'secondary', listIcon: 'secondary'})
+            else if ( e.target.id === 'ListIcon') setState({...state, listIcon: 'primary', profileIcon: 'secondary', burgerIcon: 'secondary'})    
         }
 
     const handleMouseLeave = () => {
