@@ -37,7 +37,6 @@ const BurgerIngredients = () => {
                     Соусы
                 </h2>
                 <ul className={`${styles.cardsBurgerIngredients}`}>
-
                     {mockData.filter(item => item.type === 'sauce').map(itemSauce =>
                         < li className={styles.cardWrapper} key={itemSauce._id}>
                             <CardBurgerIngredient image={itemSauce.image} price={itemSauce.price} name={itemSauce.name} />
@@ -46,7 +45,6 @@ const BurgerIngredients = () => {
                 </ul>
                 <h2 className={`${styles.subtitle} mb-6 mt-10 text text_type_main-medium`} id='main'>Начинки</h2>
                 <ul className={`${styles.cardsBurgerIngredients}`}>
-
                     {mockData.filter(item => item.type === 'main').map(itemMain =>
                         < li className={styles.cardWrapper} key={itemMain._id}>
                             <CardBurgerIngredient image={itemMain.image} price={itemMain.price} name={itemMain.name} />

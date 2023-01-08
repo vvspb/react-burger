@@ -38,3 +38,9 @@ ul[class]{
      display: grid;
      justify-items: center;
 }
+
+@media (max-width: 1440px) {
+    .container {
+        max-height: 566px;
+    }
+}

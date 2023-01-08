@@ -23,3 +23,13 @@
     align-items: center;
     justify-content: end;
 }
+
+@media (max-width: 1440px) {
+    .burgerConstructor {
+        height: 632px;
+    }
+
+    .scrollBox{
+        height: 260px;
+    }
+}
