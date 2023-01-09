@@ -1,10 +1,10 @@
 import React from 'react';
 import CardBurgerIngredient from '../card-burger-ingredient/Card-burger-ingredient';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types'
 import styles from './Burger-ingredients.module.css';
-import mockData from '../../utils/data.json';
 
-const BurgerIngredients = () => {
+const BurgerIngredients = ({data}) => {
 
     const [current, setCurrent] = React.useState('one');
 
@@ -27,7 +27,7 @@ const BurgerIngredients = () => {
                     Булки
                 </h2>
                 <ul className={`${styles.cardsBurgerIngredients}`}>
-                    {mockData.filter(item => item.type === 'bun').map(itemBun =>
+                    {data.filter(item => item.type === 'bun').map(itemBun =>
                         < li className={styles.cardWrapper} key={itemBun._id}>
                             <CardBurgerIngredient image={itemBun.image} price={itemBun.price} name={itemBun.name} />
                         </li>
@@ -37,7 +37,7 @@ const BurgerIngredients = () => {
                     Соусы
                 </h2>
                 <ul className={`${styles.cardsBurgerIngredients}`}>
-                    {mockData.filter(item => item.type === 'sauce').map(itemSauce =>
+                    {data.filter(item => item.type === 'sauce').map(itemSauce =>
                         < li className={styles.cardWrapper} key={itemSauce._id}>
                             <CardBurgerIngredient image={itemSauce.image} price={itemSauce.price} name={itemSauce.name} />
                         </li>
@@ -45,7 +45,7 @@ const BurgerIngredients = () => {
                 </ul>
                 <h2 className={`${styles.subtitle} mb-6 mt-10 text text_type_main-medium`} id='main'>Начинки</h2>
                 <ul className={`${styles.cardsBurgerIngredients}`}>
-                    {mockData.filter(item => item.type === 'main').map(itemMain =>
+                    {data.filter(item => item.type === 'main').map(itemMain =>
                         < li className={styles.cardWrapper} key={itemMain._id}>
                             <CardBurgerIngredient image={itemMain.image} price={itemMain.price} name={itemMain.name} />
                         </li>
@@ -57,3 +57,20 @@ const BurgerIngredients = () => {
 }
 
 export default BurgerIngredients
+
+BurgerIngredients.propTypes = {
+    data: PropTypes.arrayOf(PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        proteins: PropTypes.number,
+        fat: PropTypes.number,
+        carbohydrates: PropTypes.number,
+        calories: PropTypes.number,
+        price: PropTypes.number.isRequired,
+        image: PropTypes.string.isRequired,
+        image_mobile: PropTypes.string.isRequired,
+        image_large: PropTypes.string.isRequired,
+        __v: PropTypes.number,
+    })).isRequired
+}

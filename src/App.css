@@ -5,7 +5,7 @@
   box-sizing: border-box;
 }
 
-.Main {
+.main {
   max-width: 1240px;
   display: grid;
   grid-template-columns: 1fr 1fr;

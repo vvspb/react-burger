@@ -1,21 +1,18 @@
 
-import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { ConstructorElement, Button, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import mockData from '../../utils/data.json'
 import styles from './Burger-constructor.module.css';
 
-// моковые данные
-const bunArr = mockData.slice(item => item.type === 'bun');
-const ingredientsArr = mockData.filter(item => item.type !== 'bun');
 
-const BurgerConstructor = () => {
 
-    const [choiceBun, setChoiceBun] = useState(bunArr[0]);
-    const [choiceIngredients, setChoiceIngredients] = useState(ingredientsArr)
+const BurgerConstructor = ({choiceBun, choiceIngredients}) => {
+    // // моковые данные
+    // const bunArr = data.filter(item => item.type === 'bun');
+    // const dataBun = bunArr[0];
+    // const ingredientsArr = data.filter(item => item.type !== 'bun');
 
     return (
         <section className={`${styles.burgerConstructor} pt-25`}>
-            <div style={{ display: 'flex', flexDirection: 'column'}}>
                 <div className={`${styles.cardBurgerConstructor} ml-8`}>
                     <ConstructorElement
                         type="top"
@@ -48,7 +45,6 @@ const BurgerConstructor = () => {
                         extraClass='mt-2'
                     />
                 </div>
-            </div>
             <div className={`${styles.orderBuy} mt-10 mr-4`}>
             <p className='text text_type_digits-medium mr-2'>12690</p>
                 <CurrencyIcon type="primary" />
@@ -61,3 +57,34 @@ const BurgerConstructor = () => {
 }
 
 export default BurgerConstructor;
+
+BurgerConstructor.propTypes = {
+    choiceIngredients: PropTypes.arrayOf(PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        type: PropTypes.string,
+        proteins: PropTypes.number,
+        fat: PropTypes.number,
+        carbohydrates: PropTypes.number,
+        calories: PropTypes.number,
+        price: PropTypes.number.isRequired,
+        image: PropTypes.string.isRequired,
+        image_mobile: PropTypes.string.isRequired,
+        image_large: PropTypes.string.isRequired,
+        __v: PropTypes.number,
+    })).isRequired,
+    choiceBun: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        type: PropTypes.string,
+        proteins: PropTypes.number,
+        fat: PropTypes.number,
+        carbohydrates: PropTypes.number,
+        calories: PropTypes.number,
+        price: PropTypes.number.isRequired,
+        image: PropTypes.string.isRequired,
+        image_mobile: PropTypes.string.isRequired,
+        image_large: PropTypes.string.isRequired,
+        __v: PropTypes.number,
+    }).isRequired,
+}
