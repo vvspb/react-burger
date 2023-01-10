@@ -1,0 +1,22 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 272px;
+    height: 208px;
+}
+
+.cardPrice {
+    display: flex;
+    align-items: center;
+}
+
+.description {
+    margin-right: 9px;
+}
+
+.descriptionName{
+   text-align: center;
+   width: 100%;
+   height: 56px;
+}

@@ -1,0 +1,35 @@
+.burgerConstructor {
+    max-width: 592px;
+    height: 912px;
+}
+
+.cardBurgerConstructor {
+    display: flex;
+    align-items: center;
+    max-width: 568px;
+}
+
+.scrollBox{
+    overflow: auto;
+    height: 445px;
+}
+
+.scrollBox::-webkit-scrollbar-track{
+  border-radius: 6px;
+}
+
+.orderBuy {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+@media (max-width: 1440px) {
+    .burgerConstructor {
+        height: 632px;
+    }
+
+    .scrollBox{
+        height: 260px;
+    }
+}

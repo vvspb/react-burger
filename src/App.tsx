@@ -1,24 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
+import AppHeader from './components/app-header/App-header'
+import BurgerIngredients from './components/burger-ingredients/Burger-ingredients'
+import BurgerConstructor from './components/burger-constructor/Burger-constructor'
+
+import mockData from './utils/data.json'
+
 import './App.css';
 
 function App() {
+
+  // моковые данные для конструктора
+  const bunArr = mockData.filter(item => item.type === 'bun');
+  const dataBun = bunArr[0];
+  const ingredientsArr = mockData.filter(item => item.type !== 'bun');
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AppHeader />
+      <main className="main">
+        <BurgerIngredients data={mockData}/>
+        <BurgerConstructor choiceIngredients={ingredientsArr} choiceBun={dataBun}/>
+      </main>
     </div>
   );
 }
