@@ -1,12 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
 import CardBurgerIngredient from '../card-burger-ingredient/Card-burger-ingredient';
+import Modal from '../modal/Modal';
+import IngredientsDetails from '../ingredients-details/Ingredients-details';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import {objectPropType} from '../../utils/types'
 import styles from './Burger-ingredients.module.css';
 
 const BurgerIngredients = ({data}) => {
 
-    const [current, setCurrent] = React.useState('one');
+    const [current, setCurrent] = useState('one');
+    
+    const [modalOpenCloseIngredient, setModalOpenClose] = useState(false)
+    const [ingredient, setIngredient] = useState({})
+    const openModalWithIngredient = (item) => {
+        setModalOpenClose(true)
+        setIngredient({...item})
+    }
+    const closeModal = () => setModalOpenClose(false)
 
     return (
         <section aria-label='Ингредиенты для бургера' className={styles.menuBurgerIngredients}>
@@ -28,7 +39,7 @@ const BurgerIngredients = ({data}) => {
                 </h2>
                 <ul className={`${styles.cardsBurgerIngredients}`}>
                     {data.filter(item => item.type === 'bun').map(itemBun =>
-                        < li className={styles.cardWrapper} key={itemBun._id}>
+                        < li className={styles.cardWrapper} key={itemBun._id} onClick={() => openModalWithIngredient(itemBun)}>
                             <CardBurgerIngredient image={itemBun.image} price={itemBun.price} name={itemBun.name} />
                         </li>
                     )}
@@ -38,7 +49,7 @@ const BurgerIngredients = ({data}) => {
                 </h2>
                 <ul className={`${styles.cardsBurgerIngredients}`}>
                     {data.filter(item => item.type === 'sauce').map(itemSauce =>
-                        < li className={styles.cardWrapper} key={itemSauce._id}>
+                        < li className={styles.cardWrapper} key={itemSauce._id} onClick={()=>openModalWithIngredient(itemSauce)}>
                             <CardBurgerIngredient image={itemSauce.image} price={itemSauce.price} name={itemSauce.name} />
                         </li>
                     )}
@@ -46,12 +57,17 @@ const BurgerIngredients = ({data}) => {
                 <h2 className={`${styles.subtitle} mb-6 mt-10 text text_type_main-medium`} id='main'>Начинки</h2>
                 <ul className={`${styles.cardsBurgerIngredients}`}>
                     {data.filter(item => item.type === 'main').map(itemMain =>
-                        < li className={styles.cardWrapper} key={itemMain._id}>
+                        < li className={styles.cardWrapper} key={itemMain._id} onClick={()=>openModalWithIngredient(itemMain)}>
                             <CardBurgerIngredient image={itemMain.image} price={itemMain.price} name={itemMain.name} />
                         </li>
                     )}
                 </ul>
             </div>
+            {modalOpenCloseIngredient &&
+                <Modal  title = 'Детали ингредиента' onClose={closeModal} >
+                     <IngredientsDetails infoIngredient = {ingredient}/>
+                </Modal>
+            }
         </section>
     );
 }
@@ -59,18 +75,5 @@ const BurgerIngredients = ({data}) => {
 export default BurgerIngredients
 
 BurgerIngredients.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        proteins: PropTypes.number,
-        fat: PropTypes.number,
-        carbohydrates: PropTypes.number,
-        calories: PropTypes.number,
-        price: PropTypes.number.isRequired,
-        image: PropTypes.string.isRequired,
-        image_mobile: PropTypes.string.isRequired,
-        image_large: PropTypes.string.isRequired,
-        __v: PropTypes.number,
-    })).isRequired
+    data: PropTypes.arrayOf(PropTypes.shape(objectPropType)).isRequired
 }

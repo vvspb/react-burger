@@ -1,0 +1,19 @@
+.container {
+    max-width: 520px;
+    margin: 0 auto;
+    margin-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.macronutrients {
+    display: grid;
+    grid-template-columns: 120px 112px 112px 112px;
+    column-gap: 20px;
+    height: 56px;
+}
+
+.text {
+    text-align: center;
+}

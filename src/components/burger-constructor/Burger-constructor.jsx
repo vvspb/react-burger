@@ -3,10 +3,16 @@ import PropTypes from 'prop-types';
 import { objectPropType } from '../../utils/types'
 import { ConstructorElement, Button, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './Burger-constructor.module.css';
+import Modal from '../modal/Modal';
+import { useState } from 'react';
+import OrderDetails from '../order-details/Order-details';
 
 
 
 const BurgerConstructor = ({ choiceBun, choiceIngredients }) => {
+    const [modalOpenClose, setModalOpenClose] = useState(false)
+    const openModal = () => setModalOpenClose(true)
+    const closeModal = () => setModalOpenClose(false)
 
     return (
         <section className={`${styles.burgerConstructor} pt-25`}>
@@ -45,10 +51,20 @@ const BurgerConstructor = ({ choiceBun, choiceIngredients }) => {
             <div className={`${styles.orderBuy} mt-10`}>
                 <p className='text text_type_digits-medium mr-2'>12690</p>
                 <CurrencyIcon type="primary" />
-                <Button htmlType="button" type="primary" size="large" extraClass='ml-10 mr-7'>
-                    Оформить заказ
-                </Button>
+                <Button
+                    htmlType="button"
+                    type="primary"
+                    size="large"
+                    extraClass='ml-10 mr-7'
+                    children='Оформить заказ'
+                    onClick={openModal}
+                />
             </div>
+            {modalOpenClose &&
+                <Modal  onClose={closeModal} >
+                     <OrderDetails orderNumber = {'034536'}/>
+                </Modal>
+            }
         </section>
     )
 }
