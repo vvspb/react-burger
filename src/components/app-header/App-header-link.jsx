@@ -1,5 +1,6 @@
 // import { BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const AppHeaderLink = (props) => {
 
@@ -13,4 +14,8 @@ const AppHeaderLink = (props) => {
     )
 }
 
+AppHeaderLink.propTypes = {
+    icon: PropTypes.node.isRequired,
+    children: PropTypes.node.isRequired
+}
 export default AppHeaderLink;

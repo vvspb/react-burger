@@ -1,5 +1,6 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from './Card-burger-ingredient.module.css'
+import styles from './Card-burger-ingredient.module.css';
+import PropTypes from 'prop-types'
 
 const CardBurgerIngredient = (props) => {
 
@@ -13,6 +14,12 @@ const CardBurgerIngredient = (props) => {
             <p className={`${styles.descriptionName} text text_type_main-small`}>{props.name}</p>
         </article>
     )
+}
+
+CardBurgerIngredient.propTypes = {
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  image: PropTypes.string.isRequired
 }
 
 export default CardBurgerIngredient;

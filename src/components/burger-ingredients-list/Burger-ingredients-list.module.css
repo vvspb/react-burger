@@ -1,0 +1,22 @@
+ul[class]{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.cardsBurgerIngredients {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    column-gap: 24px;
+    row-gap: 32px;
+}
+
+.subtitle {
+    grid-column: 1/-1;
+}
+
+.cardWrapper{
+    position: relative;
+     display: grid;
+     justify-items: center;
+}

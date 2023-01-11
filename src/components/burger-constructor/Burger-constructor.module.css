@@ -24,6 +24,11 @@
     justify-content: end;
 }
 
+.orderBuy > svg {
+    width: 33px;
+    height: 33px;
+}
+
 @media (max-width: 1440px) {
     .burgerConstructor {
         height: 632px;
