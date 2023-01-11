@@ -14,6 +14,9 @@ const BurgerConstructor = ({ choiceBun, choiceIngredients }) => {
     const openModal = () => setModalOpenClose(true)
     const closeModal = () => setModalOpenClose(false)
 
+
+    const sumOrder =  choiceIngredients.reduce((acc, item) => acc + item.price, 0) + choiceBun.price*2
+
     return (
         <section className={`${styles.burgerConstructor} pt-25`}>
             <div className={`${styles.cardBurgerConstructor} ml-8`}>
@@ -49,7 +52,7 @@ const BurgerConstructor = ({ choiceBun, choiceIngredients }) => {
                 />
             </div>
             <div className={`${styles.orderBuy} mt-10`}>
-                <p className='text text_type_digits-medium mr-2'>12690</p>
+                <p className='text text_type_digits-medium mr-2'>{sumOrder}</p>
                 <CurrencyIcon type="primary" />
                 <Button
                     htmlType="button"
