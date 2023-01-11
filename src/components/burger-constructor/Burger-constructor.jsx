@@ -72,6 +72,6 @@ const BurgerConstructor = ({ choiceBun, choiceIngredients }) => {
 export default BurgerConstructor;
 
 BurgerConstructor.propTypes = {
-    choiceIngredients: PropTypes.arrayOf(PropTypes.shape(objectPropType)).isRequired,
-    choiceBun: PropTypes.shape(objectPropType).isRequired,
+    choiceIngredients: PropTypes.arrayOf(PropTypes.shape(objectPropType)),
+    choiceBun: PropTypes.shape(objectPropType),
 }

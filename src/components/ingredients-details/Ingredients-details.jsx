@@ -34,7 +34,7 @@ const InredientsDetails = ({ infoIngredient }) => {
 }
 
 InredientsDetails.propTypes = {
-    infoIngredient: PropTypes.shape(objectPropType)
+    infoIngredient: PropTypes.shape(objectPropType).isRequired
 }
 
 export default InredientsDetails
