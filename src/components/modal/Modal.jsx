@@ -13,14 +13,13 @@ const modalRoot = document.getElementById('root-modals')
 const Modal = ({onClose, children, title}) => {
 
   useEffect(() => {
-    const handleDownEsc = (event) => {
-      event.key === 'Escape' && onClose();
-      console.log(event.key);
+    const handleDownEsc = (e) => {
+      e.key === 'Escape' && onClose();
     }
 
     document.addEventListener('keydown', handleDownEsc);
 
-    return document.removeEventListener('keydown', handleDownEsc);
+    return () => document.removeEventListener('keydown', handleDownEsc)
   }, [onClose]);
 
   return ReactDOM.createPortal(
@@ -34,7 +33,7 @@ const Modal = ({onClose, children, title}) => {
         </header>
           {children}
       </div>
-      <ModalOverlay onClick={onClose} />
+      <ModalOverlay onClick={onClose}/>
     </>, modalRoot
   )
 }
