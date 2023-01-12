@@ -12,7 +12,7 @@ const BurgerIngredientsList = ({data, category, title, onClick}) => {
 
     return (
         <>
-            <h2 className={`${styles.subtitle} mb-6 mt-10 text text_type_main-medium`} id='bun'>
+            <h2 className={`${styles.subtitle} mb-6 mt-10 text text_type_main-medium`} id={category}>
                 {title}
             </h2>
             <ul className={`${styles.cardsBurgerIngredients}`}>
