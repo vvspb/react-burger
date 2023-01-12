@@ -15,6 +15,7 @@ function App() {
   useEffect(() => {
     api.getIngredients()
       .then(result => setDataIngredients(result.data))
+      .catch(err => alert(`Ошибка при загрузке данных: ${err.message}. Перезагрузите страницу`))
       .finally(()=> setIsLoading(false))
   }, [])
 
