@@ -3,6 +3,7 @@
   position: relative;
   margin: 0;
   box-sizing: border-box;
+  height: 100vh;
 }
 
 .main {
@@ -11,4 +12,11 @@
   grid-template-columns: 1fr 1fr;
   gap: 40px;
   margin: 0 auto;
+}
+
+.load {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

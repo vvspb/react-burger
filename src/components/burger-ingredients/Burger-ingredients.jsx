@@ -1,12 +1,24 @@
-import React from 'react';
-import CardBurgerIngredient from '../card-burger-ingredient/Card-burger-ingredient';
+import React, { useState } from 'react';
+import Modal from '../modal/Modal';
+import IngredientsDetails from '../ingredients-details/Ingredients-details';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import { objectPropType } from '../../utils/types'
 import styles from './Burger-ingredients.module.css';
+import BurgerIngredientsList from '../burger-ingredients-list/Burger-ingredients-list';
 
-const BurgerIngredients = ({data}) => {
+const BurgerIngredients = ({ data }) => {
 
-    const [current, setCurrent] = React.useState('one');
+    const [current, setCurrent] = useState('one');
+    const [modalOpenCloseIngredient, setModalOpenClose] = useState(false)
+    const [ingredient, setIngredient] = useState({})
+
+    const openModalWithIngredient = (item) => {
+        setModalOpenClose(true)
+        setIngredient({ ...item })
+    }
+    const closeModal = () => setModalOpenClose(false)
+
 
     return (
         <section aria-label='Ингредиенты для бургера' className={styles.menuBurgerIngredients}>
@@ -23,54 +35,20 @@ const BurgerIngredients = ({data}) => {
                 </Tab>
             </div>
             <div className={`${styles.container} custom-scroll`}>
-                <h2 className={`${styles.subtitle} mb-6 mt-10 text text_type_main-medium`} id='bun'>
-                    Булки
-                </h2>
-                <ul className={`${styles.cardsBurgerIngredients}`}>
-                    {data.filter(item => item.type === 'bun').map(itemBun =>
-                        < li className={styles.cardWrapper} key={itemBun._id}>
-                            <CardBurgerIngredient image={itemBun.image} price={itemBun.price} name={itemBun.name} />
-                        </li>
-                    )}
-                </ul>
-                <h2 className={`${styles.subtitle} mb-6 mt-10 text text_type_main-medium`} id='sauce'>
-                    Соусы
-                </h2>
-                <ul className={`${styles.cardsBurgerIngredients}`}>
-                    {data.filter(item => item.type === 'sauce').map(itemSauce =>
-                        < li className={styles.cardWrapper} key={itemSauce._id}>
-                            <CardBurgerIngredient image={itemSauce.image} price={itemSauce.price} name={itemSauce.name} />
-                        </li>
-                    )}
-                </ul>
-                <h2 className={`${styles.subtitle} mb-6 mt-10 text text_type_main-medium`} id='main'>Начинки</h2>
-                <ul className={`${styles.cardsBurgerIngredients}`}>
-                    {data.filter(item => item.type === 'main').map(itemMain =>
-                        < li className={styles.cardWrapper} key={itemMain._id}>
-                            <CardBurgerIngredient image={itemMain.image} price={itemMain.price} name={itemMain.name} />
-                        </li>
-                    )}
-                </ul>
+                <BurgerIngredientsList data={data} category='bun' onClick={openModalWithIngredient} title='Булки'/>
+                <BurgerIngredientsList data={data} category='sauce' onClick={openModalWithIngredient} title='Соусы'/>
+                <BurgerIngredientsList data={data} category='main' onClick={openModalWithIngredient} title='Начинка'/>
             </div>
+            {modalOpenCloseIngredient &&
+                <Modal title='Детали ингредиента' onClose={closeModal} >
+                    <IngredientsDetails infoIngredient={ingredient} />
+                </Modal>
+            }
         </section>
     );
 }
 
-export default BurgerIngredients
-
 BurgerIngredients.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        proteins: PropTypes.number,
-        fat: PropTypes.number,
-        carbohydrates: PropTypes.number,
-        calories: PropTypes.number,
-        price: PropTypes.number.isRequired,
-        image: PropTypes.string.isRequired,
-        image_mobile: PropTypes.string.isRequired,
-        image_large: PropTypes.string.isRequired,
-        __v: PropTypes.number,
-    })).isRequired
+    data: PropTypes.arrayOf(PropTypes.shape(objectPropType)).isRequired
 }
+export default BurgerIngredients

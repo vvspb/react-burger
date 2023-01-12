@@ -1,0 +1,41 @@
+.modalContainer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 720px;
+    max-height: 718px;
+    margin: auto;
+    z-index: 3;
+    background: #1C1C21;
+    border-radius: 40px;
+}
+
+.headerModal {
+    width: 640px;
+    height: 64px;
+    margin: 0 auto;
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.title {
+    width: 580px;
+}
+
+.closeButtonIcon {
+    position: absolute;
+    right: 0;
+    padding: 0;
+    border: none;
+    background-color: #1C1C21;
+    cursor: pointer;
+}
+
+.contentModal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
