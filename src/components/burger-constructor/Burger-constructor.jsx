@@ -6,8 +6,7 @@ import OrderDetails from '../order-details/Order-details';
 import BurgerConstructorContext from '../../contexts/burgerConstructorContext';
 import BurgerIngredientsContext from '../../contexts/burgerIngredientsContext';
 import SumOrderContext from '../../contexts/sumOrderContext';
-import api from '../../utils/api';
-import orderDataContext from '../../contexts/orderDataContext';
+
 
 
 const BurgerConstructor = () => {
@@ -16,11 +15,10 @@ const BurgerConstructor = () => {
     const { dataIngredients } = useContext(BurgerIngredientsContext)
     const { choiceBun, choiceIngredients, setChoiceBun, setChoiceIngredients } = useContext(BurgerConstructorContext)
     const { sumOrder, setSumOrder } = useContext(SumOrderContext)
-    const { orderData, setOrderData } = useContext(orderDataContext)
 
     const openModal = () => setModalOpenClose(true)
     const closeModal = () => setModalOpenClose(false)
-  
+
     useEffect(
         () => {
             setChoiceBun(dataIngredients.find(item => item._id === '60d3b41abdacab0026a733c7'))
@@ -38,23 +36,6 @@ const BurgerConstructor = () => {
         () => {
             setSumOrder(choiceIngredients.reduce((acc, item) => acc + item.price, 0) + choiceBun.price * 2)
         }, [setSumOrder, choiceIngredients, choiceBun]
-    )
-
-    const ingredientsID = (arrMainSauce, objectBun) => {
-        const mainSauceID = arrMainSauce.map(item => item._id)
-        const bunID = objectBun._id
-        return [...mainSauceID, bunID]
-    }
-
-   
-    useEffect(
-        () => {
-            if (modalOpenClose) {
-                api.addOrder(ingredientsID(choiceIngredients, choiceBun))
-                    .then(res => setOrderData(res))
-                    .catch(err => alert(`Ошибка при загрузке номера заказа: ${err.message}. Перезагрузите страницу`))
-            }
-        }, [choiceIngredients, choiceBun, setOrderData, modalOpenClose]
     )
 
     return (
@@ -103,9 +84,9 @@ const BurgerConstructor = () => {
                     onClick={openModal}
                 />
             </div>
-            {modalOpenClose && orderData?.order?.number &&
+            {modalOpenClose && 
                 <Modal onClose={closeModal} >
-                    <OrderDetails order={orderData?.order?.number} />
+                    <OrderDetails/>
                 </Modal>
             }
         </section>
