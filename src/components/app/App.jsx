@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react';
-import AppHeader from './components/app-header/App-header'
-import BurgerIngredients from './components/burger-ingredients/Burger-ingredients'
-import BurgerConstructor from './components/burger-constructor/Burger-constructor'
-import BurgerConstructorContext from './contexts/burgerConstructorContext'
-import BurgerIngredientsContext from './contexts/burgerIngredientsContext'
-import SumOrderContext from './contexts/sumOrderContext'
-import OrderDataContext from './contexts/orderDataContext'
+import AppHeader from '../app-header/App-header'
+import BurgerIngredients from '../burger-ingredients/Burger-ingredients'
+import BurgerConstructor from '../burger-constructor/Burger-constructor'
+import BurgerConstructorContext from '../../contexts/burgerConstructorContext'
+import BurgerIngredientsContext from '../../contexts/burgerIngredientsContext'
+import SumOrderContext from '../../contexts/sumOrderContext'
+import OrderDataContext from '../../contexts/orderDataContext'
+import api from '../../utils/api'
 
-import api from './utils/api'
-
-import './App.css';
+import styles from './App.module.css'
 
 
 function App() {
@@ -31,19 +30,19 @@ function App() {
 
 
   return (
-    <div className="App">
+    <div className={styles.app}>
       <BurgerIngredientsContext.Provider value={{ dataIngredients }}>
         <BurgerConstructorContext.Provider value={{ choiceBun, choiceIngredients, setChoiceIngredients, setChoiceBun }}>
           <SumOrderContext.Provider value={{ sumOrder, setSumOrder }}>
             <OrderDataContext.Provider value={{ orderData, setOrderData }}>
               <AppHeader />
-              <main className="main">
+              <main className={styles.main}>
                 {
                   isLoading ?
-                    <p className='load'><span className='text text_type_main-medium'>идет загрузка...</span></p>
+                    <p className={styles.load}><span className='text text_type_main-medium'>идет загрузка...</span></p>
                     :
                     <>
-                      <BurgerIngredients data={dataIngredients} />
+                      <BurgerIngredients/>
                       <BurgerConstructor />
                     </>
                 }

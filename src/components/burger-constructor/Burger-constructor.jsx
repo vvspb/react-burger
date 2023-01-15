@@ -1,4 +1,3 @@
-
 import { ConstructorElement, Button, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './Burger-constructor.module.css';
 import Modal from '../modal/Modal';
@@ -11,8 +10,6 @@ import api from '../../utils/api';
 import orderDataContext from '../../contexts/orderDataContext';
 
 
-
-
 const BurgerConstructor = () => {
     const [modalOpenClose, setModalOpenClose] = useState(false)
 
@@ -23,7 +20,7 @@ const BurgerConstructor = () => {
 
     const openModal = () => setModalOpenClose(true)
     const closeModal = () => setModalOpenClose(false)
-
+  
     useEffect(
         () => {
             setChoiceBun(dataIngredients.find(item => item._id === '60d3b41abdacab0026a733c7'))
@@ -72,7 +69,7 @@ const BurgerConstructor = () => {
                     extraClass='mb-2'
                 />
             </div>
-            <div className={`${styles.scrollBox} custom-scroll`} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <div className={`${styles.scrollBox} custom-scroll`}>
                 {choiceIngredients.map(item =>
                     <div className={`${styles.cardBurgerConstructor}`} key={item._id} >
                         <DragIcon type="primary" />

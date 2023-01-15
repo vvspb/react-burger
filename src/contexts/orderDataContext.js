@@ -1,5 +1,5 @@
 import { createContext } from "react";
 
-const orderDataContext = createContext(null);
+const OrderDataContext = createContext(null);
 
-export default  orderDataContext;
+export default  OrderDataContext;
