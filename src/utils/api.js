@@ -1,8 +1,9 @@
 import config from './config'
 
-const checkReponse = (res) => {
+const checkResponse = (res) => {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
   };
+
 
 class Api {
     constructor({ url }) {
@@ -10,8 +11,7 @@ class Api {
     }
 
     getIngredients() {
-        return fetch(`${this._url}/ingredients`)
-            .then(checkReponse)        
+        return fetch(`${this._url}/ingredients`).then(checkResponse)        
     }
 
     addOrder(ingredientsID) {
@@ -20,7 +20,7 @@ class Api {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({"ingredients": ingredientsID})
         })
-        .then(checkReponse)
+        .then(checkResponse)
     }
 }
 export default new Api(config)
