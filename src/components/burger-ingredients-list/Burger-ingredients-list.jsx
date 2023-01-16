@@ -7,13 +7,13 @@ import styles from './Burger-ingredients-list.module.css'
 import BurgerIngredientsContext from '../../contexts/burgerIngredientsContext'
 
 
-const BurgerIngredientsList = ({category, title, onClick}) => {
+const BurgerIngredientsList = React.forwardRef(({category, title, onClick}, ref) => {
     const [count, setCounter] = useState(0)
    
     const {dataIngredients} = useContext(BurgerIngredientsContext)
     return (
         <>
-            <h2 className={`${styles.subtitle} mb-6 mt-10 text text_type_main-medium`} id={category}>
+            <h2 className={`${styles.subtitle} mb-6 mt-10 text text_type_main-medium`} id={category} ref={ref}>
                 {title}
             </h2>
             <ul className={`${styles.cardsBurgerIngredients}`}>
@@ -26,7 +26,7 @@ const BurgerIngredientsList = ({category, title, onClick}) => {
             </ul>
         </>
     )
-}
+})
 
 BurgerIngredientsList.propTypes = {
     category: PropTypes.string.isRequired,
