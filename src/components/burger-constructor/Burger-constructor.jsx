@@ -6,7 +6,8 @@ import OrderDetails from '../order-details/Order-details';
 import BurgerConstructorContext from '../../contexts/burgerConstructorContext';
 import BurgerIngredientsContext from '../../contexts/burgerIngredientsContext';
 import SumOrderContext from '../../contexts/sumOrderContext';
-
+import OrderDataContext from '../../contexts/orderDataContext';
+import api from '../../utils/api';
 
 
 const BurgerConstructor = () => {
@@ -15,6 +16,10 @@ const BurgerConstructor = () => {
     const { dataIngredients } = useContext(BurgerIngredientsContext)
     const { choiceBun, choiceIngredients, setChoiceBun, setChoiceIngredients } = useContext(BurgerConstructorContext)
     const { sumOrder, setSumOrder } = useContext(SumOrderContext)
+
+
+    const { orderData, setOrderData } = useContext(OrderDataContext)
+
 
     const openModal = () => setModalOpenClose(true)
     const closeModal = () => setModalOpenClose(false)
@@ -37,6 +42,18 @@ const BurgerConstructor = () => {
             setSumOrder(choiceIngredients.reduce((acc, item) => acc + item.price, 0) + choiceBun.price * 2)
         }, [setSumOrder, choiceIngredients, choiceBun]
     )
+
+    const ingredientsID = (arrMainSauce, objectBun) => {
+        const mainSauceID = arrMainSauce.map(item => item._id)
+        const bunID = objectBun._id
+        return [...mainSauceID, bunID]
+    }
+    
+    const handleClickOrder = () => {
+        api.addOrder(ingredientsID(choiceIngredients, choiceBun))
+        .then(res => setOrderData(res))
+        .catch(err => alert(`Ошибка при загрузке номера заказа: ${err.message}. Перезагрузите страницу`))
+    }
 
     return (
         <section className={`${styles.burgerConstructor} pt-25`}>
@@ -81,12 +98,15 @@ const BurgerConstructor = () => {
                     size="large"
                     extraClass='ml-10 mr-7'
                     children='Оформить заказ'
-                    onClick={openModal}
+                    onClick={()=> {
+                        openModal()
+                        handleClickOrder()
+                    }}
                 />
             </div>
             {modalOpenClose && 
                 <Modal onClose={closeModal} >
-                    <OrderDetails/>
+                    <OrderDetails orderData={orderData}/>
                 </Modal>
             }
         </section>

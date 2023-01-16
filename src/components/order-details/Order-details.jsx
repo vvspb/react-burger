@@ -1,28 +1,8 @@
-import React, { useContext, useEffect } from 'react';
-
 import styles from './Order-details.module.css'
-import api from '../../utils/api';
-import OrderDataContext from '../../contexts/orderDataContext';
-import BurgerConstructorContext from '../../contexts/burgerConstructorContext';
 
-const OrderDetails = () => {
 
-    const { orderData, setOrderData } = useContext(OrderDataContext)
-    const { choiceBun, choiceIngredients } = useContext(BurgerConstructorContext)
+const OrderDetails = ({orderData}) => {
 
-    const ingredientsID = (arrMainSauce, objectBun) => {
-        const mainSauceID = arrMainSauce.map(item => item._id)
-        const bunID = objectBun._id
-        return [...mainSauceID, bunID]
-    }
-
-    useEffect(
-        () => {
-            api.addOrder(ingredientsID(choiceIngredients, choiceBun))
-                .then(res => setOrderData(res))
-                .catch(err => alert(`Ошибка при загрузке номера заказа: ${err.message}. Перезагрузите страницу`))
-        }, []
-    )
     return (
         <div className={styles.contentModal}>
 
