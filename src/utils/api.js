@@ -9,10 +9,18 @@ class Api {
         this._url = url;
     }
 
-
     getIngredients() {
-        return fetch(this._url)
+        return fetch(`${this._url}/ingredients`)
             .then(checkReponse)        
+    }
+
+    addOrder(ingredientsID) {
+        return fetch(`${this._url}/orders`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({"ingredients": ingredientsID})
+        })
+        .then(checkReponse)
     }
 }
 export default new Api(config)
