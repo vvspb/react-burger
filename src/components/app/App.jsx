@@ -10,7 +10,6 @@ import api from '../../utils/api'
 
 import styles from './App.module.css'
 
-
 function App() {
 
   const [dataIngredients, setDataIngredients] = useState([])
@@ -28,7 +27,6 @@ function App() {
       .finally(() => setIsLoading(false))
   }, [])
 
-
   return (
     <div className={styles.app}>
       <BurgerIngredientsContext.Provider value={{ dataIngredients }}>
@@ -42,7 +40,7 @@ function App() {
                     <p className={styles.load}><span className='text text_type_main-medium'>идет загрузка...</span></p>
                     :
                     <>
-                      <BurgerIngredients/>
+                      <BurgerIngredients />
                       <BurgerConstructor />
                     </>
                 }

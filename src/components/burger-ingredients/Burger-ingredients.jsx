@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Modal from '../modal/Modal';
 import IngredientsDetails from '../ingredients-details/Ingredients-details';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
