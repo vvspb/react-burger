@@ -10,10 +10,9 @@ export const burgerConstructorReducer = (state = initialState, action) => {
         case ADD_CONSTRUCTOR:
             return {
                 ...state,
-                    choiceIngredients: [...action.payload.ingredients?.filter(item => item.type !== 'bun')],
+                    choiceIngredients: [...action.payload.ingredients?.filter(item => (item.id === action.payload.itemId) && (item.type !== 'bun') )],
                     choiceBun: {
-                        ...state.choiceBun, 
-                        ...action.payload.ingredients?.find(item => item._id === action.payload.itemID)
+                        ...action.payload.ingredients?.filter(item => (item.id === action.payload.itemId) && (item.type === 'bun'))
                     }
                 }
         default:

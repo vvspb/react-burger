@@ -1,27 +1,27 @@
-import { GET_INGREDIENTS, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_FAILURE } from "../actions-types/burger-ingredients-list-action-type";
+import { ADD_ORDER, ADD_ORDER_SUCCESS, ADD_ORDER_FAILURE } from "../actions-types/ordel-details-action-type";
 
-export const initialState = {
-    ingredients: [],
+const initialState = {
+    orderNumber: null,
     isLoading: false,
-    hasError: false,
+    hasError: false
 }
 
-export const ingredientsReducer = (state = initialState, action) => {
+export const addNewOrderReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_INGREDIENTS:
+        case ADD_ORDER:
             return {
                 ...state,
                 isLoading: true,
                 hasError: false
             }
-        case GET_INGREDIENTS_SUCCESS:
+        case ADD_ORDER_SUCCESS:
             return {
                 ...state,
-                ingredients: action.payload,
+                orderNumber: action.payload.orderNumber,
                 isLoading: false,
                 hasError: false
             }
-        case GET_INGREDIENTS_FAILURE:
+        case ADD_ORDER_FAILURE:
             return {
                 ...state,
                 isLoading: false,
@@ -30,4 +30,4 @@ export const ingredientsReducer = (state = initialState, action) => {
         default:
             return state;
     }
-}
+} 

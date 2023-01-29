@@ -9,8 +9,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import { fechIngredients } from '../../services/actions/burger-ingredients-list-action';
 
 
+
 const BurgerIngredientsList = React.forwardRef(({ category, title, onClick }, ref) => {
     const [count, setCounter] = useState(0)
+  
 
     const { ingredients } = useSelector(state => state.ingredients)
     const dispatch = useDispatch()
@@ -20,22 +22,21 @@ const BurgerIngredientsList = React.forwardRef(({ category, title, onClick }, re
     }, [dispatch])
 
     return (
-        <>
-            <h2 className={`${styles.subtitle} mb-6 mt-10 text text_type_main-medium`} id={category} ref={ref}>
-                {title}
+        <article ref={ref} >
+            <h2 className={`${styles.subtitle} mb-6 mt-10 text text_type_main-medium`} >
+                {title} 
             </h2>
             <ul className={`${styles.cardsBurgerIngredients}`}>
                 {
-
                     ingredients.filter(item => item.type === category).map(el =>
                         < li className={styles.cardWrapper} key={el._id} onClick={() => onClick(el)}>
                             {!!count && <Counter count={count} size="default" extraClass="m-1" />}
-                            <CardBurgerIngredient image={el.image} price={el.price} name={el.name} />
+                            <CardBurgerIngredient image={el.image} price={el.price} name={el.name} id={el._id}/>
                         </li>
                     )
                 }
             </ul>
-        </>
+        </article>
     )
 })
 
