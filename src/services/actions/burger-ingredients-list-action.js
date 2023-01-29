@@ -10,7 +10,6 @@ export const getIngredientsSuccess = (ingredients) => ({
     payload: ingredients
 })
 
-
 export const getIngredientsFailure = () => ({
     type: GET_INGREDIENTS_FAILURE
 })

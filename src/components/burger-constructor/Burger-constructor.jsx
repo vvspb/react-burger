@@ -3,43 +3,38 @@ import styles from './Burger-constructor.module.css';
 import Modal from '../modal/Modal';
 import { useState, useContext, useEffect } from 'react';
 import OrderDetails from '../order-details/Order-details';
-import BurgerConstructorContext from '../../contexts/burgerConstructorContext';
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
 import SumOrderContext from '../../contexts/sumOrderContext';
 import OrderDataContext from '../../contexts/orderDataContext';
 import api from '../../utils/api';
+import { addBurgerConstructor } from '../../services/actions/burger-constructor-action';
 
 
 const BurgerConstructor = () => {
+    const dispatch = useDispatch()
     const [modalOpenClose, setModalOpenClose] = useState(false)
 
     const { ingredients, isLoading } = useSelector((state) => state.ingredients)
-    const { choiceBun, choiceIngredients, setChoiceBun, setChoiceIngredients } = useContext(BurgerConstructorContext)
+    const { choiceBun, choiceIngredients} = useSelector(state => state.burgerConstructor)
+   
     const { sumOrder, setSumOrder } = useContext(SumOrderContext)
-
-
     const { orderData, setOrderData } = useContext(OrderDataContext)
+    
 
 
     const openModal = () => setModalOpenClose(true)
     const closeModal = () => setModalOpenClose(false)
 
-    useEffect(
-        () => {
-            setChoiceBun(ingredients.find(item => item._id === '60d3b41abdacab0026a733c7'))
-        },
-        [ingredients, setChoiceBun]
-    );
 
     useEffect(
-        () => {
-            setChoiceIngredients(ingredients?.filter(item => item.type !== 'bun'))
-        }, [ingredients, setChoiceIngredients]
+        ()=> {
+            dispatch(addBurgerConstructor(ingredients))
+        }, [dispatch, ingredients]
     )
 
     useEffect(
         () => {
-            setSumOrder(!isLoading && choiceIngredients.reduce((acc, item) => acc + item.price, 0) + choiceBun.price * 2)
+            setSumOrder(choiceIngredients.reduce((acc, item) => acc + item.price, 0) + choiceBun.price * 2)
         }, [setSumOrder, choiceIngredients, choiceBun]
     )
 

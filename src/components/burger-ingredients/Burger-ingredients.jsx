@@ -4,18 +4,19 @@ import IngredientsDetails from '../ingredients-details/Ingredients-details';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './Burger-ingredients.module.css';
 import BurgerIngredientsList from '../burger-ingredients-list/Burger-ingredients-list';
+import { addIngredientDetails } from '../../services/actions/ingredients-details-action';
+import { useDispatch } from 'react-redux'
 
 
 const BurgerIngredients = () => {
-
     const [current, setCurrent] = useState('one');
     const [modalOpenCloseIngredient, setModalOpenClose] = useState(false)
-    const [ingredient, setIngredient] = useState({})
+
+    const dispatch = useDispatch()
 
     const refBun = useRef(null);
     const refSauce = useRef(null)
     const refMain = useRef(null)
-
 
     const handleClickTab = (e) => {
         if (refMain && e.currentTarget.id === 'tabMain') {
@@ -28,28 +29,32 @@ const BurgerIngredients = () => {
             refBun.current.scrollIntoView({ block: "start", behavior: "smooth" });
         }
     }
-    
+
     const openModalWithIngredient = (item) => {
         setModalOpenClose(true)
-        setIngredient({ ...item })
+        dispatch(addIngredientDetails({ ...item }))
     }
-    const closeModal = () => setModalOpenClose(false)
+
+    const closeModal = () => {
+        setModalOpenClose(false)
+        dispatch(addIngredientDetails({}))
+    }
 
     return (
         <section aria-label='Ингредиенты для бургера' className={styles.menuBurgerIngredients}>
             <h1 className={'text text_type_main-large mt-10 mb-5'}>Соберите бургер</h1>
             <div className={styles.tabs}>
-                <div id = 'tabBun' onClick={(e)=>handleClickTab(e)} >
+                <div id='tabBun' onClick={(e) => handleClickTab(e)} >
                     <Tab value="one" active={current === 'one'} onClick={setCurrent}>
                         <p className='text text_type_main-default'>Булки</p>
                     </Tab>
                 </div>
-                <div id = 'tabSauce'  onClick={(e)=>handleClickTab(e)}>
+                <div id='tabSauce' onClick={(e) => handleClickTab(e)}>
                     <Tab value="two" active={current === 'two'} onClick={setCurrent}>
                         <p className='text text_type_main-default'>Соусы</p>
                     </Tab>
                 </div>
-                <div id = 'tabMain' onClick={(e)=>handleClickTab(e)}>
+                <div id='tabMain' onClick={(e) => handleClickTab(e)}>
                     <Tab value="three" active={current === 'three'} onClick={setCurrent}>
                         <p className='text text_type_main-default'>Начинки</p>
                     </Tab>
@@ -62,7 +67,7 @@ const BurgerIngredients = () => {
             </div>
             {modalOpenCloseIngredient &&
                 <Modal title='Детали ингредиента' onClose={closeModal} >
-                    <IngredientsDetails infoIngredient={ingredient} />
+                    <IngredientsDetails />
                 </Modal>
             }
         </section>

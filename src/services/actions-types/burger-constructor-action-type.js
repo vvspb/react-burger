@@ -1,0 +1,1 @@
+export const ADD_CONSTRUCTOR = 'ADD_CONSTRUCTOR'
