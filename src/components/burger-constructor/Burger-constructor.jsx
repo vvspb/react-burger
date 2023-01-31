@@ -5,7 +5,7 @@ import { useState, useContext, useEffect } from 'react';
 import OrderDetails from '../order-details/Order-details';
 import { useSelector, useDispatch } from 'react-redux'
 import SumOrderContext from '../../contexts/sumOrderContext';
-import { addBurgerConstructor } from '../../services/actions/burger-constructor-action';
+import { addBurgerConstructor, deleteBurgerConstructor } from '../../services/actions/burger-constructor-action';
 import { fechOrderData } from '../../services/actions/order-details-action';
 import { useDrop } from "react-dnd";
 
@@ -47,6 +47,10 @@ const BurgerConstructor = () => {
     const handleClickOrder = () => {
         dispatch(fechOrderData(ingredientsID(choiceIngredients, choiceBun)))
     }
+
+    const handleClose = (itemId) => {
+        dispatch(deleteBurgerConstructor(itemId))
+    }
     
     return (
         <section className={`${styles.burgerConstructor} pt-25`}  ref={dropTarget}>
@@ -69,6 +73,7 @@ const BurgerConstructor = () => {
                                 price={item?.price}
                                 thumbnail={item?.image}
                                 extraClass='ml-2'
+                                handleClose={() => handleClose(item.__id)}
                             />
                         </div>)}
                 </div>
