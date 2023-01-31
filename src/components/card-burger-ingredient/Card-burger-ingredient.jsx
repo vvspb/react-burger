@@ -10,8 +10,10 @@ const CardBurgerIngredient = ({id, image, name, price }) => {
         item: {id},
         collect: monitor => ({
             isDrag: monitor.isDragging()
+    
         })
     });
+    
     return (
         !isDrag && 
         <article className={`${styles.card}`} ref={dragRef}>

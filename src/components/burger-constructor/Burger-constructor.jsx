@@ -22,7 +22,7 @@ const BurgerConstructor = () => {
     const openModal = () => setModalOpenClose(true)
     const closeModal = () => setModalOpenClose(false)
 
-    const [{isHover}, drop] = useDrop({
+    const [{isHover}, dropTarget] = useDrop({
         accept: "ingredients",
         collect: monitor => ({
             isHover: monitor.isOver()
@@ -31,12 +31,6 @@ const BurgerConstructor = () => {
             dispatch(addBurgerConstructor(ingredients, itemId ))
         },
     });
-
-    // useEffect(
-    //     () => {
-    //         dispatch(addBurgerConstructor(ingredients))
-    //     }, [dispatch, ingredients]
-    // )
 
     useEffect(
         () => {
@@ -53,9 +47,9 @@ const BurgerConstructor = () => {
     const handleClickOrder = () => {
         dispatch(fechOrderData(ingredientsID(choiceIngredients, choiceBun)))
     }
-
+    
     return (
-        <section className={`${styles.burgerConstructor} pt-25`}  ref={drop}>
+        <section className={`${styles.burgerConstructor} pt-25`}  ref={dropTarget}>
             {!isLoading && <><div className={`${styles.cardBurgerConstructor} ml-8`}>
                 <ConstructorElement
                     type="top"
@@ -68,7 +62,7 @@ const BurgerConstructor = () => {
             </div>
                 <div className={`${styles.scrollBox} custom-scroll`}>
                     {choiceIngredients.map(item =>
-                        <div className={`${styles.cardBurgerConstructor}`} key={item._id} >
+                        <div className={`${styles.cardBurgerConstructor}`} key={item.__id} >
                             <DragIcon type="primary" />
                             <ConstructorElement
                                 text={item?.name}

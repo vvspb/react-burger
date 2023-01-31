@@ -1,8 +1,8 @@
 import { ADD_CONSTRUCTOR } from "../actions-types/burger-constructor-action-type";
 
 const initialState = {
-        choiceIngredients: [],
-        choiceBun: {}
+    choiceIngredients: [],
+    choiceBun: {}
 }
 
 export const burgerConstructorReducer = (state = initialState, action) => {
@@ -10,11 +10,21 @@ export const burgerConstructorReducer = (state = initialState, action) => {
         case ADD_CONSTRUCTOR:
             return {
                 ...state,
-                    choiceIngredients: [...action.payload.ingredients?.filter(item => (item.id === action.payload.itemId) && (item.type !== 'bun') )],
-                    choiceBun: {
-                        ...action.payload.ingredients?.filter(item => (item.id === action.payload.itemId) && (item.type === 'bun'))
-                    }
+                choiceIngredients: [
+                    ...state.choiceIngredients,
+                    ...action.payload.ingredients?.filter(item => (item._id === action.payload.id) && (item.type !== 'bun'))
+                    .map(item => {
+                        return {
+                            ...item,
+                            __id: item._id + Math.random() * 10000
+                        }
+                    })
+                ],
+                choiceBun: { 
+                    ...state.choiceBun, 
+                    ...action.payload.ingredients?.find(item => (item._id === action.payload.id) && (item.type === 'bun')) 
                 }
+            }
         default:
             return state
     }

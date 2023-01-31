@@ -45,7 +45,7 @@ const BurgerIngredients = () => {
     const [refMain, inViewMain, entryMain ] = useInView({
         threshold: [0.15 , 1]
     })
-  
+ 
     return (
         <section aria-label='Ингредиенты для бургера' className={styles.menuBurgerIngredients} >
             <h1 className={'text text_type_main-large mt-10 mb-5'}>Соберите бургер</h1>
@@ -66,7 +66,7 @@ const BurgerIngredients = () => {
                     </Tab>
                 </div>
             </div>
-            <InView inViewBun={inViewBun} inViewSauce={inViewSauce} inViewMain={inViewMain}>
+            <InView>
             <div className={`${styles.container} custom-scroll`}>
                 <BurgerIngredientsList category='bun' onClick={openModalWithIngredient} title='Булки' ref={refBun} />
                 <BurgerIngredientsList category='sauce' onClick={openModalWithIngredient} title='Соусы' ref={refSauce} />
