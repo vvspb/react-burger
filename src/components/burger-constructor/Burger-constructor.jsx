@@ -18,17 +18,17 @@ const BurgerConstructor = () => {
     const { choiceBun, choiceIngredients } = useSelector(state => state.burgerConstructor)
 
     const { sumOrder, setSumOrder } = useContext(SumOrderContext)
-  
+
     const openModal = () => setModalOpenClose(true)
     const closeModal = () => setModalOpenClose(false)
 
-    const [{isHover}, dropTarget] = useDrop({
+    const [{ isHover }, dropTarget] = useDrop({
         accept: "ingredients",
         collect: monitor => ({
             isHover: monitor.isOver()
-          }),
+        }),
         drop(itemId) {
-            dispatch(addBurgerConstructor(ingredients, itemId ))
+            dispatch(addBurgerConstructor(ingredients, itemId))
         },
     });
 
@@ -51,41 +51,62 @@ const BurgerConstructor = () => {
     const handleClose = (itemId) => {
         dispatch(deleteBurgerConstructor(itemId))
     }
-    
+
     return (
-        <section className={`${styles.burgerConstructor} pt-25`}  ref={dropTarget}>
-            {!isLoading && <><div className={`${styles.cardBurgerConstructor} ml-8`}>
-                <ConstructorElement
-                    type="top"
-                    isLocked={true}
-                    text={`${choiceBun?.name} (верх)`}
-                    price={choiceBun?.price}
-                    thumbnail={choiceBun?.image}
-                    extraClass='mb-2'
-                />
-            </div>
+        <section className={`${styles.burgerConstructor} pt-25`} ref={dropTarget}>
+            {!isLoading && <>
+                <div className={`${styles.cardBurgerConstructor} ml-8`}>
+                    {Object.keys(choiceBun).length ?
+                        <ConstructorElement
+                            type="top"
+                            isLocked={true}
+                            text={`${choiceBun?.name} (верх)`}
+                            price={choiceBun?.price}
+                            thumbnail={choiceBun?.image}
+                            extraClass={`mb-2`}
+                        />
+                        :
+                        <div className={`${styles.constructorElement} ${styles.elementTop}`}>
+                            <p>Добавьте булку</p>
+                        </div>
+                    }
+                </div>
                 <div className={`${styles.scrollBox} custom-scroll`}>
-                    {choiceIngredients.map(item =>
-                        <div className={`${styles.cardBurgerConstructor}`} key={item.__id} >
+                    {choiceIngredients.length ?
+                        choiceIngredients.map(item =>
+                            <div className={`${styles.cardBurgerConstructor}`} key={item.__id} >
+                                <DragIcon type="primary" />
+                                <ConstructorElement
+                                    text={item?.name}
+                                    price={item?.price}
+                                    thumbnail={item?.image}
+                                    extraClass='ml-2'
+                                    handleClose={() => handleClose(item.__id)}
+                                />
+                            </div>)
+                        :
+                        <div className={styles.cardBurgerConstructor} >
                             <DragIcon type="primary" />
-                            <ConstructorElement
-                                text={item?.name}
-                                price={item?.price}
-                                thumbnail={item?.image}
-                                extraClass='ml-2'
-                                handleClose={() => handleClose(item.__id)}
-                            />
-                        </div>)}
+                            <div className={`${styles.constructorElement} ${styles.elementMiddle}`}>
+                                <p>Добавьте ингредиент</p>
+                            </div>
+                        </div>
+                    }
                 </div>
                 <div className={`${styles.cardBurgerConstructor} ml-8`}>
-                    <ConstructorElement
-                        type="bottom"
-                        isLocked={true}
-                        text={`${choiceBun?.name} (низ)`}
-                        price={choiceBun?.price}
-                        thumbnail={choiceBun?.image}
-                        extraClass='mt-2'
-                    />
+                    {Object.keys(choiceBun).length ?
+                        <ConstructorElement
+                            type="bottom"
+                            isLocked={true}
+                            text={`${choiceBun?.name} (низ)`}
+                            price={choiceBun?.price}
+                            thumbnail={choiceBun?.image}
+                            extraClass='mt-2'
+                        />
+                        :
+                        <div className={`${styles.constructorElement} ${styles.elementButtom}`}>
+                            <p> Добавьте булку</p>
+                        </div>}
                 </div>
                 <div className={`${styles.orderBuy} mt-10`}>
                     <p className='text text_type_digits-medium mr-2'>{sumOrder ? sumOrder : 0}</p>
@@ -101,10 +122,11 @@ const BurgerConstructor = () => {
                             handleClickOrder()
                         }}
                     />
-                </div></>}
+                </div>
+            </>}
             {modalOpenClose &&
                 <Modal onClose={closeModal} >
-                    <OrderDetails/>
+                    <OrderDetails />
                 </Modal>
             }
         </section>

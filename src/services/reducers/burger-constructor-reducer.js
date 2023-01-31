@@ -2,9 +2,8 @@ import { ADD__INGREDIENT_CONSTRUCTOR, DELETE_INGREDIENT_CONSTRUCTOR } from "../a
 
 const initialState = {
     choiceIngredients: [],
-    choiceBun: {}
+    choiceBun: {},
 }
-
 export const burgerConstructorReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD__INGREDIENT_CONSTRUCTOR:
@@ -23,7 +22,7 @@ export const burgerConstructorReducer = (state = initialState, action) => {
                 choiceBun: {
                     ...state.choiceBun,
                     ...action.payload.ingredients?.find(item => (item._id === action.payload.id) && (item.type === 'bun'))
-                }
+                },
             }
         case DELETE_INGREDIENT_CONSTRUCTOR:
             return {

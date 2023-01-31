@@ -1,12 +1,12 @@
 .burgerConstructor {
     max-width: 592px;
-    height: 912px;
+    max-height: 912px;
 }
 
 .cardBurgerConstructor {
     display: flex;
     align-items: center;
-    max-width: 568px;
+    /* max-width: 568px; */
 }
 
 .scrollBox{
@@ -14,11 +14,41 @@
     flex-direction: column;
     gap: 10px;
     overflow: auto;
-    height: 445px;
+    max-height: 445px;
 }
 
 .scrollBox::-webkit-scrollbar-track{
   border-radius: 6px;
+}
+
+.constructorElement {
+    min-height: 80px;
+    width: 100%;
+    max-width: 536px;
+    font-family: 'Jet Brains Mono';
+    font-size: 16px;
+    line-height: 24px;
+    color: #F2F2F3;
+    background: #2f2f37;
+    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.elementTop {
+    border-radius: 88px 88px 40px 40px;
+    margin-bottom: 8px;
+}
+
+.elementMiddle{
+    border-radius: 40px;
+    margin-left: 8px;
+}
+
+.elementButtom {
+    margin-top: 8px;
+    border-radius: 40px 40px 88px 88px;
 }
 
 .orderBuy {
@@ -34,10 +64,10 @@
 
 @media (max-width: 1440px) {
     .burgerConstructor {
-        height: 600px;
+        max-height: 600px;
     }
 
     .scrollBox{
-        height: 260px;
+        max-height: 260px;
     }
 }
