@@ -1,4 +1,4 @@
-import { ADD__INGREDIENT_CONSTRUCTOR, DELETE_INGREDIENT_CONSTRUCTOR } from "../actions-types/burger-constructor-action-type";
+import { ADD_INGREDIENT_CONSTRUCTOR, DELETE_INGREDIENT_CONSTRUCTOR, SORT_INGRIDIENTS_CONSTRUCTOR } from "../actions-types/burger-constructor-action-type";
 
 const initialState = {
     choiceIngredients: [],
@@ -6,7 +6,7 @@ const initialState = {
 }
 export const burgerConstructorReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD__INGREDIENT_CONSTRUCTOR:
+        case ADD_INGREDIENT_CONSTRUCTOR:
             return {
                 ...state,
                 choiceIngredients: [
@@ -30,6 +30,13 @@ export const burgerConstructorReducer = (state = initialState, action) => {
                 choiceIngredients: [
                     ...state.choiceIngredients?.filter(item => item.__id !== action.payload.itemId)
                 ],
+            }
+        case SORT_INGRIDIENTS_CONSTRUCTOR:
+          const prevState = {...state}
+          const result = prevState.choiceIngredients.splice(action.payload.hoverIndex, 0, prevState.choiceIngredients.splice(action.payload.dragIndex, 1)[0])
+            return {
+                ...state,
+                choiceIngredients: [...state.choiceIngredients, ...result ]
             }
         default:
             return state

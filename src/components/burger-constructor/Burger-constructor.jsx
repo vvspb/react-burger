@@ -5,9 +5,10 @@ import { useState, useContext, useEffect } from 'react';
 import OrderDetails from '../order-details/Order-details';
 import { useSelector, useDispatch } from 'react-redux'
 import SumOrderContext from '../../contexts/sumOrderContext';
-import { addBurgerConstructor, deleteBurgerConstructor } from '../../services/actions/burger-constructor-action';
+import { addBurgerConstructor } from '../../services/actions/burger-constructor-action';
 import { fechOrderData } from '../../services/actions/order-details-action';
 import { useDrop } from "react-dnd";
+import BurgerConstructorElement from '../burger-constructor-element/Burger-constructor-element';
 
 
 const BurgerConstructor = () => {
@@ -22,7 +23,7 @@ const BurgerConstructor = () => {
     const openModal = () => setModalOpenClose(true)
     const closeModal = () => setModalOpenClose(false)
 
-    const [{ isHover }, dropTarget] = useDrop({
+    const [, dropTarget] = useDrop({
         accept: "ingredients",
         collect: monitor => ({
             isHover: monitor.isOver()
@@ -48,10 +49,6 @@ const BurgerConstructor = () => {
         dispatch(fechOrderData(ingredientsID(choiceIngredients, choiceBun)))
     }
 
-    const handleClose = (itemId) => {
-        dispatch(deleteBurgerConstructor(itemId))
-    }
-
     return (
         <section className={`${styles.burgerConstructor} pt-25`} ref={dropTarget}>
             {!isLoading && <>
@@ -71,19 +68,14 @@ const BurgerConstructor = () => {
                         </div>
                     }
                 </div>
-                <div className={`${styles.scrollBox} custom-scroll`}>
+                <div className={`${styles.scrollBox} custom-scroll`} >
                     {choiceIngredients.length ?
-                        choiceIngredients.map(item =>
-                            <div className={`${styles.cardBurgerConstructor}`} key={item.__id} >
-                                <DragIcon type="primary" />
-                                <ConstructorElement
-                                    text={item?.name}
-                                    price={item?.price}
-                                    thumbnail={item?.image}
-                                    extraClass='ml-2'
-                                    handleClose={() => handleClose(item.__id)}
-                                />
-                            </div>)
+                        choiceIngredients.map((item, index) =>
+                            <BurgerConstructorElement
+                                choiceIngredient={item}
+                                index={index}
+                                id={item.__id}
+                                key={item.__id} />)
                         :
                         <div className={styles.cardBurgerConstructor} >
                             <DragIcon type="primary" />

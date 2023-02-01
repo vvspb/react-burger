@@ -6,7 +6,7 @@
 .cardBurgerConstructor {
     display: flex;
     align-items: center;
-    /* max-width: 568px; */
+
 }
 
 .scrollBox{
@@ -60,6 +60,10 @@
 .orderBuy > svg {
     width: 33px;
     height: 33px;
+}
+
+.isHover {
+    box-shadow: 1px 5px 5px 5px rgb(77, 72, 130)
 }
 
 @media (max-width: 1440px) {
