@@ -1,0 +1,12 @@
+.cardBurgerConstructor {
+    display: flex;
+    align-items: center;
+}
+
+.cardBurgerConstructorIsDraggingTrue {
+    opacity: 0;
+}
+
+.cardBurgerConstructorIsDraggingFalse {
+    opacity: 1;
+}
