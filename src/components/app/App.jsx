@@ -1,54 +1,42 @@
-import { useEffect, useState } from 'react';
-import AppHeader from '../app-header/App-header'
-import BurgerIngredients from '../burger-ingredients/Burger-ingredients'
-import BurgerConstructor from '../burger-constructor/Burger-constructor'
-import BurgerConstructorContext from '../../contexts/burgerConstructorContext'
-import BurgerIngredientsContext from '../../contexts/burgerIngredientsContext'
-import SumOrderContext from '../../contexts/sumOrderContext'
-import OrderDataContext from '../../contexts/orderDataContext'
-import api from '../../utils/api'
+import { useState } from 'react';
+import AppHeader from '../app-header/App-header';
+import BurgerIngredients from '../burger-ingredients/Burger-ingredients';
+import BurgerConstructor from '../burger-constructor/Burger-constructor';
+import SumOrderContext from '../../contexts/sumOrderContext';
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+
+import { useSelector } from 'react-redux';
 
 import styles from './App.module.css'
 
+
+
 function App() {
 
-  const [dataIngredients, setDataIngredients] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [choiceBun, setChoiceBun] = useState({})
-  const [choiceIngredients, setChoiceIngredients] = useState([])
-  const [orderData, setOrderData] = useState(0)
+
 
   const [sumOrder, setSumOrder] = useState(0)
 
-  useEffect(() => {
-    api.getIngredients()
-      .then(result => setDataIngredients(result.data))
-      .catch(err => alert(`Ошибка при загрузке данных: ${err.message}. Перезагрузите страницу`))
-      .finally(() => setIsLoading(false))
-  }, [])
+  const { isLoading } = useSelector((state) => state)
+
 
   return (
     <div className={styles.app}>
-      <BurgerIngredientsContext.Provider value={{ dataIngredients }}>
-        <BurgerConstructorContext.Provider value={{ choiceBun, choiceIngredients, setChoiceIngredients, setChoiceBun }}>
-          <SumOrderContext.Provider value={{ sumOrder, setSumOrder }}>
-            <OrderDataContext.Provider value={{ orderData, setOrderData }}>
-              <AppHeader />
-              <main className={styles.main}>
-                {
-                  isLoading ?
-                    <p className={styles.load}><span className='text text_type_main-medium'>идет загрузка...</span></p>
-                    :
-                    <>
-                      <BurgerIngredients />
-                      <BurgerConstructor />
-                    </>
-                }
-              </main>
-            </OrderDataContext.Provider>
-          </SumOrderContext.Provider>
-        </BurgerConstructorContext.Provider>
-      </BurgerIngredientsContext.Provider>
+      <SumOrderContext.Provider value={{ sumOrder, setSumOrder }}>
+        <AppHeader />
+        <main className={styles.main}>
+          {
+            isLoading ?
+              <p className={styles.load}><span className='text text_type_main-medium'>идет загрузка...</span></p>
+              :
+                <DndProvider backend={HTML5Backend}>
+                  <BurgerIngredients />
+                  <BurgerConstructor />
+                </DndProvider>
+          }
+        </main>
+      </SumOrderContext.Provider>
     </div>
   );
 }

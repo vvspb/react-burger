@@ -5,10 +5,7 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import ModalOverlay from '../modal-overlay/Modal-overlay'
 import styles from './Modal.module.css'
 
-
-
-const modalRoot = document.getElementById('root-modals')
-
+const modalRoot = document.getElementById('root-modals');
 
 const Modal = ({onClose, children, title}) => {
 

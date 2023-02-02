@@ -3,39 +3,35 @@ import styles from './Burger-constructor.module.css';
 import Modal from '../modal/Modal';
 import { useState, useContext, useEffect } from 'react';
 import OrderDetails from '../order-details/Order-details';
-import BurgerConstructorContext from '../../contexts/burgerConstructorContext';
-import BurgerIngredientsContext from '../../contexts/burgerIngredientsContext';
+import { useSelector, useDispatch } from 'react-redux'
 import SumOrderContext from '../../contexts/sumOrderContext';
-import OrderDataContext from '../../contexts/orderDataContext';
-import api from '../../utils/api';
+import { addBurgerConstructor } from '../../services/actions/burger-constructor-action';
+import { fechOrderData } from '../../services/actions/order-details-action';
+import { useDrop } from "react-dnd";
+import BurgerConstructorElement from '../burger-constructor-element/Burger-constructor-element';
 
 
 const BurgerConstructor = () => {
+    const dispatch = useDispatch()
     const [modalOpenClose, setModalOpenClose] = useState(false)
 
-    const { dataIngredients } = useContext(BurgerIngredientsContext)
-    const { choiceBun, choiceIngredients, setChoiceBun, setChoiceIngredients } = useContext(BurgerConstructorContext)
+    const { ingredients, isLoading } = useSelector(state => state.ingredients)
+    const { choiceBun, choiceIngredients } = useSelector(state => state.burgerConstructor)
+
     const { sumOrder, setSumOrder } = useContext(SumOrderContext)
-
-
-    const { orderData, setOrderData } = useContext(OrderDataContext)
-
 
     const openModal = () => setModalOpenClose(true)
     const closeModal = () => setModalOpenClose(false)
 
-    useEffect(
-        () => {
-            setChoiceBun(dataIngredients.find(item => item._id === '60d3b41abdacab0026a733c7'))
+    const [, dropTarget] = useDrop({
+        accept: "ingredients",
+        collect: monitor => ({
+            isHover: monitor.isOver()
+        }),
+        drop(itemId) {
+            dispatch(addBurgerConstructor(ingredients, itemId))
         },
-        [dataIngredients, setChoiceBun]
-    );
-
-    useEffect(
-        () => {
-            setChoiceIngredients(dataIngredients.filter(item => item.type !== 'bun'))
-        }, [dataIngredients, setChoiceIngredients]
-    )
+    });
 
     useEffect(
         () => {
@@ -48,65 +44,81 @@ const BurgerConstructor = () => {
         const bunID = objectBun._id
         return [...mainSauceID, bunID]
     }
-    
+
     const handleClickOrder = () => {
-        api.addOrder(ingredientsID(choiceIngredients, choiceBun))
-        .then(res => setOrderData(res))
-        .catch(err => alert(`Ошибка при загрузке номера заказа: ${err.message}. Перезагрузите страницу`))
+        dispatch(fechOrderData(ingredientsID(choiceIngredients, choiceBun)))
     }
 
     return (
-        <section className={`${styles.burgerConstructor} pt-25`}>
-            <div className={`${styles.cardBurgerConstructor} ml-8`}>
-                <ConstructorElement
-                    type="top"
-                    isLocked={true}
-                    text={`${choiceBun.name} (верх)`}
-                    price={choiceBun.price}
-                    thumbnail={choiceBun.image}
-                    extraClass='mb-2'
-                />
-            </div>
-            <div className={`${styles.scrollBox} custom-scroll`}>
-                {choiceIngredients.map(item =>
-                    <div className={`${styles.cardBurgerConstructor}`} key={item._id} >
-                        <DragIcon type="primary" />
+        <section className={`${styles.burgerConstructor} pt-25`} ref={dropTarget}>
+            {!isLoading && <>
+                <div className={`${styles.cardBurgerConstructor} ml-8`}>
+                    {Object.keys(choiceBun).length ?
                         <ConstructorElement
-                            text={item.name}
-                            price={item.price}
-                            thumbnail={item.image}
-                            extraClass='ml-2'
+                            type="top"
+                            isLocked={true}
+                            text={`${choiceBun?.name} (верх)`}
+                            price={choiceBun?.price}
+                            thumbnail={choiceBun?.image}
+                            extraClass={`mb-2`}
                         />
-                    </div>)}
-            </div>
-            <div className={`${styles.cardBurgerConstructor} ml-8`}>
-                <ConstructorElement
-                    type="bottom"
-                    isLocked={true}
-                    text={`${choiceBun.name} (низ)`}
-                    price={choiceBun.price}
-                    thumbnail={choiceBun.image}
-                    extraClass='mt-2'
-                />
-            </div>
-            <div className={`${styles.orderBuy} mt-10`}>
-                <p className='text text_type_digits-medium mr-2'>{sumOrder ? sumOrder : 0}</p>
-                <CurrencyIcon type="primary" />
-                <Button
-                    htmlType="button"
-                    type="primary"
-                    size="large"
-                    extraClass='ml-10 mr-7'
-                    children='Оформить заказ'
-                    onClick={()=> {
-                        openModal()
-                        handleClickOrder()
-                    }}
-                />
-            </div>
-            {modalOpenClose && 
+                        :
+                        <div className={`${styles.constructorElement} ${styles.elementTop}`}>
+                            <p>Добавьте булку</p>
+                        </div>
+                    }
+                </div>
+                <div className={`${styles.scrollBox} custom-scroll`} >
+                    {choiceIngredients.length ?
+                        choiceIngredients.map((item, index) =>
+                            <BurgerConstructorElement
+                                choiceIngredient={item}
+                                index={index}
+                                id={item.__id}
+                                key={item.__id} />)
+                        :
+                        <div className={styles.cardBurgerConstructor} >
+                            <DragIcon type="primary" />
+                            <div className={`${styles.constructorElement} ${styles.elementMiddle}`}>
+                                <p>Добавьте ингредиент</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div className={`${styles.cardBurgerConstructor} ml-8`}>
+                    {Object.keys(choiceBun).length ?
+                        <ConstructorElement
+                            type="bottom"
+                            isLocked={true}
+                            text={`${choiceBun?.name} (низ)`}
+                            price={choiceBun?.price}
+                            thumbnail={choiceBun?.image}
+                            extraClass='mt-2'
+                        />
+                        :
+                        <div className={`${styles.constructorElement} ${styles.elementButtom}`}>
+                            <p> Добавьте булку</p>
+                        </div>}
+                </div>
+                <div className={`${styles.orderBuy} mt-10`}>
+                    <p className='text text_type_digits-medium mr-2'>{sumOrder ? sumOrder : 0}</p>
+                    <CurrencyIcon type="primary" />
+                    <Button
+                        htmlType="button"
+                        type="primary"
+                        size="large"
+                        extraClass='ml-10 mr-7'
+                        children='Оформить заказ'
+                        onClick={() => {
+                            openModal()
+                            handleClickOrder()
+                        }}
+                    />
+                </div>
+            </>}
+            {modalOpenClose &&
                 <Modal onClose={closeModal} >
-                    <OrderDetails orderData={orderData}/>
+                    <OrderDetails />
                 </Modal>
             }
         </section>

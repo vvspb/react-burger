@@ -10,7 +10,7 @@ class Api {
         this._url = url;
     }
 
-    getIngredients() {
+    getDataIngredients() {
         return fetch(`${this._url}/ingredients`).then(checkResponse)        
     }
 
