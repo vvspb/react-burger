@@ -1,0 +1,23 @@
+.link {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 16px 20px;
+    gap: 8px;
+    background: #1C1C21;
+    text-decoration: none;
+    color: #8585AD;
+    max-width: 207px;
+}
+
+.link > svg{
+    fill: #8585AD;
+}
+
+.link:hover{
+    color: #F2F2F3;
+}
+
+.link:hover > svg{
+    fill: #F2F2F3;
+}
