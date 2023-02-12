@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import AppHeader from '../../components/app-header/App-header';
 import BurgerIngredients from '../../components/burger-ingredients/Burger-ingredients';
 import BurgerConstructor from '../../components/burger-constructor/Burger-constructor';
 import SumOrderContext from '../../contexts/sumOrderContext';
@@ -17,7 +16,6 @@ const MainPage = () => {
   return (
     <div>
        <SumOrderContext.Provider value={{ sumOrder, setSumOrder }}>
-        <AppHeader />
         <main className={styles.main}>
           {
             isLoading ?
