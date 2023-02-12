@@ -1,15 +1,17 @@
 import { Button, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './forgot-password-page.module.css'
 
 const ForgotPasswordPage = () => {
 
     const [valueEmail, setValueEmail] = React.useState('');
+    const navigate = useNavigate()
 
     const onChangeEmail = e => {
         setValueEmail(e.target.value)
     }
+    
 
     return (
         <main className={styles.mainForgotPassPage}>
@@ -27,6 +29,7 @@ const ForgotPasswordPage = () => {
                     htmlType="button"
                     type="primary"
                     size="large"
+                    onClick = {()=> navigate('/reset-password')}
                 >
                     Восстановить
                 </Button>
