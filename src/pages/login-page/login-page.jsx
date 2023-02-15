@@ -1,40 +1,61 @@
 import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useCallback, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { fechSignInUser } from '../../services/actions/login-page-action';
 import styles from './login-page.module.css'
 
 const LoginPage = () => {
 
-    const [valueEmail, setValueEmail] = React.useState('')
-    const onChangeEmail = e => {
-        setValueEmail(e.target.value)
-    }
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const [userData, setUserData] = useState({email:'', password:''})
 
-    const [valuePass, setValuePass] = React.useState('')
-    const onChangePass = e => {
-        setValuePass(e.target.value)
+    const { loginAuthenticated } = useSelector(state => state.signInUser)
+    const { registerAuthenticated } = useSelector(state => state.signUpUser)
+
+    const isAuth = loginAuthenticated || registerAuthenticated
+
+    const onChange = e => {
+        setUserData({ ...userData, [e.target.name]: e.target.value })
     }
+    
+    const handleClick = useCallback((e) => {
+        e.preventDefault()
+        if(userData.email && userData.password) {
+            dispatch(fechSignInUser(userData.email, userData.password))
+            navigate('/', {replace: true})
+        } 
+    }, [dispatch, navigate, userData])
+
+    if (isAuth) {
+        return (
+        <Navigate to={'/'} replace/>
+        )
+    }
+    
     return (
         <main className={styles.mainLoginPage}>
             <h2 className={`${styles.title} text text_type_main-medium mb-6`}>Вход</h2>
             <EmailInput
-                onChange={onChangeEmail}
-                value={valueEmail}
+                onChange={onChange}
+                value={userData.email}
                 name={'email'}
                 isIcon={false}
                 extraClass="mb-6"
             />
             <PasswordInput
-                onChange={onChangePass}
-                value={valuePass}
+                onChange={onChange}
+                value={userData.password}
                 name={'password'}
                 extraClass="mb-6"
             />
             <div className={styles.wrapperButton}>
                 <Button
-                    htmlType="button"
+                    htmlType="submit"
                     type="primary"
                     size="large"
+                    onClick={handleClick}
                 >
                     Войти
                 </Button>
