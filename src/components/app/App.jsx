@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import ForgotPasswordPage from '../../pages/forgot-password-page/forgot-password-page';
 import LoginPage from '../../pages/login-page/login-page';
 import MainPage from '../../pages/main-page/main-page';
@@ -13,7 +13,6 @@ import styles from './App.module.css'
 function App() {
 
   return (
-    <BrowserRouter>
       <div className={styles.app}>
         <AppHeader />
         <Routes>
@@ -25,7 +24,6 @@ function App() {
           <Route path='/reset-password' element = {<ResetPasswordPage/>}/>
         </Routes> 
       </div>
-    </BrowserRouter>
   );
 }
 

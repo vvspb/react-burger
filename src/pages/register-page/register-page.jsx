@@ -1,66 +1,70 @@
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useCallback, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { fechSignUpUser } from '../../services/actions/register-page-action';
 import styles from './register-page.module.css'
 
 
 const RegisterPage = () => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const [userData, setUserData] = useState({email:'', password:'', name:''})
 
-    const [valueEmail, setValueEmail] = React.useState('');
-    const [valuePass, setValuePass] = React.useState('');
-    const [valueName, setValueName] = React.useState('');
-
-    const inputRef = React.useRef(null);
-
-    const onChangeEmail = e => {
-        setValueEmail(e.target.value)
+    const onChange = e => {
+        setUserData({ ...userData, [e.target.name]: e.target.value })
     }
-
-    const onChangePass = e => {
-        setValuePass(e.target.value)
-    }
+    
+    const handleClick = useCallback((e) => {
+        e.preventDefault()
+        if(userData.name && userData.email && userData.password) {
+            dispatch(fechSignUpUser(userData.email, userData.password, userData.name))
+            navigate('/', {replace: true})
+        } 
+    }, [dispatch, navigate, userData])
 
     return (
         <main className={styles.mainLoginPage}>
             <h2 className={`${styles.title} text text_type_main-medium mb-6`}>Зарегестрироваться</h2>
-
-            <Input
-                type={'text'}
-                placeholder={'Имя'}
-                onChange={e => setValueName(e.target.value)}
-                value={valueName}
-                name={'name'}
-                error={false}
-                ref={inputRef}
-                errorText={'Ошибка'}
-                size={'default'}
-                extraClass="mb-6"
-            />
-            <EmailInput
-                onChange={onChangeEmail}
-                value={valueEmail}
-                name={'email'}
-                isIcon={false}
-                extraClass="mb-6"
-            />
-            <PasswordInput
-                onChange={onChangePass}
-                value={valuePass}
-                name={'password'}
-                extraClass="mb-6"
-            />
-            <div className={styles.wrapperButton}>
-                <Button
-                    htmlType="button"
-                    type="primary"
-                    size="large"
-                >
-                    Зарегестрироваться
-                </Button>
-            </div>
+            <form name='signUpUser'>
+                <Input
+                    type={'text'}
+                    placeholder={'Имя'}
+                    onChange={onChange}
+                    value={userData.name}
+                    name={'name'}
+                    error={false}
+                    errorText={'Ошибка'}
+                    size={'default'}
+                    extraClass="mb-6"
+                />
+                <EmailInput
+                    onChange={onChange}
+                    value={userData.email}
+                    name={'email'}
+                    isIcon={false}
+                    extraClass="mb-6"
+                />
+                <PasswordInput
+                    onChange={onChange}
+                    value={userData.password}
+                    name={'password'}
+                    extraClass="mb-6"
+                />
+                <div className={styles.wrapperButton}>
+                    <Button
+                        htmlType="submit"
+                        type="primary"
+                        size="large"
+                        onClick={handleClick}
+                    >
+                        Зарегестрироваться
+                    </Button>
+                </div>
+            </form>
             <div className={`${styles.wrapperText} mt-20`}>
                 <span className='text text_type_main-small text_color_inactive mr-2' >Уже зарегистрированы?</span>
-                <Link to={'/login'} className={styles.linkLogin }>Войти</Link>
+                <Link to={'/login'} className={styles.linkLogin}>Войти</Link>
             </div>
         </main>
     )
