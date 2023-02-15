@@ -12,6 +12,7 @@ export const registerPageReducer = (state = initialState, action) => {
         case ADD_USERDATA:
             return {
                 ...state,
+                authenticated: false,
                 isLoading: true,
                 hasError: false
             }
@@ -26,6 +27,7 @@ export const registerPageReducer = (state = initialState, action) => {
         case ADD_USERDATA_FAILURE:
             return {
                 ...state,
+                authenticated: false,
                 isLoading: false,
                 hasError: true
             }
