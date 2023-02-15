@@ -3,11 +3,10 @@ import { Navigate } from 'react-router-dom';
 
 export const ProtectedRoute = ({ element, onlyAuth= false }) => {
 
-    const { loginAuthenticated } = useSelector(state => state.signInUser)
-    const { registerAuthenticated } = useSelector(state => state.signUpUser)
+    const { authenticated } = useSelector(state => state.authUserData)
+ 
 
-    const isAuth = loginAuthenticated || registerAuthenticated
-    if(onlyAuth) return  (isAuth ? element : <Navigate to={'/login'} replace />)
+    if(onlyAuth) return  (authenticated ? element : <Navigate to={'/login'} replace />)
 
-    return  (isAuth ?<Navigate to={'/'} replace /> : element)
+    return  (authenticated ?<Navigate to={'/'} replace /> : element)
 } 

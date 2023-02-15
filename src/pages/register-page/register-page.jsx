@@ -2,7 +2,7 @@ import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-de
 import React, { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { fechSignUpUser } from '../../services/actions/register-page-action';
+import { fetchAuthUserData } from '../../services/actions/auth-action';
 import styles from './register-page.module.css'
 
 
@@ -18,7 +18,7 @@ const RegisterPage = () => {
     const handleClick = useCallback((e) => {
         e.preventDefault()
         if(userData.name && userData.email && userData.password) {
-            dispatch(fechSignUpUser(userData.email, userData.password, userData.name))
+            dispatch(fetchAuthUserData(userData.email, userData.password, userData.name))
             navigate('/', {replace: true})
         } 
     }, [dispatch, navigate, userData])

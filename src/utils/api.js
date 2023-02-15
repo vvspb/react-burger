@@ -62,20 +62,25 @@ class Api {
         }).then(checkResponse)
     }
 
-    signUpUser(email, password, name) {
-        return fetch(`${this._url}/auth/register`, {
+    authUser(email, password, name = 0) {
+        let query = name ? '/auth/register' : '/auth/login'
+        return fetch(`${this._url}${query}`, {
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
             credentials: 'same-origin',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(
+            body: name ? JSON.stringify(
                 {
                     "email": email,
                     "password": password,
                     "name": name
                 }
-            ),
+            ) : JSON.stringify(
+                {
+                    "email": email,
+                    "password": password,
+                }),
             redirect: 'follow',
             referrerPolicy: 'no-referrer',
         }).then(checkResponse)
@@ -92,6 +97,23 @@ class Api {
                 {
                     "email": email,
                     "password": password,
+                }
+            ),
+            redirect: 'follow',
+            referrerPolicy: 'no-referrer',
+        }).then(checkResponse)
+    }
+
+    logoutUser() {
+        return fetch(`${this._url}/auth/logout`, {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(
+                {
+                    "token": getCookie('refreshToken'),
                 }
             ),
             redirect: 'follow',
