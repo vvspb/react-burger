@@ -1,4 +1,4 @@
-import { GET_USERDATA, GET_USERDATA_SUCCESS, GET_USERDATA_FAILURE } from '../actions-types/auth-action-type';
+import { GET_USERDATA, GET_USERDATA_SUCCESS, GET_USERDATA_FAILURE, DELETE_USERDATA_SUCCESS, AUTH_CHECKED } from '../actions-types/auth-action-type';
 
 const initialState = {
     authenticated: false,
@@ -23,7 +23,7 @@ export const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 authenticated: true,
-                userData: {...action.payload },
+                userData: { ...action.payload },
                 isLoading: false,
                 hasError: false
             }
@@ -33,6 +33,16 @@ export const authReducer = (state = initialState, action) => {
                 authenticated: false,
                 isLoading: false,
                 hasError: true
+            }
+        case DELETE_USERDATA_SUCCESS:
+            return {
+                ...state,
+                authenticated: false,
+            }
+        case AUTH_CHECKED:
+            return {
+                ...state,
+                authenticated: true
             }
         default:
             return state
