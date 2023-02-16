@@ -86,22 +86,20 @@ class Api {
         }).then(checkResponse)
     }
 
-    signInUser(email, password) {
-        return fetch(`${this._url}/auth/login`, {
-            method: 'POST',
+    getUser() {
+        return fetch(`${this._url}/auth/user`, {
+            method: 'GET',
             mode: 'cors',
             cache: 'no-cache',
             credentials: 'same-origin',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(
-                {
-                    "email": email,
-                    "password": password,
-                }
-            ),
+            headers: { 
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + getCookie('accessToken')
+             },
             redirect: 'follow',
             referrerPolicy: 'no-referrer',
-        }).then(checkResponse)
+        }
+        ).then(checkResponse)
     }
 
     logoutUser() {
