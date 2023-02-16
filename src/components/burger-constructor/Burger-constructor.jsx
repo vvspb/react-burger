@@ -17,6 +17,7 @@ const BurgerConstructor = () => {
 
     const { ingredients, isLoading } = useSelector(state => state.ingredients)
     const { choiceBun, choiceIngredients } = useSelector(state => state.burgerConstructor)
+    const userName = useSelector(state => state.authUserData.userData.name);
 
     const { sumOrder, setSumOrder } = useContext(SumOrderContext)
 
@@ -113,6 +114,7 @@ const BurgerConstructor = () => {
                             openModal()
                             handleClickOrder()
                         }}
+                        disabled={!(userName && Object.keys(choiceBun).length)}
                     />
                 </div>
             </>}
