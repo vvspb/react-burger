@@ -28,3 +28,9 @@ export function setCookie(name, value, props) {
     );
     return matches ? decodeURIComponent(matches[1]) : undefined;
   } 
+
+  export function deleteCookie(name) {
+    setCookie(name, "", {
+      'max-age': -1
+    })
+  }
