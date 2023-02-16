@@ -12,17 +12,18 @@ import HistoryOrdersPage from '../../pages/history-order-page/history-order-page
 import styles from './App.module.css'
 import OrderPage from '../../pages/order-page/order-page';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { checkUserAuth } from '../../services/actions/auth-action';
 
 
 function App() {
 
   const dispatch = useDispatch()
+  const userName = useSelector(state => state.authUserData.userData.name);
 
   useEffect(() => {
     dispatch(checkUserAuth());
-  },[dispatch])
+  },[dispatch, userName])
 
   return (
     <div className={styles.app}>

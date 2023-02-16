@@ -1,76 +1,105 @@
 import { EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { fetchLogoutUserData } from '../../services/actions/auth-action';
 
 import styles from './Personal-account.module.css';
 
 const PersonalAccount = () => {
-    const [valueName, setValueName] = React.useState('value')
-    const [valueLogin, setValueLogin] = React.useState('myLogin')
-    const [valuePassword, setValuePassword] = React.useState('value')
-
-    const inputRefName = React.useRef(null)
-
-    const onIconClickName = () => {
-        setTimeout(() => inputRefName.current.focus(), 0)
-        alert('Icon Click Callback name')
-    }
+    const dispatch = useDispatch()
+    const { userData } = useSelector(state => state.authUserData)
+    const [value, setValue] = useState(userData)
+    const [valuePass, setPassValue] = useState('password')
+    const [isDisabled, setIsDisabled] = useState(true)
 
     const onChange = e => {
-        setValueLogin(e.target.value)
-        console.log(e.target.value)
+        setValue({ ...value, [e.target.name]: e.target.value })
     }
 
-    const onChangePassword = e => {
-        setValuePassword(e.target.value)
-        console.log(e.target.value)
+    const onChangePass = e => {
+        setPassValue(e.target.value)
+    }
+
+    const inputRef = React.useRef(null)
+    const onIconClick = () => {
+        setTimeout(() => inputRef.current.focus(), 0)
+        setIsDisabled((prevState) => !prevState)
+    }
+
+    const handleClick = () => {
+        console.log('worked')
+        dispatch(fetchLogoutUserData())
     }
 
     const textStyle = 'text text_type_main-medium';
-    const inActive = 'text_color_inactive';
 
     return (
         <main className={styles.main}>
             <div className={styles.wrapperProfile}>
                 <nav className={styles.navProfile}>
                     <ul className={styles.linkProfile}>
-                        <li className={`${styles.navLi} ${textStyle}`}>Профиль</li>
-                        <li className={`${styles.navLi} ${textStyle} ${inActive}`}>История заказов</li>
-                        <li className={`${styles.navLi} ${textStyle} ${inActive}`}>Выход</li>
+                        <li className={styles.navLi}>
+                            <NavLink
+                                to={'/profile'}
+                                className={({ isActive }) => isActive ? `${styles.activeClasses} ${textStyle}` : `${styles.inactiveClasses} ${textStyle}`}
+                                end>
+                                Профиль
+                            </NavLink>
+                        </li>
+                        <li className={styles.navLi}>
+                            <NavLink
+                                to={'/profile/orders'}
+                                className={({ isActive }) => isActive ? `${styles.activeClasses} ${textStyle}` : `${styles.inactiveClasses} ${textStyle}`}
+                                end>
+                                История заказов
+                            </NavLink>
+                        </li>
+                        <li className={styles.navLi}>
+                            <NavLink
+                            to={'/'}
+                                className={`${styles.inactiveClasses} ${textStyle}`}
+                                onClick={handleClick}
+                                replace
+                            >
+                                Выход
+                            </NavLink>
+                        </li>
                     </ul>
                     <p className="text text_type_main-default text_color_inactive mt-20">
                         В этом разделе вы можете <br />
                         изменить свои персональные данные
                     </p>
                 </nav>
-                <div className={styles.inputFrofile}>
+                <form className={styles.inputFrofile}>
                     <Input
                         type={'text'}
                         placeholder={'Имя'}
-                        onChange={e => setValueName(e.target.value)}
+                        onChange={onChange}
+                        ref={inputRef}
                         icon={'EditIcon'}
-                        value={valueName}
+                        value={value.name}
                         name={'name'}
                         error={false}
-                        ref={inputRefName}
-                        onIconClick={onIconClickName}
+                        onIconClick={onIconClick}
                         errorText={'Ошибка'}
                         size={'default'}
-                        disabled={true}
+                        disabled={isDisabled}
                     />
                     <EmailInput
                         onChange={onChange}
-                        value={valueLogin}
+                        value={value.email}
                         name={'email'}
                         placeholder="Логин"
                         isIcon={true}
                     />
                     <PasswordInput
-                        onChange={onChangePassword}
-                        value={valuePassword}
+                        onChange={onChangePass}
+                        value={valuePass}
                         name={'password'}
                         icon="EditIcon"
                     />
-                </div>
+                </form>
             </div>
         </main>
     )

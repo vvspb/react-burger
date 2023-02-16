@@ -1,14 +1,10 @@
-import { GET_USERDATA, GET_USERDATA_SUCCESS, GET_USERDATA_FAILURE, DELETE_USERDATA, DELETE_USERDATA_SUCCESS, AUTH_CHECKED } from '../actions-types/auth-action-type';
+import { GET_USERDATA, GET_USERDATA_SUCCESS, GET_USERDATA_FAILURE, DELETE_USERDATA_SUCCESS, AUTH_CHECKED } from '../actions-types/auth-action-type';
 
 import api from '../../utils/api';
-import { getCookie, setCookie } from '../../utils/cookie';
+import { deleteCookie, getCookie, setCookie } from '../../utils/cookie';
 
 export const authUserData = () => ({
     type: GET_USERDATA,
-})
-
-export const deleteUserData = () => ({
-    type: DELETE_USERDATA,
 })
 
 export const authUserDataSuccess = (userData) => ({
@@ -46,13 +42,13 @@ export const fetchAuthUserData = (email, password, name = 0) => {
 export const checkUserAuth = () => (dispatch) => {
     if (getCookie("accessToken")) {
         api.getUser()
-        .then(result => {
-            if (result.success) return dispatch(authUserDataSuccess(result.user))
-        })
-        .catch(()=> {dispatch(authChecked());})
-        .finally(() => {
-            dispatch(authChecked());
-        });
+            .then(result => {
+                if (result.success) return dispatch(authUserDataSuccess(result.user))
+            })
+            .catch(() => { dispatch(authChecked()); })
+            .finally(() => {
+                dispatch(authChecked());
+            });
     } else {
         dispatch(authChecked());
     }
@@ -60,10 +56,15 @@ export const checkUserAuth = () => (dispatch) => {
 
 export const fetchLogoutUserData = () => {
     return (dispatch) => {
-        dispatch(deleteUserData())
+        console.log('worked fetch')
         api.logoutUser()
             .then(result => {
-                if (result.success) return dispatch(deleteUserDataSuccess(result.user))
+                console.log(result)
+                if (result.success) {
+                    deleteCookie('accessToken')
+                    deleteCookie('refreshToken')
+                    return dispatch(deleteUserDataSuccess())
+                }
             })
     }
 }

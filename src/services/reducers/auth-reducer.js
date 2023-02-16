@@ -38,6 +38,10 @@ export const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 authenticated: false,
+                userData: {
+                    email: '',
+                    name: ''
+                }
             }
         case AUTH_CHECKED:
             return {

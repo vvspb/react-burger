@@ -24,6 +24,16 @@
     cursor: pointer;
 }
 
+.activeClasses {
+    color: #F2F2F3;
+    text-decoration: none;
+}
+
+.inactiveClasses {
+    color: #8585AD;
+    text-decoration: none;
+}
+
 .inputFrofile {
     display: grid;
     grid-template-columns: 1fr;
