@@ -37,7 +37,6 @@ export const authReducer = (state = initialState, action) => {
         case DELETE_USERDATA_SUCCESS:
             return {
                 ...state,
-                authenticated: false,
                 userData: {
                     email: '',
                     name: ''
