@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import ForgotPasswordPage from '../../pages/forgot-password-page/forgot-password-page';
 import LoginPage from '../../pages/login-page/login-page';
 import MainPage from '../../pages/main-page/main-page';
@@ -14,20 +14,24 @@ import OrderPage from '../../pages/order-page/order-page';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { checkUserAuth } from '../../services/actions/auth-action';
-
+import ModalDetailesIngredientPage from '../../pages/modal-detailes-ingredient-page/modal-detailes-ingredient-page';
+import IngredientsPage from '../../pages/ingredients-page/ingredients-page';
 
 function App() {
 
   const dispatch = useDispatch()
+  const location = useLocation()
+
+  const background = location.state && location.state.background
 
   useEffect(() => {
     dispatch(checkUserAuth());
-  },[dispatch])
+  }, [dispatch])
 
   return (
     <div className={styles.app}>
-      <AppHeader />
-      <Routes>
+       <AppHeader />
+      <Routes location={background || location}>
         <Route
           path='/profile/*'
           element={
@@ -53,28 +57,32 @@ function App() {
         <Route
           path='/login'
           element={
-            <ProtectedRoute element={<LoginPage />}  onlyUnAuth={true}/>
+            <ProtectedRoute element={<LoginPage />} onlyUnAuth={true} />
           }
         />
         <Route
           path='/register'
           element={
-            <ProtectedRoute element={<RegisterPage />}  onlyUnAuth={true}/>
-          }
-        />
+            <ProtectedRoute element={<RegisterPage />} onlyUnAuth={true} />
+          }/>
         <Route
           path='/forgot-password'
           element={
-            <ProtectedRoute element={<ForgotPasswordPage />}  onlyUnAuth={true}/>
-          }
-        />
+            <ProtectedRoute element={<ForgotPasswordPage />} onlyUnAuth={true} />
+          }/>
         <Route
           path='/reset-password'
           element={
             <ProtectedRoute element={<ResetPasswordPage />} />
-          }
-        />
+          } />
+             <Route path='ingredients/:id' element={< IngredientsPage />}></Route>
       </Routes>
+
+      {background && (
+        <Routes>
+          <Route path='ingredients/:id' element={< ModalDetailesIngredientPage />}></Route>
+        </Routes>
+      )}
     </div>
   );
 }

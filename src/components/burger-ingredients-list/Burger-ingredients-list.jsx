@@ -6,13 +6,14 @@ import styles from './Burger-ingredients-list.module.css'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { fechIngredients } from '../../services/actions/burger-ingredients-list-action';
+import { Link, useLocation } from 'react-router-dom'
 
 
 
 const BurgerIngredientsList = React.forwardRef(({ category, title, onClick }, ref) => {
 
     const dispatch = useDispatch()
-
+    const location = useLocation()
     const { ingredients } = useSelector(state => state.ingredients)
 
     useEffect(() => {
@@ -28,7 +29,13 @@ const BurgerIngredientsList = React.forwardRef(({ category, title, onClick }, re
                 {
                     ingredients.filter(item => item.type === category).map(el =>
                         < li className={styles.cardWrapper} key={el._id} onClick={() => onClick(el)}>
-                            <CardBurgerIngredient image={el.image} price={el.price} name={el.name} id={el._id} />
+                            <Link 
+                            className={styles.link}
+                            to={`ingredients/${el._id}`}
+                            state={{background: location}}
+                            >
+                                <CardBurgerIngredient image={el.image} price={el.price} name={el.name} id={el._id} />
+                            </Link>
                         </li>
                     )
                 }

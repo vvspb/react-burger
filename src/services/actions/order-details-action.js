@@ -22,6 +22,7 @@ export const fechOrderData = (choiceIngredientsID) => {
         dispatch(addNewOrder())
         api.addOrder(choiceIngredientsID)
             .then(data => dispatch(addNewOrderSuccess(data.order?.number)))
-            .catch(() => dispatch(addNewOrderFailure()))
+            .catch(() => { 
+                return dispatch(addNewOrderFailure())})
     }
 }

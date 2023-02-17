@@ -1,24 +1,20 @@
-import { EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
+import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { fetchLogoutUserData } from '../../services/actions/auth-action';
+import { fetchLogoutUserData, fetchUpdateUser} from '../../services/actions/auth-action';
 
 import styles from './Personal-account.module.css';
 
 const PersonalAccount = () => {
     const dispatch = useDispatch()
     const { userData } = useSelector(state => state.authUserData)
-    const [value, setValue] = useState(userData)
-    const [valuePass, setPassValue] = useState('password')
+    const [value, setValue] = useState({ password: '', ...userData })
+
     const [isDisabled, setIsDisabled] = useState(true)
 
     const onChange = e => {
         setValue({ ...value, [e.target.name]: e.target.value })
-    }
-
-    const onChangePass = e => {
-        setPassValue(e.target.value)
     }
 
     const inputRef = React.useRef(null)
@@ -28,9 +24,21 @@ const PersonalAccount = () => {
     }
 
     const handleClick = () => {
-        console.log('worked')
         dispatch(fetchLogoutUserData())
     }
+
+    const handleCancelClick = (e) => {
+        e.preventDefault();
+        setValue({ password: '', ...userData })
+    }
+
+    const handleSafeClick = (e) => {
+        e.preventDefault();
+        dispatch(fetchUpdateUser(value.email, value.password, value.name))
+        setValue({...value})
+    }
+
+    let disableButton = userData.email === value.email && userData.name === value.name && !value.password
 
     const textStyle = 'text text_type_main-medium';
 
@@ -57,7 +65,7 @@ const PersonalAccount = () => {
                         </li>
                         <li className={styles.navLi}>
                             <NavLink
-                            to={'/'}
+                                to={'/'}
                                 className={`${styles.inactiveClasses} ${textStyle}`}
                                 onClick={handleClick}
                                 replace
@@ -66,7 +74,7 @@ const PersonalAccount = () => {
                             </NavLink>
                         </li>
                     </ul>
-                    <p className="text text_type_main-default text_color_inactive mt-20">
+                    <p className="text text_type_main-default text_color_inactive mt-20 pt-3">
                         В этом разделе вы можете <br />
                         изменить свои персональные данные
                     </p>
@@ -94,11 +102,29 @@ const PersonalAccount = () => {
                         isIcon={true}
                     />
                     <PasswordInput
-                        onChange={onChangePass}
-                        value={valuePass}
+                        onChange={onChange}
+                        value={value.password}
                         name={'password'}
                         icon="EditIcon"
                     />
+                    <div className={styles.wrapperButton}>
+                        <Button
+                            htmlType="submit"
+                            type="secondary"
+                            size="medium"
+                            onClick={e => handleCancelClick(e)}
+                            disabled={disableButton}>
+                            Отменить
+                        </Button>
+                        <Button
+                            htmlType="submit"
+                            type="primary"
+                            size="medium"
+                            onClick={e => handleSafeClick(e)}
+                            disabled={disableButton}>
+                            Сохранить
+                        </Button>
+                    </div>
                 </form>
             </div>
         </main>

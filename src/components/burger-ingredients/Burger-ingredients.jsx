@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import Modal from '../modal/Modal';
-import IngredientsDetails from '../ingredients-details/Ingredients-details';
+// import React, { useState } from 'react';
+// import Modal from '../modal/Modal';
+// import IngredientsDetails from '../ingredients-details/Ingredients-details';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './Burger-ingredients.module.css';
 import BurgerIngredientsList from '../burger-ingredients-list/Burger-ingredients-list';
@@ -10,7 +10,7 @@ import { InView, useInView } from 'react-intersection-observer';
 
 const BurgerIngredients = () => {
 
-    const [modalOpenCloseIngredient, setModalOpenClose] = useState(false)
+    // const [modalOpenCloseIngredient, setModalOpenClose] = useState(false)
 
     const dispatch = useDispatch()
 
@@ -27,15 +27,9 @@ const BurgerIngredients = () => {
     }
 
     const openModalWithIngredient = (item) => {
-        setModalOpenClose(true)
         dispatch(addIngredientDetails({ ...item }))
     }
 
-    const closeModal = () => {
-        setModalOpenClose(false)
-        dispatch(addIngredientDetails({}))
-    }
-    
     const [refBun, inViewBun, entryBun ]  = useInView({
         threshold: 0.4,
     })
@@ -73,11 +67,6 @@ const BurgerIngredients = () => {
                 <BurgerIngredientsList category='main' onClick={openModalWithIngredient} title='Начинка' ref={refMain}/>
             </div>
             </InView>
-            {modalOpenCloseIngredient &&
-                <Modal title='Детали ингредиента' onClose={closeModal} >
-                    <IngredientsDetails />
-                </Modal>
-            }
         </section>
     );
 }
