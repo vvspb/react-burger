@@ -1,4 +1,4 @@
-import { GET_USERDATA, GET_USERDATA_SUCCESS, GET_USERDATA_FAILURE, DELETE_USERDATA_SUCCESS, AUTH_CHECKED } from '../actions-types/auth-action-type';
+import { GET_USERDATA, GET_USERDATA_SUCCESS, GET_USERDATA_FAILURE, DELETE_USERDATA_SUCCESS, AUTH_CHECKED, UPDATE_USERDATA } from '../actions-types/auth-action-type';
 
 import api from '../../utils/api';
 import { deleteCookie, getCookie, setCookie } from '../../utils/cookie';
@@ -24,6 +24,11 @@ export const authChecked = () => ({
     type: AUTH_CHECKED
 })
 
+export const updateUser = (userData) => ({
+    type: UPDATE_USERDATA,
+    payload: userData
+})
+
 export const fetchAuthUserData = (email, password, name = 0) => {
     return (dispatch) => {
         dispatch(authUserData())
@@ -42,10 +47,11 @@ export const fetchAuthUserData = (email, password, name = 0) => {
 export const checkUserAuth = () => (dispatch) => {
     if (getCookie("accessToken")) {
         api.getUser()
-            .then(result => {
-                if (result.success) return dispatch(authUserDataSuccess(result.user))
+            .then(res => {
+             return dispatch(authUserDataSuccess(res.user))
             })
-            .catch(() => { dispatch(authChecked()); })
+            .catch((e) => { 
+                dispatch(authChecked()); })
             .finally(() => {
                 dispatch(authChecked());
             });
@@ -54,12 +60,17 @@ export const checkUserAuth = () => (dispatch) => {
     }
 };
 
+export const fetchUpdateUser = (email, password, name) => (dispatch) => {
+    api.editUser(email, password, name)
+    .then(res => {
+        if(res.success) return dispatch(updateUser(res.user))
+    })
+}
+
 export const fetchLogoutUserData = () => {
     return (dispatch) => {
-        console.log('worked fetch')
         api.logoutUser()
             .then(result => {
-                console.log(result)
                 if (result.success) {
                     deleteCookie('accessToken')
                     deleteCookie('refreshToken')

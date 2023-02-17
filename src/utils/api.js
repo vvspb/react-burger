@@ -1,5 +1,5 @@
 import config from './config'
-import { getCookie } from './cookie';
+import { getCookie, setCookie } from './cookie';
 
 const checkResponse = (res) => {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
@@ -15,7 +15,7 @@ class Api {
     }
 
     addOrder(ingredientsID) {
-        return fetch(`${this._url}/orders`, {
+        return fetchWithRefresh(`${this._url}/orders`, {
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
@@ -28,7 +28,6 @@ class Api {
             redirect: 'follow',
             referrerPolicy: 'no-referrer'
         })
-            .then(checkResponse)
     }
 
     passwordResetSendEmail(email) {
@@ -85,21 +84,41 @@ class Api {
             referrerPolicy: 'no-referrer',
         }).then(checkResponse)
     }
-
     getUser() {
-        return fetch(`${this._url}/auth/user`, {
+        return fetchWithRefresh(`${this._url}/auth/user`, {
             method: 'GET',
             mode: 'cors',
             cache: 'no-cache',
             credentials: 'same-origin',
-            headers: { 
+            headers: {
                 'Content-Type': 'application/json',
                 Authorization: 'Bearer ' + getCookie('accessToken')
-             },
+            },
             redirect: 'follow',
             referrerPolicy: 'no-referrer',
         }
-        ).then(checkResponse)
+        )
+    }
+
+    editUser(email, password, name) {
+        return fetchWithRefresh(`${this._url}/auth/user`, {
+            method: 'PATCH',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + getCookie('accessToken')
+            },
+            body: JSON.stringify({
+                "email": email,
+                "password": password,
+                "name": name
+            }),
+            redirect: 'follow',
+            referrerPolicy: 'no-referrer',
+        }
+        )
     }
 
     logoutUser() {
@@ -119,5 +138,46 @@ class Api {
         }).then(checkResponse)
     }
 
+    refreshToken = () => {
+        return fetch(`${this._url}/auth/token`, {
+            method: "POST",
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "token": getCookie('refreshToken'),
+            }),
+            redirect: 'follow',
+            referrerPolicy: 'no-referrer'
+        })
+    };
+
 }
 export default new Api(config)
+
+let api = new Api(config)
+
+const fetchWithRefresh = (url, options) => {
+    return fetch(url, options)
+        .then(checkResponse)
+        .catch(err => {
+            if (err.message === 'jwt expired') {
+                api.refreshToken()
+                    .then(res => res.json())
+                    .then(res => {
+                        console.log('res', res)
+                        if (!res.success) {
+                            return Promise.reject(res)
+                        }
+                        setCookie("refreshToken", res.refreshToken);
+                        setCookie("accessToken", res.accessToken);
+                        options.headers.Authorization = res.accessToken
+                        console.log('----', options.headers.Authorization)
+                        return fetch(url, options).then(checkResponse)
+                    })
+            } else Promise.reject(err);
+        })
+}

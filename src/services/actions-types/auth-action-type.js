@@ -10,3 +10,6 @@ export const DELETE_USERDATA_FAILURE = 'DELETE_USERDATA_FAILURE';
 
 // Check authenticate
 export const AUTH_CHECKED = 'AUTH_CHECKED'
+
+// update data user
+export const UPDATE_USERDATA = 'UPDATE_USERDATA'
