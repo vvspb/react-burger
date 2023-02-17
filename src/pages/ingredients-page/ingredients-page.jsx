@@ -3,6 +3,7 @@ import InredientsDetails from '../../components/ingredients-details/Ingredients-
 import styles from './ingredients-page.module.css'
 
 const IngredientsPage = () => {
+
   return (
     <div className={styles.wrapper}>
         <InredientsDetails/>

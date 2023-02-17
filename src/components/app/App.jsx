@@ -16,6 +16,7 @@ import { useDispatch } from 'react-redux';
 import { checkUserAuth } from '../../services/actions/auth-action';
 import ModalDetailesIngredientPage from '../../pages/modal-detailes-ingredient-page/modal-detailes-ingredient-page';
 import IngredientsPage from '../../pages/ingredients-page/ingredients-page';
+import { fechIngredients } from '../../services/actions/burger-ingredients-list-action';
 
 function App() {
 
@@ -26,8 +27,10 @@ function App() {
 
   useEffect(() => {
     dispatch(checkUserAuth());
+    dispatch(fechIngredients())
   }, [dispatch])
 
+ 
   return (
     <div className={styles.app}>
        <AppHeader />

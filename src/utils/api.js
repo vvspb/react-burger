@@ -164,18 +164,16 @@ const fetchWithRefresh = (url, options) => {
     return fetch(url, options)
         .then(checkResponse)
         .catch(err => {
-            if (err.message === 'jwt expired') {
+            if (err.message === 'jwt expired' || err.message === 'jwt malformed' ) {
                 api.refreshToken()
                     .then(res => res.json())
                     .then(res => {
-                        console.log('res', res)
                         if (!res.success) {
                             return Promise.reject(res)
                         }
                         setCookie("refreshToken", res.refreshToken);
-                        setCookie("accessToken", res.accessToken);
+                        setCookie("accessToken", res.accessToken.split('Bearer ')[1]);
                         options.headers.Authorization = res.accessToken
-                        console.log('----', options.headers.Authorization)
                         return fetch(url, options).then(checkResponse)
                     })
             } else Promise.reject(err);

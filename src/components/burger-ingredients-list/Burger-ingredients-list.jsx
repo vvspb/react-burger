@@ -1,24 +1,18 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import CardBurgerIngredient from '../card-burger-ingredient/Card-burger-ingredient'
 
 import styles from './Burger-ingredients-list.module.css'
 
-import { useSelector, useDispatch } from 'react-redux'
-import { fechIngredients } from '../../services/actions/burger-ingredients-list-action';
+import { useSelector } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
 
 
 
 const BurgerIngredientsList = React.forwardRef(({ category, title, onClick }, ref) => {
 
-    const dispatch = useDispatch()
     const location = useLocation()
     const { ingredients } = useSelector(state => state.ingredients)
-
-    useEffect(() => {
-        dispatch(fechIngredients())
-    }, [dispatch])
 
     return (
         <article ref={ref} >

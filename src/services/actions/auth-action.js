@@ -40,7 +40,11 @@ export const fetchAuthUserData = (email, password, name = 0) => {
                     return dispatch(authUserDataSuccess(result.user))
                 }
             })
-            .catch(() => dispatch(authUserDataFailure()))
+            .catch((err) => {
+                alert(err.message)
+                return dispatch(authUserDataFailure())
+            }
+            )
     }
 }
 
@@ -48,9 +52,8 @@ export const checkUserAuth = () => (dispatch) => {
     if (getCookie("accessToken")) {
         api.getUser()
             .then(res => {
-             return dispatch(authUserDataSuccess(res.user))
-            })
-            .catch((e) => { 
+                return dispatch(authUserDataSuccess(res.user))} )
+            .catch(() => { 
                 dispatch(authChecked()); })
             .finally(() => {
                 dispatch(authChecked());
