@@ -1,16 +1,43 @@
-import { useSelector } from 'react-redux';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { makeHasErrorDefault } from '../../services/actions/auth-action';
+import styles from '../../pages/login-page/login-page.module.css'
 
-export const ProtectedRoute = ({ element, onlyUnAuth= false }) => {
-
+export const ProtectedRoute = ({ element, onlyUnAuth = false }) => {
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
     const { authenticated } = useSelector(state => state.authUserData);
     const userName = useSelector(state => state.authUserData.userData.name);
+    const hasError = useSelector(state => state.authUserData.hasError)
     const location = useLocation();
 
-    if(!authenticated) return null;
+    const handleClickYet = () => {
+        dispatch(makeHasErrorDefault())
+        navigate('/login')
+    }
+
+    if (!authenticated) {
+        //return null;
+        return ( <main className={styles.mainLoginPage}>
+            {hasError ? (
+                <>
+                    <p className='text text_type_main-medium mb-6'>Пользователь не найден. Проверьте данные перед вводом</p>
+                    <Button
+                        htmlType="button"
+                        type="primary"
+                        size="large"
+                        onClick={handleClickYet}
+                    >
+                        Попробовать еще раз
+                    </Button>
+                </>)
+                : (null)}
+        </main>)
+    }
 
     if (onlyUnAuth && userName) {
-       return <Navigate to={'/'} replace  />
+        return <Navigate to={location.state?.from.pathname || '/'} replace />
     }
 
     if (!onlyUnAuth && !userName) {
@@ -18,5 +45,5 @@ export const ProtectedRoute = ({ element, onlyUnAuth= false }) => {
     }
 
 
-    return  element
+    return element
 } 
