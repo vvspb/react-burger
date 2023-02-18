@@ -9,10 +9,12 @@ import { addBurgerConstructor } from '../../services/actions/burger-constructor-
 import { fechOrderData } from '../../services/actions/order-details-action';
 import { useDrop } from "react-dnd";
 import BurgerConstructorElement from '../burger-constructor-element/Burger-constructor-element';
+import { useNavigate } from 'react-router-dom';
 
 
 const BurgerConstructor = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [modalOpenClose, setModalOpenClose] = useState(false)
 
     const { ingredients, isLoading } = useSelector(state => state.ingredients)
@@ -47,7 +49,12 @@ const BurgerConstructor = () => {
     }
 
     const handleClickOrder = () => {
+        if (userName) {
         dispatch(fechOrderData(ingredientsID(choiceIngredients, choiceBun)))
+        openModal()
+    } else {
+        navigate('/login')
+    }
     }
 
     return (
@@ -110,11 +117,8 @@ const BurgerConstructor = () => {
                         size="large"
                         extraClass='ml-10 mr-7'
                         children='Оформить заказ'
-                        onClick={() => {
-                            openModal()
-                            handleClickOrder()
-                        }}
-                        disabled={!(userName && Object.keys(choiceBun).length)}
+                        onClick={handleClickOrder}
+                        disabled={!Object.keys(choiceBun).length}
                     />
                 </div>
             </>}
