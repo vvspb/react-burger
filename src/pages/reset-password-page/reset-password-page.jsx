@@ -15,7 +15,7 @@ const ResetPasswordPage = () => {
     const handleClick = (e) => {
         e.preventDefault()
         api.passwordReset(value.password, value.token)
-        .then(data => data.success && navigate('/login'))   
+        .then(res => res.success && navigate('/login'))
     }
 
     return (
@@ -42,7 +42,7 @@ const ResetPasswordPage = () => {
                 />
                 <div className={styles.wrapperButton}>
                     <Button
-                        htmlType="submit"
+                        htmlType="button"
                         type="primary"
                         size="large"
                         onClick={handleClick}

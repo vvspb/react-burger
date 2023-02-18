@@ -76,9 +76,9 @@ function App() {
         <Route
           path='/reset-password'
           element={
-            <ProtectedRoute element={<ResetPasswordPage />} />
+            <ProtectedRoute element={<ResetPasswordPage />} onlyUnAuth={true}/>
           } />
-             <Route path='ingredients/:id' element={< IngredientsPage />}></Route>
+             <Route path='ingredients/:id' element={< IngredientsPage />} />
       </Routes>
 
       {background && (

@@ -17,7 +17,7 @@ const ForgotPasswordPage = () => {
     const handleClick = (e) => {
         e.preventDefault()
         api.passwordResetSendEmail(valueEmail)
-        .then(data => data.success && navigate('/reset-password'))   
+        .then(data => data.message === 'Reset email sent' && navigate('/reset-password'))   
     }
 
     return (
@@ -34,7 +34,7 @@ const ForgotPasswordPage = () => {
                 />
                 <div className={styles.wrapperButton}>
                     <Button
-                        htmlType="submit"
+                        htmlType="button"
                         type="primary"
                         size="large"
                         onClick={handleClick}
