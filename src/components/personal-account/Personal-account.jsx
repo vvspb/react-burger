@@ -32,7 +32,7 @@ const PersonalAccount = () => {
         setValue({ password: '', ...userData })
     }
 
-    const handleSafeClick = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(fetchUpdateUser(value.email, value.password, value.name))
         setValue({...value})
@@ -79,7 +79,7 @@ const PersonalAccount = () => {
                         изменить свои персональные данные
                     </p>
                 </nav>
-                <form className={styles.inputFrofile}>
+                <form className={styles.inputFrofile}  onSubmit={e => handleSubmit(e)}>
                     <Input
                         type={'text'}
                         placeholder={'Имя'}
@@ -109,7 +109,7 @@ const PersonalAccount = () => {
                     />
                     <div className={styles.wrapperButton}>
                         <Button
-                            htmlType="submit"
+                            htmlType="button"
                             type="secondary"
                             size="medium"
                             onClick={e => handleCancelClick(e)}
@@ -120,7 +120,6 @@ const PersonalAccount = () => {
                             htmlType="submit"
                             type="primary"
                             size="medium"
-                            onClick={e => handleSafeClick(e)}
                             disabled={disableButton}>
                             Сохранить
                         </Button>

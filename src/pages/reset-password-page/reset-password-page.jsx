@@ -1,27 +1,31 @@
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import api from '../../utils/api';
 import styles from './reset-password-page.module.css'
 
 const ResetPasswordPage = () => {
     const navigate = useNavigate()
     const [value, setValue] = React.useState({password:'', token:''})
+    const location = useLocation()
 
     const onChange = e => {
         setValue({...value, [e.target.name]:e.target.value})
     }
 
-    const handleClick = (e) => {
+    const onSubmit = (e) => {
         e.preventDefault()
         api.passwordReset(value.password, value.token)
         .then(res => res.success && navigate('/login'))
     }
-
+   
     return (
-        <main className={styles.mainResetPassPage}>
+        <>
+        {location?.state?.from?.pathname === '/forgot-password'?
+        (
+            <main className={styles.mainResetPassPage}>
             <h2 className={`${styles.title} text text_type_main-medium mb-6`}>Восстановление пароля</h2>
-            <form>
+            <form onSubmit={e=>onSubmit(e)}>
                 <PasswordInput
                     onChange={onChange}
                     value={value.password}
@@ -42,10 +46,10 @@ const ResetPasswordPage = () => {
                 />
                 <div className={styles.wrapperButton}>
                     <Button
-                        htmlType="button"
+                        htmlType="submit"
                         type="primary"
                         size="large"
-                        onClick={handleClick}
+                
                     >
                         Сохранить
                     </Button>
@@ -56,6 +60,12 @@ const ResetPasswordPage = () => {
                 <Link to={'/login'} className={styles.linkLogin}>Войти</Link>
             </div>
         </main>
+        )
+        :
+        (<Navigate to={'/forgot-password'}/>)
+        }
+        
+        </>
     )
 }
 

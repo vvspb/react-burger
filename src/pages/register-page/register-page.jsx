@@ -15,7 +15,7 @@ const RegisterPage = () => {
         setUserData({ ...userData, [e.target.name]: e.target.value })
     }
     
-    const handleClick = useCallback((e) => {
+    const handleSubmit = useCallback((e) => {
         e.preventDefault()
         if(userData.name && userData.email && userData.password) {
             dispatch(fetchAuthUserData(userData.email, userData.password, userData.name))
@@ -26,7 +26,7 @@ const RegisterPage = () => {
     return (
         <main className={styles.mainLoginPage}>
             <h2 className={`${styles.title} text text_type_main-medium mb-6`}>Зарегестрироваться</h2>
-            <form name='signUpUser'>
+            <form onSubmit={e=> handleSubmit(e)}>
                 <Input
                     type={'text'}
                     placeholder={'Имя'}
@@ -56,7 +56,6 @@ const RegisterPage = () => {
                         htmlType="submit"
                         type="primary"
                         size="large"
-                        onClick={handleClick}
                     >
                         Зарегестрироваться
                     </Button>
