@@ -1,21 +1,19 @@
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { useForm } from '../../hooks/useForm';
 import api from '../../utils/api';
 import styles from './reset-password-page.module.css'
 
 const ResetPasswordPage = () => {
     const navigate = useNavigate()
-    const [value, setValue] = React.useState({password:'', token:''})
     const location = useLocation()
 
-    const onChange = e => {
-        setValue({...value, [e.target.name]:e.target.value})
-    }
+    const {values, handleChange} = useForm({password:'', token:''});
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        api.passwordReset(value.password, value.token)
+        api.passwordReset(values.password, values.token)
         .then(res => res.success && navigate('/login'))
     }
    
@@ -27,8 +25,8 @@ const ResetPasswordPage = () => {
             <h2 className={`${styles.title} text text_type_main-medium mb-6`}>Восстановление пароля</h2>
             <form onSubmit={handleSubmit}>
                 <PasswordInput
-                    onChange={onChange}
-                    value={value.password}
+                    onChange={handleChange}
+                    value={values.password}
                     placeholder={'Введите новый пароль'}
                     name={'password'}
                     extraClass="mb-6"
@@ -36,8 +34,8 @@ const ResetPasswordPage = () => {
                 <Input
                     type={'text'}
                     placeholder={'Введите код из письма'}
-                    onChange={onChange}
-                    value={value.token}
+                    onChange={handleChange}
+                    value={values.token}
                     name={'token'}
                     error={false}
                     errorText={'Ошибка'}

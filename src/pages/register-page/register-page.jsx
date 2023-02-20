@@ -1,7 +1,8 @@
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { useForm } from '../../hooks/useForm';
 import { fetchAuthUserData } from '../../services/actions/auth-action';
 import styles from './register-page.module.css'
 
@@ -9,19 +10,16 @@ import styles from './register-page.module.css'
 const RegisterPage = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const [userData, setUserData] = useState({email:'', password:'', name:''})
 
-    const onChange = e => {
-        setUserData({ ...userData, [e.target.name]: e.target.value })
-    }
+    const {values, handleChange} = useForm({email:'', password:'', name:''});
     
     const handleSubmit = useCallback((e) => {
         e.preventDefault()
-        if(userData.name && userData.email && userData.password) {
-            dispatch(fetchAuthUserData(userData.email, userData.password, userData.name))
+        if(values.name && values.email && values.password) {
+            dispatch(fetchAuthUserData(values.email, values.password, values.name))
             navigate('/', {replace: true})
         } 
-    }, [dispatch, navigate, userData])
+    }, [dispatch, navigate, values])
 
     return (
         <main className={styles.mainLoginPage}>
@@ -30,8 +28,8 @@ const RegisterPage = () => {
                 <Input
                     type={'text'}
                     placeholder={'Имя'}
-                    onChange={onChange}
-                    value={userData.name}
+                    onChange={handleChange}
+                    value={values.name}
                     name={'name'}
                     error={false}
                     errorText={'Ошибка'}
@@ -39,15 +37,15 @@ const RegisterPage = () => {
                     extraClass="mb-6"
                 />
                 <EmailInput
-                    onChange={onChange}
-                    value={userData.email}
+                    onChange={handleChange}
+                    value={values.email}
                     name={'email'}
                     isIcon={false}
                     extraClass="mb-6"
                 />
                 <PasswordInput
-                    onChange={onChange}
-                    value={userData.password}
+                    onChange={handleChange}
+                    value={values.password}
                     name={'password'}
                     extraClass="mb-6"
                 />

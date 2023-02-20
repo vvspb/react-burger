@@ -2,6 +2,7 @@ import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-de
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { useForm } from '../../hooks/useForm';
 import { fetchLogoutUserData, fetchUpdateUser} from '../../services/actions/auth-action';
 
 import styles from './Personal-account.module.css';
@@ -9,13 +10,9 @@ import styles from './Personal-account.module.css';
 const PersonalAccount = () => {
     const dispatch = useDispatch()
     const { userData } = useSelector(state => state.authUserData)
-    const [value, setValue] = useState({ password: '', ...userData })
+    const {values, handleChange, setValues} = useForm({password:'', ...userData});
 
     const [isDisabled, setIsDisabled] = useState(true)
-
-    const onChange = e => {
-        setValue({ ...value, [e.target.name]: e.target.value })
-    }
 
     const inputRef = React.useRef(null)
     const onIconClick = () => {
@@ -29,16 +26,16 @@ const PersonalAccount = () => {
 
     const handleCancelClick = (e) => {
         e.preventDefault();
-        setValue({ password: '', ...userData })
+        setValues({ password: '', ...userData })
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(fetchUpdateUser(value.email, value.password, value.name))
-        setValue({...value})
+        dispatch(fetchUpdateUser(values.email, values.password, values.name))
+        setValues({...values})
     }
 
-    let disableButton = userData.email === value.email && userData.name === value.name && !value.password
+    let disableButton = userData.email === values.email && userData.name === values.name && !values.password
 
     const textStyle = 'text text_type_main-medium';
 
@@ -83,10 +80,10 @@ const PersonalAccount = () => {
                     <Input
                         type={'text'}
                         placeholder={'Имя'}
-                        onChange={onChange}
+                        onChange={handleChange}
                         ref={inputRef}
                         icon={'EditIcon'}
-                        value={value.name}
+                        value={values.name}
                         name={'name'}
                         error={false}
                         onIconClick={onIconClick}
@@ -95,15 +92,15 @@ const PersonalAccount = () => {
                         disabled={isDisabled}
                     />
                     <EmailInput
-                        onChange={onChange}
-                        value={value.email}
+                        onChange={handleChange}
+                        value={values.email}
                         name={'email'}
                         placeholder="Логин"
                         isIcon={true}
                     />
                     <PasswordInput
-                        onChange={onChange}
-                        value={value.password}
+                        onChange={handleChange}
+                        value={values.password}
                         name={'password'}
                         icon="EditIcon"
                     />
@@ -112,7 +109,7 @@ const PersonalAccount = () => {
                             htmlType="button"
                             type="secondary"
                             size="medium"
-                            onClick={e => handleCancelClick(e)}
+                            onClick={handleCancelClick}
                             disabled={disableButton}>
                             Отменить
                         </Button>

@@ -1,7 +1,8 @@
 import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch} from 'react-redux';
 import { Link} from 'react-router-dom';
+import { useForm } from '../../hooks/useForm';
 import { fetchAuthUserData } from '../../services/actions/auth-action';
 import styles from './login-page.module.css'
 
@@ -9,34 +10,29 @@ const LoginPage = () => {
 
     const dispatch = useDispatch()
 
-
-    const [userData, setUserData] = useState({ email: '', password: '' })
-
-    const onChange = e => {
-        setUserData({ ...userData, [e.target.name]: e.target.value })
-    }
-
+    const {values, handleChange} = useForm({ email: '', password: '' });
+  
     const handleSubmit = useCallback((e) => {
         e.preventDefault()
-        if (userData.email && userData.password) {
-            dispatch(fetchAuthUserData(userData.email, userData.password))
+        if (values.email && values.password) {
+            dispatch(fetchAuthUserData(values.email, values.password))
         }
-    }, [dispatch, userData.email, userData.password])
+    }, [dispatch, values.email, values.password])
 
     return (
         <main className={styles.mainLoginPage}>
                     <h2 className={`${styles.title} text text_type_main-medium mb-6`}>Вход</h2>
                     <form onSubmit={handleSubmit}>
                         <EmailInput
-                            onChange={onChange}
-                            value={userData.email}
+                            onChange={handleChange}
+                            value={values.email}
                             name={'email'}
                             isIcon={false}
                             extraClass="mb-6"
                         />
                         <PasswordInput
-                            onChange={onChange}
-                            value={userData.password}
+                            onChange={handleChange}
+                            value={values.password}
                             name={'password'}
                             extraClass="mb-6"
                         />
