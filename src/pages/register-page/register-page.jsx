@@ -26,7 +26,7 @@ const RegisterPage = () => {
     return (
         <main className={styles.mainLoginPage}>
             <h2 className={`${styles.title} text text_type_main-medium mb-6`}>Зарегестрироваться</h2>
-            <form onSubmit={e=> handleSubmit(e)}>
+            <form onSubmit={handleSubmit}>
                 <Input
                     type={'text'}
                     placeholder={'Имя'}

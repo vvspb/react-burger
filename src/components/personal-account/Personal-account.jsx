@@ -79,7 +79,7 @@ const PersonalAccount = () => {
                         изменить свои персональные данные
                     </p>
                 </nav>
-                <form className={styles.inputFrofile}  onSubmit={e => handleSubmit(e)}>
+                <form className={styles.inputFrofile}  onSubmit={handleSubmit}>
                     <Input
                         type={'text'}
                         placeholder={'Имя'}

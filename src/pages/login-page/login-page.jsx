@@ -16,7 +16,7 @@ const LoginPage = () => {
         setUserData({ ...userData, [e.target.name]: e.target.value })
     }
 
-    const handleClick = useCallback((e) => {
+    const handleSubmit = useCallback((e) => {
         e.preventDefault()
         if (userData.email && userData.password) {
             dispatch(fetchAuthUserData(userData.email, userData.password))
@@ -26,7 +26,7 @@ const LoginPage = () => {
     return (
         <main className={styles.mainLoginPage}>
                     <h2 className={`${styles.title} text text_type_main-medium mb-6`}>Вход</h2>
-                    <form onClick={handleClick}>
+                    <form onSubmit={handleSubmit}>
                         <EmailInput
                             onChange={onChange}
                             value={userData.email}

@@ -13,7 +13,7 @@ const ResetPasswordPage = () => {
         setValue({...value, [e.target.name]:e.target.value})
     }
 
-    const onSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault()
         api.passwordReset(value.password, value.token)
         .then(res => res.success && navigate('/login'))
@@ -25,7 +25,7 @@ const ResetPasswordPage = () => {
         (
             <main className={styles.mainResetPassPage}>
             <h2 className={`${styles.title} text text_type_main-medium mb-6`}>Восстановление пароля</h2>
-            <form onSubmit={e=>onSubmit(e)}>
+            <form onSubmit={handleSubmit}>
                 <PasswordInput
                     onChange={onChange}
                     value={value.password}
