@@ -13,10 +13,12 @@
 
 .description {
     margin-right: 9px;
+    color: #F2F2F3;
 }
 
 .descriptionName {
     text-align: center;
     width: 100%;
     height: 56px;
+    color: #F2F2F3;
 }

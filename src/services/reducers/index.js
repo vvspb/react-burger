@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { authReducer } from './auth-reducer';
 import { burgerConstructorReducer } from './burger-constructor-reducer';
 import { ingredientsReducer } from './burger-ingredients-list-reducer';
 import { ingredientsDetailsReducer } from './ingredients-details-reducer';
@@ -8,7 +9,8 @@ const rootReducer = combineReducers({
     ingredients: ingredientsReducer,
     burgerConstructor: burgerConstructorReducer,
     ingredientCurrent: ingredientsDetailsReducer,
-    orderData: addNewOrderReducer
+    orderData: addNewOrderReducer,
+    authUserData: authReducer
   });
 
 export default rootReducer;

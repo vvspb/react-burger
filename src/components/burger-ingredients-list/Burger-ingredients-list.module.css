@@ -15,7 +15,15 @@ ul[class] {
     grid-column: 1/-1;
 }
 
+.link{
+    text-decoration: none;
+    position: relative;
+    display: grid;
+    justify-items: center;
+}
+
 .cardWrapper {
+    text-decoration: none;
     position: relative;
     display: grid;
     justify-items: center;

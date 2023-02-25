@@ -1,4 +1,4 @@
-import { ADD_INGREDIENT_CONSTRUCTOR, DELETE_INGREDIENT_CONSTRUCTOR, SORT_INGRIDIENTS_CONSTRUCTOR } from "../actions-types/burger-constructor-action-type";
+import { ADD_INGREDIENT_CONSTRUCTOR, DELETE_INGREDIENT_CONSTRUCTOR, SORT_INGRIDIENTS_CONSTRUCTOR, DELETE_ALL_INGREDIENTS_CONSTRUCTOR } from "../actions-types/burger-constructor-action-type";
 
 export const addBurgerConstructor = (ingredients, itemId) => ({
     type: ADD_INGREDIENT_CONSTRUCTOR,
@@ -22,3 +22,8 @@ export const sortIngredients = (dragIndex, hoverIndex) =>({
         hoverIndex
     }
 })
+
+export const deleteAllIngredientsBurgerConstructor = ()=>({
+    type: DELETE_ALL_INGREDIENTS_CONSTRUCTOR
+ })
+

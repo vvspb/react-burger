@@ -5,18 +5,23 @@ import { useState, useContext, useEffect } from 'react';
 import OrderDetails from '../order-details/Order-details';
 import { useSelector, useDispatch } from 'react-redux'
 import SumOrderContext from '../../contexts/sumOrderContext';
-import { addBurgerConstructor } from '../../services/actions/burger-constructor-action';
+import { addBurgerConstructor, deleteAllIngredientsBurgerConstructor } from '../../services/actions/burger-constructor-action';
 import { fechOrderData } from '../../services/actions/order-details-action';
 import { useDrop } from "react-dnd";
 import BurgerConstructorElement from '../burger-constructor-element/Burger-constructor-element';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 
 const BurgerConstructor = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const location = useLocation()
     const [modalOpenClose, setModalOpenClose] = useState(false)
 
     const { ingredients, isLoading } = useSelector(state => state.ingredients)
     const { choiceBun, choiceIngredients } = useSelector(state => state.burgerConstructor)
+    const userName = useSelector(state => state.authUserData.userData.name);
+    const addOrder = useSelector(state => state.orderData.orderNumber )
 
     const { sumOrder, setSumOrder } = useContext(SumOrderContext)
 
@@ -46,8 +51,16 @@ const BurgerConstructor = () => {
     }
 
     const handleClickOrder = () => {
+        if (userName) {
         dispatch(fechOrderData(ingredientsID(choiceIngredients, choiceBun)))
+        openModal()
+    } else {
+        navigate('/login', {state: {from:location}})
     }
+    }
+    useEffect(()=>{
+        addOrder && dispatch(deleteAllIngredientsBurgerConstructor())
+    },[addOrder, dispatch])
 
     return (
         <section className={`${styles.burgerConstructor} pt-25`} ref={dropTarget}>
@@ -109,10 +122,8 @@ const BurgerConstructor = () => {
                         size="large"
                         extraClass='ml-10 mr-7'
                         children='Оформить заказ'
-                        onClick={() => {
-                            openModal()
-                            handleClickOrder()
-                        }}
+                        onClick={handleClickOrder}
+                        disabled={!Object.keys(choiceBun).length}
                     />
                 </div>
             </>}

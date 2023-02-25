@@ -1,0 +1,50 @@
+.main {
+    max-width: 1240px;
+    margin: 0 auto;
+}
+
+.wrapperProfile {
+    margin-top: 120px;
+    margin-left: 0;
+    width: 860px;
+    height: 320px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 60px;
+
+}
+
+.linkProfile {
+    list-style: none;
+}
+
+.navLi {
+    width: 320px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.activeClasses {
+    color: #F2F2F3;
+    text-decoration: none;
+}
+
+.inactiveClasses {
+    color: #8585AD;
+    text-decoration: none;
+}
+
+.inputFrofile {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 24px;
+    height: 240px;
+    margin: 0;
+}
+
+.wrapperButton {
+    display: flex;
+    justify-content: end;
+}

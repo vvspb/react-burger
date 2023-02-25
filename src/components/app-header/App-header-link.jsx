@@ -1,21 +1,27 @@
 // import { BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
+import styles from './App-header-link.module.css'
 
 const AppHeaderLink = (props) => {
 
     return (
-        <>
-            {props.icon}
-            <p className="text text_type_main-default">
+        <Link
+            to={props.to}
+            className={styles.link}>
+           {props.icon}
+            <span className="text text_type_main-default">
                 {props.children}
-            </p>
-        </>
+            </span>
+        </Link>
     )
 }
 
 AppHeaderLink.propTypes = {
     icon: PropTypes.node.isRequired,
-    children: PropTypes.node.isRequired
+    children: PropTypes.node.isRequired,
+    to: PropTypes.string.isRequired
 }
 export default AppHeaderLink;
