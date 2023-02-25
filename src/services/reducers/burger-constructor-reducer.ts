@@ -1,20 +1,20 @@
 import { ADD_INGREDIENT_CONSTRUCTOR, DELETE_ALL_INGREDIENTS_CONSTRUCTOR, DELETE_INGREDIENT_CONSTRUCTOR, SORT_INGRIDIENTS_CONSTRUCTOR } from "../actions-types/burger-constructor-action-type";
 import {IIngredients} from '../../utils/types'
 
-interface IChoiceIngredients extends IIngredients{
+export interface IChoiceIngredients extends IIngredients{
     __id: string;
 }
 
-interface IBurgerConstructorReduce {
+export interface IBurgerConstructorReducer {
     choiceIngredients: Array<IChoiceIngredients>;
-    choiceBun: IIngredients | {}
+    choiceBun: IIngredients | any
 }
 
-const initialState: IBurgerConstructorReduce = {
+const initialState: IBurgerConstructorReducer = {
     choiceIngredients: [],
     choiceBun: {},
 }
-export const burgerConstructorReducer = (state = initialState, action: any): IBurgerConstructorReduce => {
+export const burgerConstructorReducer = (state = initialState, action: any): IBurgerConstructorReducer => {
     switch (action.type) {
         case ADD_INGREDIENT_CONSTRUCTOR:
             return {

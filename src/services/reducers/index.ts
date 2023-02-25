@@ -5,13 +5,6 @@ import { ingredientsReducer } from './burger-ingredients-list-reducer';
 import { ingredientsDetailsReducer } from './ingredients-details-reducer';
 import { addNewOrderReducer } from './order-details-reducer';
 
-// interface IRootReducer {
-//   ingredients: ;
-//   burgerConstructor: ;
-//   ingredientCurrent: ;
-//   orderData: ;
-//   authUserData: ;
-// }
 
 const rootReducer = combineReducers({
     ingredients: ingredientsReducer,

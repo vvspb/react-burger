@@ -1,7 +1,7 @@
 import { GET_INGREDIENTS, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_FAILURE } from "../actions-types/burger-ingredients-list-action-type";
 import {IIngredients} from '../../utils/types'
 
-interface IIngredientsReducer {
+export interface IIngredientsReducer {
     ingredients: Array<IIngredients>;
     isLoading: Boolean;
     hasError: Boolean;

@@ -6,6 +6,7 @@ import styles from './Burger-ingredients-list.module.css'
 
 import { useSelector } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
+import { IIngredientsReducer } from '../../services/reducers/burger-ingredients-list-reducer'
 
 interface IPropsBurgerIngredientsList {
     category: string;
@@ -25,7 +26,7 @@ const BurgerIngredientsList = React.forwardRef<HTMLElement, IPropsBurgerIngredie
 
     const location = useLocation()
     //типизировать на 5 спринте
-    const { ingredients } = useSelector((state: any )=> state.ingredients)
+    const { ingredients } = useSelector((state: {ingredients: IIngredientsReducer} )=> state.ingredients)
 
     return (
         <article ref={ref} >
