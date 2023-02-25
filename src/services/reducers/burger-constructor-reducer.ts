@@ -1,18 +1,28 @@
 import { ADD_INGREDIENT_CONSTRUCTOR, DELETE_ALL_INGREDIENTS_CONSTRUCTOR, DELETE_INGREDIENT_CONSTRUCTOR, SORT_INGRIDIENTS_CONSTRUCTOR } from "../actions-types/burger-constructor-action-type";
+import {IIngredients} from '../../utils/types'
 
-const initialState = {
+interface IChoiceIngredients extends IIngredients{
+    __id: string;
+}
+
+interface IBurgerConstructorReduce {
+    choiceIngredients: Array<IChoiceIngredients>;
+    choiceBun: IIngredients | {}
+}
+
+const initialState: IBurgerConstructorReduce = {
     choiceIngredients: [],
     choiceBun: {},
 }
-export const burgerConstructorReducer = (state = initialState, action) => {
+export const burgerConstructorReducer = (state = initialState, action: any): IBurgerConstructorReduce => {
     switch (action.type) {
         case ADD_INGREDIENT_CONSTRUCTOR:
             return {
                 ...state,
                 choiceIngredients: [
                     ...state.choiceIngredients,
-                    ...action.payload.ingredients?.filter(item => (item._id === action.payload.id) && (item.type !== 'bun'))
-                        .map(item => {
+                    ...action.payload.ingredients?.filter((item: IIngredients )=> (item._id === action.payload.id) && (item.type !== 'bun'))
+                        .map((item: IIngredients)=> {
                             return {
                                 ...item,
                                 __id: item._id + Math.random() * 10000
@@ -21,7 +31,7 @@ export const burgerConstructorReducer = (state = initialState, action) => {
                 ],
                 choiceBun: {
                     ...state.choiceBun,
-                    ...action.payload.ingredients?.find(item => (item._id === action.payload.id) && (item.type === 'bun'))
+                    ...action.payload.ingredients?.find((item: IIngredients) => (item._id === action.payload.id) && (item.type === 'bun'))
                 },
             }
         case DELETE_INGREDIENT_CONSTRUCTOR:

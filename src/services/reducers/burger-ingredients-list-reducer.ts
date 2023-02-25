@@ -1,12 +1,19 @@
 import { GET_INGREDIENTS, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_FAILURE } from "../actions-types/burger-ingredients-list-action-type";
+import {IIngredients} from '../../utils/types'
 
-export const initialState = {
+interface IIngredientsReducer {
+    ingredients: Array<IIngredients>;
+    isLoading: Boolean;
+    hasError: Boolean;
+}
+
+export const initialState: IIngredientsReducer = {
     ingredients: [],
     isLoading: false,
     hasError: false,
 }
 
-export const ingredientsReducer = (state = initialState, action) => {
+export const ingredientsReducer = (state = initialState, action: any): IIngredientsReducer => {
     switch (action.type) {
         case GET_INGREDIENTS:
             return {

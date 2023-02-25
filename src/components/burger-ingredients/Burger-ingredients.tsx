@@ -1,6 +1,3 @@
-// import React, { useState } from 'react';
-// import Modal from '../modal/Modal';
-// import IngredientsDetails from '../ingredients-details/Ingredients-details';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './Burger-ingredients.module.css';
 import BurgerIngredientsList from '../burger-ingredients-list/Burger-ingredients-list';
@@ -10,23 +7,21 @@ import { InView, useInView } from 'react-intersection-observer';
 
 const BurgerIngredients = () => {
 
-    // const [modalOpenCloseIngredient, setModalOpenClose] = useState(false)
-
     const dispatch = useDispatch()
 
-    const handleClickTab = (e) => {
-        if (entryBun.target && e.currentTarget.id === 'tabBun') {
+    const handleClickTab = (e: { currentTarget: { id: string; }; }) => {
+        if (entryBun?.target && e.currentTarget.id === 'tabBun') {
             entryBun.target.scrollIntoView({ block: "start", behavior: "smooth" });
         }
-        if (entySauce.target && e.currentTarget.id === 'tabSauce') {
+        if (entySauce?.target && e.currentTarget.id === 'tabSauce') {
             entySauce.target.scrollIntoView({ block: "start", behavior: "smooth" });
         }
-        if (entryMain.target && e.currentTarget.id === 'tabMain') {
+        if (entryMain?.target && e.currentTarget.id === 'tabMain') {
             entryMain.target.scrollIntoView({ block: "start", behavior: "smooth" });
         }
     }
 
-    const openModalWithIngredient = (item) => {
+    const openModalWithIngredient = (item: any) => {
         dispatch(addIngredientDetails({ ...item }))
     }
 
@@ -44,18 +39,24 @@ const BurgerIngredients = () => {
         <section aria-label='Ингредиенты для бургера' className={styles.menuBurgerIngredients} >
             <h1 className={'text text_type_main-large mt-10 mb-5'}>Соберите бургер</h1>
             <div className={styles.tabs}>
-                <div id='tabBun' onClick={(e) => handleClickTab(e)} >
-                    <Tab value="buns" active={inViewBun} >
+                <div id='tabBun' onClick={handleClickTab} >
+                    <Tab value="buns" active={inViewBun} onClick={function (value: string): void {
+                        throw new Error('Function not implemented.');
+                    } } >
                         <p className='text text_type_main-default'>Булки</p>
                     </Tab>
                 </div>
-                <div id='tabSauce' onClick={(e) => handleClickTab(e)}>
-                    <Tab value="sauces" active={inViewSauce} >
+                <div id='tabSauce' onClick={handleClickTab}>
+                    <Tab value="sauces" active={inViewSauce} onClick={function (value: string): void {
+                        throw new Error('Function not implemented.');
+                    } } >
                         <p className='text text_type_main-default'>Соусы</p>
                     </Tab>
                 </div>
-                <div id='tabMain' onClick={(e) => handleClickTab(e)}>
-                    <Tab value="main" active={inViewMain} >
+                <div id='tabMain' onClick={handleClickTab}>
+                    <Tab value="main" active={inViewMain} onClick={function (value: string): void {
+                        throw new Error('Function not implemented.');
+                    } } >
                         <p className='text text_type_main-default'>Начинки</p>
                     </Tab>
                 </div>
