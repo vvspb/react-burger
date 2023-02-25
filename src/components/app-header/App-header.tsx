@@ -15,7 +15,7 @@ const AppHeader = () => {
                         <li
                             className={styles.headeLink}>
                             <AppHeaderLink
-                                icon={<BurgerIcon  />}
+                                icon={<BurgerIcon type={'secondary'}  />}
                                 to={'/'}
                             >
                                 Конструктор
@@ -23,7 +23,7 @@ const AppHeader = () => {
                         </li>
                         <li className={styles.headeLink} >
                             <AppHeaderLink
-                                icon={<ListIcon />}
+                                icon={<ListIcon type={'secondary'} />}
                                 to={'/'}
                             >
                                 Лента заказов
@@ -36,7 +36,7 @@ const AppHeader = () => {
                 </div>
                 <div className={`${styles.link} ${styles.headeLinkProfile}`}>
                     <AppHeaderLink
-                        icon={<ProfileIcon  />}
+                        icon={<ProfileIcon type={'secondary'}  />}
                         to={'/profile'}
                     >
                         Личный кабинет

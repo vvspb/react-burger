@@ -164,7 +164,7 @@ const fetchWithRefresh = (url, options) => {
     return fetch(url, options)
         .then(checkResponse)
         .catch(err => {
-            if (err.message === 'jwt expired' || err.message === 'jwt malformed' ) {
+            if (err.message === 'jwt expired' /*|| err.message === 'jwt malformed' */) {
                 api.refreshToken()
                     .then(res => res.json())
                     .then(res => {
