@@ -1,16 +1,15 @@
 // import { BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { FC, ReactNode } from 'react';
+import React, { FC, PropsWithChildren, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
 import styles from './App-header-link.module.css'
 
-type TPropsAppHeaderLink = {
-    children: ReactNode;
-    icon: ReactNode,
-    to: string
+interface IPropsAppHeaderLink extends PropsWithChildren {
+    icon: ReactNode;
+    to: string;
 }
 
-const AppHeaderLink: FC<TPropsAppHeaderLink> = (props: TPropsAppHeaderLink) => {
+const AppHeaderLink: FC<IPropsAppHeaderLink> = (props: IPropsAppHeaderLink) => {
 
     return (
         <Link
