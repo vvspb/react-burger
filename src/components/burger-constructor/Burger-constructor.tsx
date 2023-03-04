@@ -13,6 +13,7 @@ import { IIngredientsReducer } from '../../services/reducers/burger-ingredients-
 import { IBurgerConstructorReducer, IChoiceIngredients } from '../../services/reducers/burger-constructor-reducer';
 import { IAuthReducer } from '../../services/reducers/auth-reducer';
 import { addNewOrderReducer } from '../../services/reducers/order-details-reducer';
+import { TIngredients } from '../../utils/types';
 
 
 const BurgerConstructor = () => {
@@ -20,14 +21,14 @@ const BurgerConstructor = () => {
     const dispatch: any = useDispatch()
     const navigate = useNavigate()
     const location = useLocation()
-    const [modalOpenClose, setModalOpenClose] = useState(false)
+    const [modalOpenClose, setModalOpenClose] = useState<boolean>(false)
 
-    const { ingredients, isLoading } = useSelector((state: {ingredients: IIngredientsReducer}) => state.ingredients)
-    const { choiceBun, choiceIngredients } = useSelector((state: {burgerConstructor: IBurgerConstructorReducer}) => state.burgerConstructor)
-    const userName = useSelector((state: {authUserData: IAuthReducer}) => state.authUserData.userData.name);
-    const addOrder = useSelector((state: {orderData: addNewOrderReducer}) => state.orderData.orderNumber )
+    const { ingredients, isLoading } = useSelector((state: { ingredients: IIngredientsReducer }) => state.ingredients)
+    const { choiceBun, choiceIngredients } = useSelector((state: { burgerConstructor: IBurgerConstructorReducer }) => state.burgerConstructor)
+    const userName = useSelector((state: { authUserData: IAuthReducer }) => state.authUserData.userData.name);
+    const addOrder = useSelector((state: { orderData: addNewOrderReducer }) => state.orderData.orderNumber)
 
-    const [sumOrder, setSumOrder] = useState(0)
+    const [sumOrder, setSumOrder] = useState<number>(0)
 
     const openModal = () => setModalOpenClose(true)
     const closeModal = () => setModalOpenClose(false)
@@ -44,33 +45,40 @@ const BurgerConstructor = () => {
 
     useEffect(
         () => {
-            setSumOrder(choiceIngredients.reduce((acc, item) => acc + item.price, 0) + choiceBun.price * 2)
+            if (choiceBun !== null) {
+                setSumOrder(choiceIngredients.reduce((acc, item) => acc + item.price, 0) + choiceBun.price * 2)
+            } else {
+                setSumOrder(0)
+            }
         }, [setSumOrder, choiceIngredients, choiceBun]
     )
 
-    const ingredientsID = (arrMainSauce: Array<IChoiceIngredients>, objectBun: { _id: string; }): Array<string> => {
-        const mainSauceID = arrMainSauce.map((item: { _id: any; }) => item._id)
-        const bunID = objectBun._id
-        return [...mainSauceID, bunID]
+    const ingredientsID = (arrMainSauce: Array<IChoiceIngredients>, objectBun: TIngredients | null): Array<string> => {
+        const mainSauceID = arrMainSauce.map((item: { _id: string }) => item._id)
+        if (objectBun !== null) {
+            const bunID = objectBun._id
+            return [...mainSauceID, bunID]
+        }
+        return [...mainSauceID]
     }
 
     const handleClickOrder = () => {
         if (userName) {
-        dispatch(fechOrderData(ingredientsID(choiceIngredients, choiceBun)))
-        openModal()
-    } else {
-        navigate('/login', {state: {from:location}})
+            dispatch(fechOrderData(ingredientsID(choiceIngredients, choiceBun)))
+            openModal()
+        } else {
+            navigate('/login', { state: { from: location } })
+        }
     }
-    }
-    useEffect(()=>{
+    useEffect(() => {
         addOrder && dispatch(deleteAllIngredientsBurgerConstructor())
-    },[addOrder, dispatch])
+    }, [addOrder, dispatch])
 
     return (
         <section className={`${styles.burgerConstructor} pt-25`} ref={dropTarget}>
             {!isLoading && <>
                 <div className={`${styles.cardBurgerConstructor} ml-8`}>
-                    {Object.keys(choiceBun).length ?
+                    {choiceBun !== null ?
                         <ConstructorElement
                             type="top"
                             isLocked={true}
@@ -103,7 +111,7 @@ const BurgerConstructor = () => {
                     }
                 </div>
                 <div className={`${styles.cardBurgerConstructor} ml-8`}>
-                    {Object.keys(choiceBun).length ?
+                    {choiceBun !== null ?
                         <ConstructorElement
                             type="bottom"
                             isLocked={true}
@@ -127,7 +135,7 @@ const BurgerConstructor = () => {
                         extraClass='ml-10 mr-7'
                         children='Оформить заказ'
                         onClick={handleClickOrder}
-                        disabled={!Object.keys(choiceBun).length}
+                        disabled={!choiceBun}
                     />
                 </div>
             </>}

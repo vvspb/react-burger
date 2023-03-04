@@ -18,12 +18,13 @@ import ModalDetailesIngredientPage from '../../pages/modal-detailes-ingredient-p
 import IngredientsPage from '../../pages/ingredients-page/ingredients-page';
 import { fechIngredients } from '../../services/actions/burger-ingredients-list-action';
 
-function App() {
 
-  const dispatch = useDispatch()
+function App() {
+// типизировать dispatch на 5 спринте
+  const dispatch: any = useDispatch()
   const location = useLocation()
 
-  const background = location.state && location.state.background
+  const background: Location = location.state && location.state.background
 
   useEffect(() => {
     dispatch(checkUserAuth());

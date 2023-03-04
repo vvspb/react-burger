@@ -1,43 +1,44 @@
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
-import React, { useState } from 'react';
+import React, { SyntheticEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
 import { fetchLogoutUserData, fetchUpdateUser} from '../../services/actions/auth-action';
+import { IAuthReducer } from '../../services/reducers/auth-reducer';
 
 import styles from './Personal-account.module.css';
 
 const PersonalAccount = () => {
     const dispatch = useDispatch()
-    const { userData } = useSelector(state => state.authUserData)
+    const { userData } = useSelector((state: {authUserData: IAuthReducer}) => state.authUserData)
     const {values, handleChange, setValues} = useForm({password:'', ...userData});
 
     const [isDisabled, setIsDisabled] = useState(true)
 
-    const inputRef = React.useRef(null)
+    const inputRef = React.useRef<HTMLInputElement>(null)
     const onIconClick = () => {
-        setTimeout(() => inputRef.current.focus(), 0)
+        setTimeout(() => inputRef.current?.focus(), 0)
         setIsDisabled((prevState) => !prevState)
     }
-
+ // типизация на 5 спринте
     const handleClick = () => {
-        dispatch(fetchLogoutUserData())
+        dispatch<any>(fetchLogoutUserData())
     }
 
-    const handleCancelClick = (e) => {
+    const handleCancelClick = (e: SyntheticEvent) => {
         e.preventDefault();
         setValues({ password: '', ...userData })
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: SyntheticEvent) => {
         e.preventDefault();
-        dispatch(fetchUpdateUser(values.email, values.password, values.name))
+        dispatch<any>(fetchUpdateUser(values.email, values.password, values.name))
         setValues({...values})
     }
 
-    let disableButton = userData.email === values.email && userData.name === values.name && !values.password
+    let disableButton: boolean = userData.email === values.email && userData.name === values.name && !values.password
 
-    const textStyle = 'text text_type_main-medium';
+    const textStyle: string = 'text text_type_main-medium';
 
     return (
         <main className={styles.main}>

@@ -1,5 +1,5 @@
 import { Button, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
 import api from '../../utils/api';
@@ -7,14 +7,18 @@ import styles from './forgot-password-page.module.css'
 
 const ForgotPasswordPage = () => {
 
-    const {values, handleChange} = useForm({ email: ''});
+    const {values, handleChange} = useForm({
+        email: '',
+        name: '',
+        password: ''
+    });
     const navigate = useNavigate()
     const location = useLocation()
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: SyntheticEvent) => {
         e.preventDefault()
         api.passwordResetSendEmail(values.email)
-        .then(data => data.message === 'Reset email sent' && navigate('/reset-password', {state: {from:location}}))   
+        .then((data) => data.message === 'Reset email sent' && navigate('/reset-password', {state: {from:location}}))   
     }
 
     return (
@@ -23,7 +27,7 @@ const ForgotPasswordPage = () => {
             <form onSubmit={handleSubmit}>
                 <EmailInput
                     onChange={handleChange}
-                    value={values}
+                    value={values.email}
                     name={'email'}
                     placeholder={'Укажите e-mail'}
                     isIcon={false}

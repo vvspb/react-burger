@@ -4,7 +4,7 @@ import styles from './Card-burger-ingredient.module.css';
 import { useDrag } from "react-dnd";
 import { useSelector } from 'react-redux';
 import { FC } from 'react';
-import { IIngredients } from '../../utils/types';
+import { TIngredients } from '../../utils/types';
 import { IBurgerConstructorReducer } from '../../services/reducers/burger-constructor-reducer';
 
 interface IPropsCardBurgerIngredient {
@@ -16,7 +16,6 @@ interface IPropsCardBurgerIngredient {
 
 const CardBurgerIngredient: FC<IPropsCardBurgerIngredient> = ({ id, image, name, price }: IPropsCardBurgerIngredient): JSX.Element => {
 
-    // типизировать state на 5 спринте
     const { choiceIngredients, choiceBun } = useSelector((state: { burgerConstructor: IBurgerConstructorReducer }) => state.burgerConstructor);
 
     const [{ isDrag }, dragRef] = useDrag({
@@ -28,7 +27,7 @@ const CardBurgerIngredient: FC<IPropsCardBurgerIngredient> = ({ id, image, name,
         })
     });
 
-    const counter = (dragItemId: string, itemChoiceIngredients: Array<IIngredients>, itemChoiceBun: IIngredients): number => {
+    const counter = (dragItemId: string, itemChoiceIngredients: Array<TIngredients>, itemChoiceBun: TIngredients | null): number => {
         const allIngredients = [...itemChoiceIngredients, itemChoiceBun ]
         let count: number = 0
         if (itemChoiceBun?._id === dragItemId) {

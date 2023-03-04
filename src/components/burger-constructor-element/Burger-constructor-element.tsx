@@ -1,4 +1,4 @@
-import  { useRef } from "react";
+import  { FC, useRef } from "react";
 
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { deleteBurgerConstructor, sortIngredients } from '../../services/actions/burger-constructor-action';
@@ -6,12 +6,18 @@ import { useDispatch } from "react-redux";
 
 import styles from './Burger-constructor-element.module.css';
 import { useDrag, useDrop } from "react-dnd";
+import { IChoiceIngredients } from "../../services/reducers/burger-constructor-reducer";
 
-const BurgerConstructorElement = ({ id, index, choiceIngredient }) => {
+interface IBurgerConstructorElementProps {
+    id: string;
+    index: number;
+    choiceIngredient: IChoiceIngredients;
+}
+const BurgerConstructorElement: FC<IBurgerConstructorElementProps> = ({ id, index, choiceIngredient }: IBurgerConstructorElementProps): JSX.Element => {
+    // затипизировать на 5 спринте
+    const dispatch: any = useDispatch()
 
-    const dispatch = useDispatch()
-
-    const ref = useRef(null)
+    const ref = useRef<HTMLDivElement>(null)
 
     const [{ isDragging }, drag] = useDrag({
         type: "SORT_INGREDIENT",
@@ -30,7 +36,7 @@ const BurgerConstructorElement = ({ id, index, choiceIngredient }) => {
                 handlerId: monitor.getHandlerId(),
             }
         },
-        hover(item, monitor) {
+        hover(item: any, monitor) {
             if (!ref.current) {
                 return
             }
@@ -46,7 +52,7 @@ const BurgerConstructorElement = ({ id, index, choiceIngredient }) => {
 
             const clientOffset = monitor.getClientOffset()
 
-            const hoverClientY = clientOffset.y - hoverBoundingRect.top
+            const hoverClientY = clientOffset!.y - hoverBoundingRect.top
             if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
                 return
             }
@@ -58,7 +64,7 @@ const BurgerConstructorElement = ({ id, index, choiceIngredient }) => {
         },
     });
 
-    const handleClose = (itemId) => {
+    const handleClose = (itemId: string) => {
         dispatch(deleteBurgerConstructor(itemId))
     }
 

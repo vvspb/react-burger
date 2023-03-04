@@ -3,13 +3,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { makeHasErrorDefault } from '../../services/actions/auth-action';
 import styles from '../../pages/login-page/login-page.module.css'
+import { FC } from 'react';
+import { IAuthReducer } from '../../services/reducers/auth-reducer';
 
-export const ProtectedRoute = ({ element, onlyUnAuth = false }) => {
+interface IProtectedRouteProps {
+    element: JSX.Element;
+    onlyUnAuth?: boolean;
+}
+
+export const ProtectedRoute: FC<IProtectedRouteProps> = ({ element, onlyUnAuth = false }: IProtectedRouteProps): JSX.Element => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const { authenticated } = useSelector(state => state.authUserData);
-    const userName = useSelector(state => state.authUserData.userData.name);
-    const hasError = useSelector(state => state.authUserData.hasError)
+    const { authenticated } = useSelector((state: {authUserData: IAuthReducer}) => state.authUserData);
+    const userName = useSelector((state: {authUserData: IAuthReducer}) => state.authUserData.userData.name);
+    const hasError = useSelector((state: {authUserData: IAuthReducer}) => state.authUserData.hasError)
     const location = useLocation();
 
     const handleClickYet = () => {
@@ -18,7 +25,6 @@ export const ProtectedRoute = ({ element, onlyUnAuth = false }) => {
     }
 
     if (!authenticated) {
-        //return null;
         return ( <main className={styles.mainLoginPage}>
             {hasError ? (
                 <>

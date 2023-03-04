@@ -1,5 +1,5 @@
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
 import api from '../../utils/api';
@@ -9,11 +9,16 @@ const ResetPasswordPage = () => {
     const navigate = useNavigate()
     const location = useLocation()
 
-    const {values, handleChange} = useForm({password:'', token:''});
+    const {values, handleChange} = useForm({
+        password: '', 
+        token: '',
+        email: '',
+        name: ''
+    });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: SyntheticEvent) => {
         e.preventDefault()
-        api.passwordReset(values.password, values.token)
+       api.passwordReset(values.password, values.token!)
         .then(res => res.success && navigate('/login'))
     }
    
@@ -35,7 +40,7 @@ const ResetPasswordPage = () => {
                     type={'text'}
                     placeholder={'Введите код из письма'}
                     onChange={handleChange}
-                    value={values.token}
+                    value={values.token!}
                     name={'token'}
                     error={false}
                     errorText={'Ошибка'}

@@ -33,7 +33,7 @@ export const makeHasErrorDefault = ()=>({
     type: HASERROR_DEFAULT
 })
 
-export const fetchAuthUserData = (email, password, name = 0) => {
+export const fetchAuthUserData = (email, password, name = '') => {
     return (dispatch) => {
         dispatch(authUserData())
         api.authUser(email, password, name)
