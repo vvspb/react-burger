@@ -16,7 +16,7 @@ const InredientsDetails = () => {
     const ingredients = useSelector((state: {ingredients: IIngredientsReducer}) => state.ingredients.ingredients)
 
     useEffect(() => {
-        if(ingredients.length) dispatch(addIngredientDetails(ingredients.find(item => item._id === id)))
+        if(ingredients.length) dispatch(addIngredientDetails(ingredients.find(item => item._id === id)!))
     }, [dispatch, id, ingredients])
 
     
