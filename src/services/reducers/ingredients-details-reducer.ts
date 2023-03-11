@@ -1,5 +1,6 @@
 import { INGREDIENT_CURRENT } from "../actions-types/ingredients-details-action-type";
-import { TIngredients } from '../../utils/types'
+import type { TIngredients } from '../../utils/types';
+import {IAddIngredientDetails} from '../actions/ingredients-details-action'
 
 export interface IIngredientsDetailsReducer {
     ingredientCurrent: TIngredients;
@@ -21,7 +22,7 @@ const initialState: IIngredientsDetailsReducer = {
     }
 }
 
-export const ingredientsDetailsReducer = (state = initialState, action: { type: string; payload: { ingredient: IIngredientsDetailsReducer; } }) => {
+export const ingredientsDetailsReducer = (state = initialState, action: IAddIngredientDetails) => {
     switch (action.type) {
         case INGREDIENT_CURRENT:
             return {

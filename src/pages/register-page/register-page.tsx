@@ -1,6 +1,6 @@
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import React, { SyntheticEvent, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../hooks/hooks';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
 import { fetchAuthUserData } from '../../services/actions/auth-action';
@@ -8,8 +8,8 @@ import styles from './register-page.module.css'
 
 
 const RegisterPage = () => {
-    // типизированть на 5 спринте
-    const dispatch: any = useDispatch()
+
+    const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const {values, handleChange} = useForm({email:'', password:'', name:''});

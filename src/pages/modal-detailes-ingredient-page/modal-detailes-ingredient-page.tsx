@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch } from '../../hooks/hooks';
 import { useNavigate } from 'react-router-dom'
 import Modal from '../../components/modal/Modal'
 import IngredientsDetails from '../../components/ingredients-details/Ingredients-details'

@@ -3,7 +3,8 @@ import { ADD_INGREDIENT_CONSTRUCTOR, DELETE_INGREDIENT_CONSTRUCTOR, SORT_INGRIDI
 
 export interface IAddBurgerConstructor {
     readonly type: typeof ADD_INGREDIENT_CONSTRUCTOR,
-    readonly payload: {
+    payload: {
+        id: string;
         ingredients: TIngredients[]
     }
 }
@@ -30,7 +31,7 @@ export interface IDeleteAllIngredientsBurgerConstructor {
 export type TBurgerConstructorActions = IAddBurgerConstructor | IDeleteBurgerConstructor | ISortIngredients | IDeleteAllIngredientsBurgerConstructor
 
 
-export const addBurgerConstructor = (ingredients: TIngredients[], itemId: any ): IAddBurgerConstructor => ({
+export const addBurgerConstructor = (ingredients: TIngredients[], itemId: {id: string} ): IAddBurgerConstructor => ({
     type: ADD_INGREDIENT_CONSTRUCTOR,
     payload: {
         ingredients,

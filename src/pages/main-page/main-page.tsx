@@ -3,15 +3,14 @@ import BurgerIngredients from '../../components/burger-ingredients/Burger-ingred
 import BurgerConstructor from '../../components/burger-constructor/Burger-constructor';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { useSelector } from 'react-redux';
-import { IIngredientsReducer } from '../../services/reducers/burger-ingredients-list-reducer';
+import { useSelector } from '../../hooks/hooks';
 
 import styles from './main-page.module.css'
 
 
 const MainPage = () => {
 
-  const { isLoading } = useSelector((state: {ingredients: IIngredientsReducer}) => state.ingredients)
+  const { isLoading } = useSelector(state => state.ingredients)
 
   return (
         <main className={styles.main}>

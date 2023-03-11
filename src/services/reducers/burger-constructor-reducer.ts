@@ -1,5 +1,6 @@
 import { ADD_INGREDIENT_CONSTRUCTOR, DELETE_ALL_INGREDIENTS_CONSTRUCTOR, DELETE_INGREDIENT_CONSTRUCTOR, SORT_INGRIDIENTS_CONSTRUCTOR } from "../actions-types/burger-constructor-action-type";
-import { TIngredients } from '../../utils/types'
+import type { TIngredients } from '../../utils/types'
+import type {TBurgerConstructorActions} from '../actions/burger-constructor-action'
 
 export interface IChoiceIngredients extends TIngredients {
     __id: string;
@@ -14,12 +15,12 @@ const initialState: IBurgerConstructorReducer = {
     choiceIngredients: [],
     choiceBun: null,
 }
-export const burgerConstructorReducer = (state = initialState, action: any): IBurgerConstructorReducer => {
+export const burgerConstructorReducer = (state = initialState, action: TBurgerConstructorActions): IBurgerConstructorReducer => {
     switch (action.type) {
         case ADD_INGREDIENT_CONSTRUCTOR:
-            let copyChoiceBun: TIngredients | null = {
+            let copyChoiceBun: TIngredients | null ={
                 ...state.choiceBun,
-                ...action.payload.ingredients?.find((item: TIngredients) => (item._id === action.payload.id) && (item.type === 'bun'))
+                ...action.payload.ingredients.find((item: TIngredients) => (item._id === action.payload.id) && (item.type === 'bun'))!
             }
             if (copyChoiceBun !== null && !Object.keys(copyChoiceBun).length) copyChoiceBun = null
             return {

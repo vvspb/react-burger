@@ -1,16 +1,15 @@
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import React, { SyntheticEvent, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
+import { useSelector, useDispatch } from '../../hooks/hooks';
 import { fetchLogoutUserData, fetchUpdateUser} from '../../services/actions/auth-action';
-import { IAuthReducer } from '../../services/reducers/auth-reducer';
 
 import styles from './Personal-account.module.css';
 
 const PersonalAccount = () => {
     const dispatch = useDispatch()
-    const { userData } = useSelector((state: {authUserData: IAuthReducer}) => state.authUserData)
+    const { userData } = useSelector(state => state.authUserData)
     const {values, handleChange, setValues} = useForm({password:'', ...userData});
 
     const [isDisabled, setIsDisabled] = useState(true)

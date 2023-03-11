@@ -1,10 +1,9 @@
-import { useSelector } from 'react-redux'
-import { addNewOrderReducer } from '../../services/reducers/order-details-reducer'
+import { useSelector } from '../../hooks/hooks'
 import styles from './Order-details.module.css'
 
 
 const OrderDetails = () => {
-    const { orderNumber, isLoading, hasError } = useSelector((state: { orderData: addNewOrderReducer }) => state.orderData)
+    const { orderNumber, isLoading, hasError } = useSelector(state => state.orderData)
 
     return (
         <div className={styles.contentModal}>

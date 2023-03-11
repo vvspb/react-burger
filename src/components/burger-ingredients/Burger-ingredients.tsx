@@ -2,8 +2,9 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './Burger-ingredients.module.css';
 import BurgerIngredientsList from '../burger-ingredients-list/Burger-ingredients-list';
 import { addIngredientDetails } from '../../services/actions/ingredients-details-action';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../hooks/hooks';
 import { InView, useInView } from 'react-intersection-observer';
+import { TIngredients } from '../../utils/types';
 
 const BurgerIngredients = () => {
 
@@ -21,7 +22,7 @@ const BurgerIngredients = () => {
         }
     }
 
-    const openModalWithIngredient = (item: any) => {
+    const openModalWithIngredient = (item: TIngredients) => {
         dispatch(addIngredientDetails({ ...item }))
     }
 

@@ -12,7 +12,7 @@ import HistoryOrdersPage from '../../pages/history-order-page/history-order-page
 import styles from './App.module.css'
 import OrderPage from '../../pages/order-page/order-page';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../hooks/hooks';
 import { checkUserAuth } from '../../services/actions/auth-action';
 import ModalDetailesIngredientPage from '../../pages/modal-detailes-ingredient-page/modal-detailes-ingredient-page';
 import IngredientsPage from '../../pages/ingredients-page/ingredients-page';
@@ -20,8 +20,8 @@ import { fechIngredients } from '../../services/actions/burger-ingredients-list-
 
 
 function App() {
-// типизировать dispatch на 5 спринте
-  const dispatch: any = useDispatch()
+
+  const dispatch= useDispatch()
   const location = useLocation()
 
   const background: Location = location.state && location.state.background

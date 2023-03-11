@@ -1,14 +1,14 @@
 import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { SyntheticEvent, useCallback } from 'react';
-import { useDispatch} from 'react-redux';
+import { useDispatch } from '../../hooks/hooks';
 import { Link} from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
 import { fetchAuthUserData } from '../../services/actions/auth-action';
 import styles from './login-page.module.css'
 
 const LoginPage = () => {
-     // типизировать на 5 спринте
-    const dispatch: any = useDispatch()
+
+    const dispatch= useDispatch()
 
     const {values, handleChange} = useForm({
         email: '', 

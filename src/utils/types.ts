@@ -1,5 +1,6 @@
+
 // get ingredients api
-export type TIngredients  = {
+export type TIngredients = {
     _id: string,
     name: string,
     type: string,

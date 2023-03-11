@@ -3,6 +3,7 @@ import { GET_USERDATA, GET_USERDATA_SUCCESS, GET_USERDATA_FAILURE, DELETE_USERDA
 import api from '../../utils/api';
 import { deleteCookie, getCookie, setCookie } from '../../utils/cookie';
 import { TUser } from '../../utils/types';
+import { AppDispatch, AppThunk } from '../store'
 
 
 export interface IAuthUserData {
@@ -68,8 +69,8 @@ export const makeHasErrorDefault = (): IMakeHasErrorDefault=>({
     type: HASERROR_DEFAULT
 })
 
-export const fetchAuthUserData = (email: string, password: string, name = '') => {
-    return (dispatch: (arg0: TAuthActions) => void) => {
+export const fetchAuthUserData: AppThunk = (email: string, password: string, name = '') => {
+    return (dispatch: AppDispatch) => {
         dispatch(authUserData())
         api.authUser(email, password, name)
             .then(result => {
@@ -86,7 +87,7 @@ export const fetchAuthUserData = (email: string, password: string, name = '') =>
     }
 }
 
-export const checkUserAuth = () => (dispatch: (arg0: TAuthActions) => void) => {
+export const checkUserAuth: AppThunk = () => (dispatch: AppDispatch) => {
     if (getCookie("accessToken")) {
         api.getUser()
             .then(res => {
@@ -101,15 +102,15 @@ export const checkUserAuth = () => (dispatch: (arg0: TAuthActions) => void) => {
     }
 };
 
-export const fetchUpdateUser = (email: string, password: string, name: string) => (dispatch: (arg0: IUpdateUser) => any) => {
+export const fetchUpdateUser: AppThunk = (email: string, password: string, name: string) => (dispatch: AppDispatch) => {
     api.editUser(email, password, name)
     .then(res => {
         if(res?.success) return dispatch(updateUser(res?.user))
     })
 }
 
-export const fetchLogoutUserData = () => {
-    return (dispatch: (arg0: TAuthActions) => any) => {
+export const fetchLogoutUserData: AppThunk = () => {
+    return (dispatch: AppDispatch) => {
         api.logoutUser()
             .then(result => {
                 if (result.success) {
