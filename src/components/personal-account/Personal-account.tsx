@@ -19,9 +19,9 @@ const PersonalAccount = () => {
         setTimeout(() => inputRef.current?.focus(), 0)
         setIsDisabled((prevState) => !prevState)
     }
- // типизация на 5 спринте
+
     const handleClick = () => {
-        dispatch<any>(fetchLogoutUserData())
+        dispatch(fetchLogoutUserData())
     }
 
     const handleCancelClick = (e: SyntheticEvent) => {
@@ -31,7 +31,7 @@ const PersonalAccount = () => {
 
     const handleSubmit = (e: SyntheticEvent) => {
         e.preventDefault();
-        dispatch<any>(fetchUpdateUser(values.email, values.password, values.name))
+        dispatch(fetchUpdateUser(values.email, values.password, values.name))
         setValues({...values})
     }
 

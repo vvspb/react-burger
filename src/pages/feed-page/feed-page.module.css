@@ -1,0 +1,39 @@
+.wrapp {
+    max-width: 1240px;
+    margin: 0 auto;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.title {
+    margin-bottom: 20px;
+}
+
+.gridContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+}
+
+.ordersCurrent{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 36px;
+}
+
+.statOrder {
+    width: 580px;
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 60px;
+}
+
+.orderID {
+    color: #00CCCC;
+}
+
+@media (max-width: 1440px) {
+    .statOrder {
+        row-gap: 55px;
+    }
+}

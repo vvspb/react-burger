@@ -1,7 +1,7 @@
 import { GET_INGREDIENTS, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_FAILURE } from "../actions-types/burger-ingredients-list-action-type";
 import api from '../../utils/api'
 import { TIngredients } from "../../utils/types";
-import { AppDispatch, AppThunk } from '../store'
+import { TAppDispatch, TAppThunk } from '../store'
 
 export interface IGetIngredients {
     readonly type: typeof GET_INGREDIENTS
@@ -31,8 +31,8 @@ export const getIngredientsFailure = (): IGetIngredientsFailure => ({
     type: GET_INGREDIENTS_FAILURE
 })
 
-export const fechIngredients: AppThunk = () => {
-    return  (dispatch: AppDispatch)=>{
+export const fechIngredients: TAppThunk = () => {
+    return  (dispatch: TAppDispatch)=>{
         dispatch(getIngredients())
             api.getDataIngredients()
               .then(result => dispatch(getIngredientsSuccess(result.data)))

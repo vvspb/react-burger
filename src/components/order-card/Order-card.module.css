@@ -1,0 +1,29 @@
+.container {
+    width: 584px;
+    height: 214px;
+    background: #1C1C21;
+    border-radius: 40px;
+    box-sizing: border-box;
+    padding: 24px;
+}
+.description {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+}
+
+.ingredients {
+    max-width: 436px;
+}
+
+.sumOrder{
+    display: flex;
+    align-items: center;
+}

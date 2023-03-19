@@ -1,4 +1,4 @@
-import config, { TConfig } from './config'
+import config, { TConfig } from './config';
 import { getCookie, setCookie } from './cookie';
 import { CustomResponse, TIngredients, TOrder, TResponseBody, TUser } from './types';
 
@@ -8,7 +8,7 @@ const checkResponse = <T>(res: Response): Promise<T> => {
 
 class Api {
     private _url: string;
-    constructor({ url }: TConfig) {
+    constructor({ url }: TConfig ) {
         this._url = url;
     }
 

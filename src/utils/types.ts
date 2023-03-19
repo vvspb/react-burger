@@ -78,3 +78,29 @@ export interface CustomResponse<T> extends CustomBody<T> {
     readonly url: string;
     clone(): Response;
 }
+
+// ws order/all
+
+export interface IOrderFeed {
+    success:    boolean;
+    orders:     IOrders[];
+    total:      number;
+    totalToday: number;
+}
+
+export interface IOrders {
+    ingredients: string[];
+    _id:         string;
+    status:      string;
+    number:      number;
+    createdAt:   Date;
+    updatedAt:   Date;
+}
+
+//websocket status
+
+export enum WebSocketStatus {
+    CONNECTING = 'CONNECTING...',
+    ONLINE = 'ONLINE',
+    OFFLINE = 'OFFLINE'
+}

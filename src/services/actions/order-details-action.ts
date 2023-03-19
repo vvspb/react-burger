@@ -1,6 +1,6 @@
 import { ADD_ORDER, ADD_ORDER_SUCCESS, ADD_ORDER_FAILURE } from '../actions-types/ordel-details-action-type'
 import api from '../../utils/api'
-import { AppDispatch, AppThunk } from '../store'
+import { TAppDispatch, TAppThunk } from '../store'
 
 export interface IAddNewOrder {
     readonly type: typeof ADD_ORDER
@@ -34,8 +34,8 @@ export const addNewOrderFailure = (): IAddNewOrderFailure => ({
     type: ADD_ORDER_FAILURE
 })
 
-export const fechOrderData: AppThunk = (choiceIngredientsID: string[]) => {
-    return (dispatch: AppDispatch) => {
+export const fechOrderData: TAppThunk = (choiceIngredientsID: string[]) => {
+    return (dispatch: TAppDispatch) => {
         dispatch(addNewOrder())
         api.addOrder(choiceIngredientsID)
             .then(data => dispatch(addNewOrderSuccess(data?.order?.number)))

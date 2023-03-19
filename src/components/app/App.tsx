@@ -17,6 +17,7 @@ import { checkUserAuth } from '../../services/actions/auth-action';
 import ModalDetailesIngredientPage from '../../pages/modal-detailes-ingredient-page/modal-detailes-ingredient-page';
 import IngredientsPage from '../../pages/ingredients-page/ingredients-page';
 import { fechIngredients } from '../../services/actions/burger-ingredients-list-action';
+import FeedPage from '../../pages/feed-page/feed-page';
 
 
 function App() {
@@ -57,6 +58,10 @@ function App() {
         <Route
           path='/'
           element={<MainPage />}
+        />
+        <Route
+          path='/feed'
+          element={<FeedPage/>}
         />
         <Route
           path='/login'
