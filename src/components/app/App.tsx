@@ -19,7 +19,6 @@ import IngredientsPage from '../../pages/ingredients-page/ingredients-page';
 import { fechIngredients } from '../../services/actions/burger-ingredients-list-action';
 import FeedPage from '../../pages/feed-page/feed-page';
 
-
 function App() {
 
   const dispatch= useDispatch()
@@ -29,10 +28,9 @@ function App() {
 
   useEffect(() => {
     dispatch(checkUserAuth());
-    dispatch(fechIngredients())
+    dispatch(fechIngredients());
   }, [dispatch])
 
- 
   return (
     <div className={styles.app}>
        <AppHeader />

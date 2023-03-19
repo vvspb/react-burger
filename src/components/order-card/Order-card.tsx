@@ -2,21 +2,16 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import React, { FC } from 'react'
 import styles from './Order-card.module.css'
 
-type TOrder = {
-  ingredients: string[];
-  _id:         string;
-  status:      string;
-  number:      number;
-  createdAt:   string;
-  updatedAt:   string;
-};
+import { IOrders } from '../../utils/types'
 
-const OrderCard: FC<TOrder> = (props: TOrder) => {
+const OrderCard: FC<IOrders> = (props: IOrders) => {
+  const date = new Date(props.createdAt).toDateString()
+
   return (
     <article className={styles.container}>
       <div className={`${styles.description} mb-6`}>
         <p className='text text_type_digits-default'>#{props.number}</p>
-        <p className='text text_type_main-small text_color_inactive'>{props.createdAt}</p>
+        <p className='text text_type_main-small text_color_inactive'>{date}</p>
       </div>
       <h3 className='text text_type_main-medium mb-6'>Death Star Starship Main бургер</h3>
       <div className={`${styles.content}`}>

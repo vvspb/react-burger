@@ -10,26 +10,19 @@ import type { IAddIngredientDetails } from '../services/actions/ingredients-deta
 import type { TOrderDetailsActions } from '../services/actions/order-details-action';
 import type { RootState } from '../services/reducers/index';
 import { TWSActions } from './actions/ws-action';
-import { createSocketMiddleware, TWSActionTypes } from './middleware/socketMiddleware';
+import { createSocketMiddleware } from './middleware/socketMiddleware';
 
-import {
-  connect as ordersWsConnect,
-  disconnect as ordersWsDisconnect,
-  wsConnecting as ordersWsConnecting,
-  wsOpen as ordersWsOpen,
-  wsClose as orderWsClose,
-  wsGetMessage as orderWsGetMessage,
-  wsError as orderWsError
-} from './actions/ws-action'
+import { ORDER_FEED_CONNECT, ORDER_FEED_DISCONNECT, ORDER_FEED_WS_CLOSE, ORDER_FEED_WS_CONNECTING, ORDER_FEED_WS_ERROR, ORDER_FEED_WS_GET_MESSAGE, ORDER_FEED_WS_OPEN } from './actions-types/ws-action-types';
 
 const wsActions = {
-  wsConnect: ordersWsConnect,
-  wsDisconnect: ordersWsDisconnect,
-  wsConnecting: ordersWsConnecting,
-  onOpen: ordersWsOpen,
-  onClose: orderWsClose,
-  onMessage: orderWsGetMessage,
-  onError: orderWsError
+  wsConnectType: ORDER_FEED_CONNECT,
+  wsDisconnectType: ORDER_FEED_DISCONNECT,
+  wsConnectingType: ORDER_FEED_WS_CONNECTING,
+  onOpenType: ORDER_FEED_WS_OPEN,
+  onCloseType: ORDER_FEED_WS_CLOSE,
+  onMessageType: ORDER_FEED_WS_GET_MESSAGE,
+  onErrorType: ORDER_FEED_WS_ERROR,
+  wsSendMessageType: ''
 }
 
 // Типизация всех экшенов приложения

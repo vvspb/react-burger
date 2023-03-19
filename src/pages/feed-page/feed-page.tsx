@@ -1,5 +1,9 @@
-import React from 'react'
+
+import React, { useEffect } from 'react'
 import OrderList from '../../components/order-list/Order-list'
+import { useDispatch, useSelector } from '../../hooks/hooks'
+import { connect } from '../../services/actions/ws-action'
+import config from '../../utils/config'
 // import OrdersFeed from '../../components/orders-feed/Orders-feed'
 import styles from './feed-page.module.css'
 
@@ -20,6 +24,14 @@ const orderDoing = [
 ]
 
 const FeedPage = () => {
+    const dispatch = useDispatch();
+
+    const {orderFeed} = useSelector(store => store.wsOrderFeed)
+
+    useEffect(()=>{
+        dispatch(connect(`${config.wsUrl}/orders/all`))
+    },[dispatch])
+
     return (
         <main className={styles.wrapp}>
             <h2 className={`${styles.title} text text_type_main-large`}>Лента заказов</h2>
@@ -50,11 +62,11 @@ const FeedPage = () => {
                     </div>
                     <div>
                         <p className='text text_type_main-medium'>Выполнено за все время:</p>
-                        <p className='text text_type_digits-large'>28 752</p>
+                        <p className='text text_type_digits-large'>{orderFeed?.total}</p>
                     </div>
                     <div>
                         <p className='text text_type_main-medium'>Выполнено за сегодня:</p>
-                        <p className='text text_type_digits-large'>138</p>
+                        <p className='text text_type_digits-large'>{orderFeed?.totalToday}</p>
                     </div>
                 </section>
             </div>
