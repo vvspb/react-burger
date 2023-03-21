@@ -1,9 +1,10 @@
 .wrappContaienrList {
     display: grid;
+    grid-template-columns: 1fr;
     row-gap: 16px;
     height: 852px;
-    width: 600px;
-    overflow-y: scroll;
+    max-width: 600px;
+    overflow-y: auto;
 }
 
 .wrappContaienrList::-webkit-scrollbar {

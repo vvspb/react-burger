@@ -4,7 +4,7 @@ import OrderList from '../../components/order-list/Order-list'
 import { useDispatch, useSelector } from '../../hooks/hooks'
 import { connect } from '../../services/actions/ws-action'
 import config from '../../utils/config'
-// import OrdersFeed from '../../components/orders-feed/Orders-feed'
+
 import styles from './feed-page.module.css'
 
 const orderDone = [
