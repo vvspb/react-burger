@@ -4,11 +4,11 @@ import styles from './Order-card.module.css'
 
 import { IOrders, TIngredients } from '../../utils/types'
 import { useSelector } from '../../hooks/hooks'
+import FormattedDate from '../formatted-date/formatted-date'
 
 const OrderCard: FC<IOrders> = (props: IOrders) => {
   const { ingredients } = useSelector(store => store.ingredients)
-  const date = new Date(props.createdAt).toDateString()
-
+  const date = new Date(props.updatedAt)
   const funcSumOrderAndImgOrderIngerdients = (orderIngredients: string[], ingredients: TIngredients[]) => {
     let sumOrder = 0;
     const imgDataArray = [];
@@ -41,7 +41,7 @@ const OrderCard: FC<IOrders> = (props: IOrders) => {
     <article className={styles.container}>
       <div className={`${styles.description} mb-6`}>
         <p className='text text_type_digits-default'>#{props.number}</p>
-        <p className='text text_type_main-small text_color_inactive'>{date}</p>
+        <p className='text text_type_main-small text_color_inactive'><FormattedDate date = {date}/></p>
       </div>
       <h3 className={`${styles.descriptionName} text text_type_main-medium mb-6`}>{props.name}</h3>
       <div className={`${styles.content}`}>
