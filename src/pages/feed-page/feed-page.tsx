@@ -7,30 +7,20 @@ import config from '../../utils/config'
 
 import styles from './feed-page.module.css'
 
-const orderDone = [
-    '034533',
-    '034532',
-    '034530',
-    '034527',
-    '034525'
-]
 
-const orderDoing = [
-    '034530',
-    '034539',
-    '034531',
-    '034590',
-    '034510'
-]
 
 const FeedPage = () => {
     const dispatch = useDispatch();
 
-    const {orderFeed} = useSelector(store => store.wsOrderFeed)
+    const { orderFeed } = useSelector(store => store.wsOrderFeed)
 
-    useEffect(()=>{
+    const orderDone = orderFeed?.orders.filter(item => item.status === 'done').slice(0, 10)
+
+    const orderDoing = orderFeed?.orders.filter(item => item.status === 'pending').slice(0, 5)
+
+    useEffect(() => {
         dispatch(connect(`${config.wsUrl}/orders/all`))
-    },[dispatch])
+    }, [dispatch])
 
     return (
         <main className={styles.wrapp}>
@@ -43,21 +33,25 @@ const FeedPage = () => {
                     <div className={styles.ordersCurrent}>
                         <div>
                             <p className='text text_type_main-medium mb-6'>Готовы:</p>
-                            {orderDone.map(item => (<p
-                                className={`${styles.orderID} text text_type_digits-default`}
-                                key={item}>
-                                {item}
-                            </p>)
-                            )}
+                            <div className={styles.wrappOrder}>
+                                {orderDone?.map(item => (<p
+                                    className={`${styles.orderID} text text_type_digits-default`}
+                                    key={item._id}>
+                                    {item.number}
+                                </p>)
+                                )}
+                            </div>
                         </div>
                         <div>
                             <p className='text text_type_main-medium mb-6'>В работе:</p>
-                            {orderDoing.map(item => (<p
-                                className='text text_type_digits-default'
-                                key={item}>
-                                {item}
-                            </p>)
-                            )}
+                            <div className={styles.wrappOrder}>
+                                {orderDoing?.map(item => (<p
+                                    className='text text_type_digits-default'
+                                    key={item._id}>
+                                    {item.status}
+                                </p>)
+                                )}
+                            </div>
                         </div>
                     </div>
                     <div>

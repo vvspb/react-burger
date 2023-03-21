@@ -3,8 +3,8 @@
     grid-template-columns: 1fr;
     row-gap: 16px;
     height: 852px;
-    max-width: 600px;
-    overflow-y: auto;
+    max-width: 608px;
+    overflow-y: scroll;
 }
 
 .wrappContaienrList::-webkit-scrollbar {
