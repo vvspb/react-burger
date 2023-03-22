@@ -16,10 +16,6 @@ const InredientsDetails = () => {
     useEffect(() => {
         if(ingredients.length) dispatch(addIngredientDetails(ingredients.find(item => item._id === id)!))
     }, [dispatch, id, ingredients])
-
-    
-
-    console.log(typeof ingredientCurrent)
     
     const description: string = 'text text_type_main-small text_color_inactive'
 

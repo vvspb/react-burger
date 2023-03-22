@@ -18,6 +18,7 @@ import ModalDetailesIngredientPage from '../../pages/modal-detailes-ingredient-p
 import IngredientsPage from '../../pages/ingredients-page/ingredients-page';
 import { fechIngredients } from '../../services/actions/burger-ingredients-list-action';
 import FeedPage from '../../pages/feed-page/feed-page';
+import ModalOrderCardDetailsPage from '../../pages/modal-order-card-details-page/modal-order-card-details-page';
 
 function App() {
 
@@ -88,6 +89,7 @@ function App() {
       {background && (
         <Routes>
           <Route path='ingredients/:id' element={< ModalDetailesIngredientPage />}></Route>
+          <Route path='feed/:id' element={< ModalOrderCardDetailsPage />}></Route>
         </Routes>
       )}
     </div>

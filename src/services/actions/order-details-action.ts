@@ -1,4 +1,4 @@
-import { ADD_ORDER, ADD_ORDER_SUCCESS, ADD_ORDER_FAILURE } from '../actions-types/ordel-details-action-type'
+import { ADD_ORDER, ADD_ORDER_SUCCESS, ADD_ORDER_FAILURE } from '../actions-types/order-details-action-type'
 import api from '../../utils/api'
 import { TAppDispatch, TAppThunk } from '../store'
 

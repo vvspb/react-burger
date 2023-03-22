@@ -13,6 +13,7 @@ import { TWSActions } from './actions/ws-action';
 import { createSocketMiddleware } from './middleware/socketMiddleware';
 
 import { ORDER_FEED_CONNECT, ORDER_FEED_DISCONNECT, ORDER_FEED_WS_CLOSE, ORDER_FEED_WS_CONNECTING, ORDER_FEED_WS_ERROR, ORDER_FEED_WS_GET_MESSAGE, ORDER_FEED_WS_OPEN } from './actions-types/ws-action-types';
+import { IAddOrderCardDetails } from './actions/order-card-details-action';
 
 const wsActions = {
   wsConnectType: ORDER_FEED_CONNECT,
@@ -26,7 +27,7 @@ const wsActions = {
 }
 
 // Типизация всех экшенов приложения
-export type TApplicationActions = TAuthActions | TBurgerConstructorActions | TIngredientsActions | IAddIngredientDetails | TOrderDetailsActions | TWSActions;
+export type TApplicationActions = TAuthActions | TBurgerConstructorActions | TIngredientsActions | IAddIngredientDetails | IAddOrderCardDetails | TOrderDetailsActions | TWSActions;
 
 // Типизация thunk'ов
 

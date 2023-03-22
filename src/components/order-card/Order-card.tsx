@@ -3,45 +3,59 @@ import React, { FC } from 'react'
 import styles from './Order-card.module.css'
 
 import { IOrders, TIngredients } from '../../utils/types'
-import { useSelector } from '../../hooks/hooks'
+import { useDispatch, useSelector } from '../../hooks/hooks'
 import FormattedDate from '../formatted-date/formatted-date'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { addOrderCardDetails } from '../../services/actions/order-card-details-action'
 
 const OrderCard: FC<IOrders> = (props: IOrders) => {
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const dispatch = useDispatch();
+
   const { ingredients } = useSelector(store => store.ingredients)
   const date = new Date(props.updatedAt)
+
   const funcSumOrderAndImgOrderIngerdients = (orderIngredients: string[], ingredients: TIngredients[]) => {
     let sumOrder = 0;
-    const imgDataArray = [];
+    const ingredientsOrder = [];
     for (let i = 0; i < orderIngredients.length; i++) {
       for (let y = 0; y < ingredients.length; y++) {
         if (orderIngredients[i] === ingredients[y]._id) {
           sumOrder = sumOrder + ingredients[y].price;
-          imgDataArray.push({image: ingredients[y].image, name: ingredients[y].name})
+          ingredientsOrder.push({ image: ingredients[y].image, name: ingredients[y].name, price: ingredients[y].price })
         }
       }
     }
-    return { sumOrder, imgDataArray }
+    return { sumOrder, ingredientsOrder }
   }
 
-  const { sumOrder, imgDataArray } = funcSumOrderAndImgOrderIngerdients(props.ingredients, ingredients);
+  const { sumOrder, ingredientsOrder } = funcSumOrderAndImgOrderIngerdients(props.ingredients, ingredients);
 
-  const funcImgLine = (imgArray: Array<{image: string, name: string}>) => {
+  const funcImgLine = (imgArray: Array<{ image: string, name: string }>) => {
     return imgArray.map((item, index) => (
       <li key={index}>
         <div className={styles.imgWrapp}>
-          <img className={styles.img} src={item.image} alt={item.name} width='112' height='56'/>
+          <img className={styles.img} src={item.image} alt={item.name} width='112' height='56' />
         </div>
       </li>
     ))
   }
 
-  const imgLine = funcImgLine(imgDataArray)
+  const imgLine = funcImgLine(ingredientsOrder);
+
+  const handleClick = () => {
+    navigate('/feed/:id', { state: { background: location } })
+    dispatch(addOrderCardDetails(props, { sumOrder, ingredientsOrder }))
+  }
 
   return (
-    <article className={styles.container}>
+    <article className={styles.container} onClick={handleClick}>
       <div className={`${styles.description} mb-6`}>
         <p className='text text_type_digits-default'>#{props.number}</p>
-        <p className='text text_type_main-small text_color_inactive'><FormattedDate date = {date}/></p>
+        <p className='text text_type_main-small text_color_inactive'><FormattedDate date={date} /></p>
       </div>
       <h3 className={`${styles.descriptionName} text text_type_main-medium mb-6`}>{props.name}</h3>
       <div className={`${styles.content}`}>
