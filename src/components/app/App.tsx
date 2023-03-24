@@ -24,7 +24,7 @@ import { connect, connectPersonalFeed } from '../../services/actions/ws-action';
 import config from '../../utils/config';
 import ModalPersonalOrderCardDetailsPage from '../../pages/modal-personal-order-card-details-page/modal-personal-order-card-details-page';
 import { getCookie } from '../../utils/cookie';
-import OrderCardPersonalDetails from '../Order-card-personal-details/Order-card-personal-details';
+import OrderCardPersonalDetails from '../order-card-personal-details/Order-card-personal-details';
 
 function App() {
 

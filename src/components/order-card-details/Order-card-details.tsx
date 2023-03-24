@@ -24,15 +24,14 @@ const OrderCardDetails = () => {
 
     const background: Location = location.state && location.state.background
 
-    const { cardCurrent, dataOrder } = useSelector(store => store.orderCardCurrent);
-    const { orderFeed, orderFeedPersonal } = useSelector(store => store.wsOrderFeed);
+    const { cardCurrent, dataOrder} = useSelector(store => store.orderCardCurrent);
+    const { orderFeed } = useSelector(store => store.wsOrderFeed);
     const { ingredients } = useSelector(store => store.ingredients)
 
     const { id } = useParams();
 
 
-    const currentOrderCard = orderFeed?.orders?.find(item => item._id === id);
-
+    const currentOrderCard = orderFeed?.orders?.find(item => item._id === id)
 
     const { sumOrder, ingredientsOrder } = funcSumOrderAndIngerdientsOrder(currentOrderCard?.ingredients!, ingredients)
 
@@ -40,13 +39,8 @@ const OrderCardDetails = () => {
         if (orderFeed?.orders?.length) { 
             dispatch(addOrderCardDetails(currentOrderCard, { sumOrder, ingredientsOrder })) 
         }
-
-        // if (orderFeedPersonal?.orders?.length) { 
-        //     dispatch(addOrderPersonalCardDetails(currentOrderCardPersonal, { sumOrder, ingredientsOrder })) 
-        // }
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [dispatch, orderFeed?.orders, orderFeedPersonal?.orders])
+    }, [dispatch, currentOrderCard])
 
     const funcMakeListIngredientsForPrice = (arr: TOrderIngredientsDetais) => {
         const resultArr: TOrderIngredientsDetais = [];

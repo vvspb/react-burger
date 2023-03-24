@@ -38,11 +38,29 @@ const OrderCard: FC<IPropsOrderCard> = (props: IPropsOrderCard) => {
 
     if (bun) imgLineArr.unshift(bun)
 
-    return imgLineArr.map((item, index) => (
-      <li key={index}>
-        <div className={styles.imgWrapp}>
-          <img className={styles.img} src={item.image} alt={item.name} width='112' height='56' />
-        </div>
+    const imgIngredientsForCard = imgLineArr.slice(0, 6)
+    const quantImg = imgIngredientsForCard.length
+  
+    return imgIngredientsForCard.map((item, index) => (
+      <li
+        key={index}
+        className={styles.imgWrapp}
+        style={{ zIndex: quantImg - index, right: index * 20 }}>
+        <img 
+        src={item.image} 
+        alt={item.name} 
+        width='112' height='56'
+        className={imgLineArr.length - quantImg > 0 &&
+          index === quantImg - 1 ? styles.lastImg : ''} />
+        {
+          imgLineArr.length - quantImg > 0 &&
+          index === quantImg - 1 &&
+          <span
+            className={`${styles.quantityIngredients} text text_type_digits-default`}
+            style={{zIndex: quantImg + 1 }}>
+            +{imgLineArr.length - quantImg}
+          </span>
+        }
       </li>
     ))
   }
@@ -51,13 +69,13 @@ const OrderCard: FC<IPropsOrderCard> = (props: IPropsOrderCard) => {
 
 
   const handleClick = () => {
-      if(props.flag){
-        navigate(`/profile/orders/${props._id}`, { state: { background: location } })
-        dispatch(addOrderPersonalCardDetails(props, { sumOrder, ingredientsOrder }))
-      } else {
-        dispatch(addOrderCardDetails(props, { sumOrder, ingredientsOrder }))
-        navigate(`/feed/${props._id}`, { state: { background: location } })
-      }
+    if (props.flag) {
+      navigate(`/profile/orders/${props._id}`, { state: { background: location } })
+      dispatch(addOrderPersonalCardDetails(props, { sumOrder, ingredientsOrder }))
+    } else {
+      dispatch(addOrderCardDetails(props, { sumOrder, ingredientsOrder }))
+      navigate(`/feed/${props._id}`, { state: { background: location } })
+    }
   }
 
   const statusOrder = props?.status === 'done' ? 'Выполнен' :
