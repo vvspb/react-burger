@@ -3,8 +3,15 @@
     grid-template-columns: 1fr;
     row-gap: 16px;
     height: 852px;
-    max-width: 608px;
     overflow-y: scroll;
+}
+
+.wrappPersonalOrder {
+    width: 844px;
+}
+
+.wrappFeedOrder {
+    width: 608px;
 }
 
 .wrappContaienrList::-webkit-scrollbar {

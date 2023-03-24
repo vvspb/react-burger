@@ -1,20 +1,22 @@
 import { IOrderFeed, WebSocketStatus } from '../../utils/types';
-import {ORDER_FEED_WS_CONNECTING, ORDER_FEED_WS_OPEN, ORDER_FEED_WS_CLOSE, ORDER_FEED_WS_GET_MESSAGE, ORDER_FEED_WS_ERROR} from '../actions-types/ws-action-types';
+import { ORDER_FEED_WS_CONNECTING, ORDER_FEED_WS_OPEN, ORDER_FEED_WS_CLOSE, ORDER_FEED_WS_GET_MESSAGE, ORDER_FEED_WS_ERROR, ORDER_PERSONAL_FEED_WS_GET_MESSAGE } from '../actions-types/ws-action-types';
 import { TApplicationActions } from '../store';
 
 interface IOrderFeedState {
     status: WebSocketStatus,
     connectingError: string,
-    orderFeed: IOrderFeed | undefined
+    orderFeed: IOrderFeed | undefined,
+    orderFeedPersonal: IOrderFeed | undefined
 }
 
 const initialState: IOrderFeedState = {
     status: WebSocketStatus.OFFLINE,
     connectingError: '',
-    orderFeed: undefined
-  };
+    orderFeed: undefined,
+    orderFeedPersonal: undefined
+};
 
-  export const orderFeedReducer = (state = initialState, action: TApplicationActions): IOrderFeedState => {
+export const orderFeedReducer = (state = initialState, action: TApplicationActions): IOrderFeedState => {
     switch (action.type) {
         case ORDER_FEED_WS_CONNECTING:
             return {
@@ -42,7 +44,12 @@ const initialState: IOrderFeedState = {
                 ...state,
                 orderFeed: action.payload
             }
+        case ORDER_PERSONAL_FEED_WS_GET_MESSAGE:
+            return {
+                ...state,
+                orderFeedPersonal: action.payload
+            }
         default:
-          return state;
+            return state;
     }
-  }
+}

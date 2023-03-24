@@ -1,0 +1,21 @@
+.linkProfile {
+    list-style: none;
+}
+
+.navLi {
+    width: 320px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.activeClasses {
+    color: #F2F2F3;
+    text-decoration: none;
+}
+
+.inactiveClasses {
+    color: #8585AD;
+    text-decoration: none;
+}

@@ -1,4 +1,4 @@
-import { useDispatch } from '../../hooks/hooks';
+import { useDispatch, useSelector } from '../../hooks/hooks';
 import { useNavigate } from 'react-router-dom'
 import Modal from '../../components/modal/Modal'
 import OrderCardDetails from '../../components/order-card-details/Order-card-details'
@@ -9,6 +9,8 @@ const ModalOrderCardDetailsPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const { cardCurrent } = useSelector( store=> store.orderCardCurrent)
+
     const closeModal = () => {
         navigate('/feed')
         dispatch(addOrderCardDetails(undefined, undefined))
@@ -16,7 +18,7 @@ const ModalOrderCardDetailsPage = () => {
 
     return (
 
-        <Modal onClose={closeModal} >
+        <Modal onClose={closeModal} title={`#${cardCurrent?.number}`}>
             <OrderCardDetails />
         </Modal>
 

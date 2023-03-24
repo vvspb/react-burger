@@ -24,6 +24,10 @@
     width: 580px;
 }
 
+.titleNum{
+    width: 620px;
+}
+
 .closeButtonIcon {
     position: absolute;
     right: 0;

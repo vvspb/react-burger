@@ -12,10 +12,10 @@ import type { RootState } from '../services/reducers/index';
 import { TWSActions } from './actions/ws-action';
 import { createSocketMiddleware } from './middleware/socketMiddleware';
 
-import { ORDER_FEED_CONNECT, ORDER_FEED_DISCONNECT, ORDER_FEED_WS_CLOSE, ORDER_FEED_WS_CONNECTING, ORDER_FEED_WS_ERROR, ORDER_FEED_WS_GET_MESSAGE, ORDER_FEED_WS_OPEN } from './actions-types/ws-action-types';
-import { IAddOrderCardDetails } from './actions/order-card-details-action';
+import { ORDER_FEED_CONNECT, ORDER_FEED_DISCONNECT, ORDER_FEED_WS_CLOSE, ORDER_FEED_WS_CONNECTING, ORDER_FEED_WS_ERROR, ORDER_FEED_WS_GET_MESSAGE, ORDER_FEED_WS_OPEN, ORDER_PERSONAL_FEED_CONNECT, ORDER_PERSONAL_FEED_DISCONNECT, ORDER_PERSONAL_FEED_WS_CLOSE, ORDER_PERSONAL_FEED_WS_CONNECTING, ORDER_PERSONAL_FEED_WS_ERROR, ORDER_PERSONAL_FEED_WS_GET_MESSAGE, ORDER_PERSONAL_FEED_WS_OPEN } from './actions-types/ws-action-types';
+import { TAddOrderCardDetailsActions } from './actions/order-card-details-action';
 
-const wsActions = {
+const wsFeedOrderActions = {
   wsConnectType: ORDER_FEED_CONNECT,
   wsDisconnectType: ORDER_FEED_DISCONNECT,
   wsConnectingType: ORDER_FEED_WS_CONNECTING,
@@ -23,11 +23,20 @@ const wsActions = {
   onCloseType: ORDER_FEED_WS_CLOSE,
   onMessageType: ORDER_FEED_WS_GET_MESSAGE,
   onErrorType: ORDER_FEED_WS_ERROR,
-  wsSendMessageType: ''
+}
+
+const wsPersonalFeedActions = {
+  wsConnectType: ORDER_PERSONAL_FEED_CONNECT,
+  onMessageType: ORDER_PERSONAL_FEED_WS_GET_MESSAGE,
+  wsDisconnectType: ORDER_PERSONAL_FEED_DISCONNECT,
+  wsConnectingType: ORDER_PERSONAL_FEED_WS_CONNECTING,
+  onOpenType: ORDER_PERSONAL_FEED_WS_OPEN,
+  onCloseType: ORDER_PERSONAL_FEED_WS_CLOSE,
+  onErrorType: ORDER_PERSONAL_FEED_WS_ERROR,
 }
 
 // Типизация всех экшенов приложения
-export type TApplicationActions = TAuthActions | TBurgerConstructorActions | TIngredientsActions | IAddIngredientDetails | IAddOrderCardDetails | TOrderDetailsActions | TWSActions;
+export type TApplicationActions = TAuthActions | TBurgerConstructorActions | TIngredientsActions | IAddIngredientDetails | TOrderDetailsActions | TWSActions | TAddOrderCardDetailsActions;
 
 // Типизация thunk'ов
 
@@ -40,11 +49,12 @@ export type TAppThunk<ReturnType = void> = ActionCreator<ThunkAction<
 
 export type TAppDispatch = ThunkDispatch<RootState, never, TApplicationActions>;
 
-const ordersMiddleware = createSocketMiddleware(wsActions)
+const ordersMiddleware = createSocketMiddleware(wsFeedOrderActions)
+const orderPersonalMiddleware = createSocketMiddleware(wsPersonalFeedActions)
 
     const store = createStore(
         rootReducer,
-        composeWithDevTools(applyMiddleware(thunk, ordersMiddleware))
+        composeWithDevTools(applyMiddleware(thunk, ordersMiddleware, orderPersonalMiddleware))
         )
 
 export default store;

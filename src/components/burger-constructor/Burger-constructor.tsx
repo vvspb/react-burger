@@ -46,7 +46,7 @@ const BurgerConstructor = () => {
             if (choiceBun !== null) {
                 setSumOrder(choiceIngredients.reduce((acc, item) => acc + item.price, 0) + choiceBun.price * 2)
             } else {
-                setSumOrder(0)
+                setSumOrder(choiceIngredients.reduce((acc, item) => acc + item.price, 0))
             }
         }, [setSumOrder, choiceIngredients, choiceBun]
     )
@@ -55,7 +55,7 @@ const BurgerConstructor = () => {
         const mainSauceID = arrMainSauce.map((item: { _id: string }) => item._id)
         if (objectBun !== null) {
             const bunID = objectBun._id
-            return [...mainSauceID, bunID]
+            return [...mainSauceID, bunID, bunID]
         }
         return [...mainSauceID]
     }
