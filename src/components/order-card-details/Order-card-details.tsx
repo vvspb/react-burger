@@ -34,7 +34,6 @@ const OrderCardDetails: FC<IOrderCardDetailsProps> = ({ flag }: IOrderCardDetail
 
     const { id } = useParams();
 
-
     const currentOrderCard = flag ? orderFeedPersonal?.orders?.find(item => item._id === id) :
         orderFeed?.orders?.find(item => item._id === id)
 
@@ -84,7 +83,6 @@ const OrderCardDetails: FC<IOrderCardDetailsProps> = ({ flag }: IOrderCardDetail
     let date = new Date();
 
     if (card?.createdAt) { date = new Date(card?.createdAt) }
-
 
     const statusOrder = card?.status === 'done' ? 'Выполнен' :
     card?.status === 'created' ? 'Создан' : 'Готовится';
