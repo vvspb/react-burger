@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from '../../hooks/hooks'
 import styles from './Order-card-details.module.css'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useLocation, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { funcSumOrderAndIngerdientsOrder } from '../../utils/funcSumOrderAndIngerdientsOrder';
-import { addOrderCardDetails } from '../../services/actions/order-card-details-action';
+import { addOrderCardDetails, addOrderPersonalCardDetails } from '../../services/actions/order-card-details-action';
 
 type TOrderIngredientsDetais = Array<{
     name: string,
@@ -16,7 +16,11 @@ type TOrderIngredientsDetais = Array<{
     count?: number
 }> | undefined
 
-const OrderCardDetails = () => {
+interface IOrderCardDetailsProps {
+    flag?: boolean;
+}
+
+const OrderCardDetails: FC<IOrderCardDetailsProps> = ({ flag }: IOrderCardDetailsProps) => {
 
     const dispatch = useDispatch();
 
@@ -24,20 +28,30 @@ const OrderCardDetails = () => {
 
     const background: Location = location.state && location.state.background
 
-    const { cardCurrent, dataOrder} = useSelector(store => store.orderCardCurrent);
-    const { orderFeed } = useSelector(store => store.wsOrderFeed);
+    const { cardCurrent, dataOrder, cardCurrentPersonal, dataOrderPersonal } = useSelector(store => store.orderCardCurrent);
+    const { orderFeed, orderFeedPersonal } = useSelector(store => store.wsOrderFeed);
     const { ingredients } = useSelector(store => store.ingredients)
 
     const { id } = useParams();
 
 
-    const currentOrderCard = orderFeed?.orders?.find(item => item._id === id)
+    const currentOrderCard = flag ? orderFeedPersonal?.orders?.find(item => item._id === id) :
+        orderFeed?.orders?.find(item => item._id === id)
+
+    const order = flag ? dataOrderPersonal: dataOrder;
+    const card = flag ? cardCurrentPersonal : cardCurrent;
 
     const { sumOrder, ingredientsOrder } = funcSumOrderAndIngerdientsOrder(currentOrderCard?.ingredients!, ingredients)
 
     useEffect(() => {
-        if (orderFeed?.orders?.length) { 
-            dispatch(addOrderCardDetails(currentOrderCard, { sumOrder, ingredientsOrder })) 
+        if (flag) {
+            if (orderFeedPersonal?.orders?.length) {
+                dispatch(addOrderPersonalCardDetails(currentOrderCard, { sumOrder, ingredientsOrder }))
+            }
+        } else {
+            if (orderFeed?.orders?.length) {
+                dispatch(addOrderCardDetails(currentOrderCard, { sumOrder, ingredientsOrder }))
+            }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch, currentOrderCard])
@@ -65,21 +79,21 @@ const OrderCardDetails = () => {
         }
     }
 
-    const ingredientsPrice = funcMakeListIngredientsForPrice(dataOrder?.ingredientsOrder) 
+    const ingredientsPrice = funcMakeListIngredientsForPrice(order?.ingredientsOrder)
 
     let date = new Date();
 
-    if (cardCurrent?.createdAt) { date = new Date(cardCurrent?.createdAt) }
+    if (card?.createdAt) { date = new Date(card?.createdAt) }
 
 
-    const statusOrder = cardCurrent?.status === 'done' ? 'Выполнен' :
-        cardCurrent?.status === 'created' ? 'Создан' : 'Готовится';
+    const statusOrder = card?.status === 'done' ? 'Выполнен' :
+    card?.status === 'created' ? 'Создан' : 'Готовится';
 
     return (
         <section className={styles.contentModal}>
-            {!background && <p className={`text text_type_digits-default mt-5`}>#{cardCurrent?.number}</p>}
+            {!background && <p className={`text text_type_digits-default mt-5`}>#{card?.number}</p>}
             <h3 className={`${styles.descriptionName} text text_type_main-medium mt-10 mb-3 pl-4`}>
-                {cardCurrent?.name}
+                {card?.name}
             </h3>
             <p className={`${styles.description} text text_type_main-default mb-15 pl-4`}>
                 <span className={statusOrder === 'Выполнен' ? styles.greenSpan : ''}>
@@ -106,7 +120,7 @@ const OrderCardDetails = () => {
             <div className={`${styles.wrappSumOrderandDate} mb-10`}>
                 <FormattedDate date={date} className='text text_type_main-default text_color_inactive' />
                 <div className={styles.wrappPrice}>
-                    <p className={`text text_type_digits-default`}>{dataOrder?.sumOrder}</p>
+                    <p className={`text text_type_digits-default`}>{order?.sumOrder}</p>
                     <CurrencyIcon type="primary" />
                 </div>
             </div>

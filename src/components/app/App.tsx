@@ -19,12 +19,12 @@ import IngredientsPage from '../../pages/ingredients-page/ingredients-page';
 import { fechIngredients } from '../../services/actions/burger-ingredients-list-action';
 import FeedPage from '../../pages/feed-page/feed-page';
 import ModalOrderCardDetailsPage from '../../pages/modal-order-card-details-page/modal-order-card-details-page';
-import OrderCardDetails from '../order-card-details/Order-card-details';
 import { connect, connectPersonalFeed } from '../../services/actions/ws-action';
 import config from '../../utils/config';
 import ModalPersonalOrderCardDetailsPage from '../../pages/modal-personal-order-card-details-page/modal-personal-order-card-details-page';
 import { getCookie } from '../../utils/cookie';
-import OrderCardPersonalDetails from '../Order-card-personal-details/Order-card-personal-details';
+import OrderCardDetaisPage from '../../pages/order-card-details-page/order-card-detais-page';
+import OrderCardDetaisPersonalPage from '../../pages/order-card-details-personal-page/order-card-details-personal-page';
 
 function App() {
 
@@ -61,27 +61,24 @@ function App() {
           path='/profile/orders'
           element={
             <ProtectedRoute element={<HistoryOrdersPage />} />
-          }
-        />
+          }/>
+
         <Route
           path='/profile/orders/:id'
-          element={<ProtectedRoute element={<OrderCardPersonalDetails />} />
+          element={<ProtectedRoute element={<OrderCardDetaisPersonalPage />} />
           } />
 
         <Route
           path='/'
-          element={<MainPage />}
-        />
+          element={<MainPage />}/>
         <Route
           path='/feed'
-          element={<FeedPage />}
-        />
+          element={<FeedPage />}/>
         <Route
           path='/login'
           element={
             <ProtectedRoute element={<LoginPage />} onlyUnAuth={true} />
-          }
-        />
+          }/>
         <Route
           path='/register'
           element={
@@ -98,8 +95,7 @@ function App() {
             <ProtectedRoute element={<ResetPasswordPage />} onlyUnAuth={true} />
           } />
         <Route path='ingredients/:id' element={<IngredientsPage />} />
-        <Route path='feed/:id' element={<OrderCardDetails />} />
-
+        <Route path='feed/:id' element={<OrderCardDetaisPage />} />
       </Routes>
 
       {background && (

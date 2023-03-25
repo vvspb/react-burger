@@ -19,7 +19,7 @@ const ModalOrderCardDetailsPage = () => {
     return (
 
         <Modal onClose={closeModal} title={`#${cardCurrent?.number}`}>
-            <OrderCardDetails />
+            <OrderCardDetails flag={false}/>
         </Modal>
 
     )

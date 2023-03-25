@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Modal from '../../components/modal/Modal'
 
 import { addOrderCardDetails } from '../../services/actions/order-card-details-action'
-import OrderCardPersonalDetails from '../../components/Order-card-personal-details/Order-card-personal-details';
+import OrderCardDetails from '../../components/order-card-details/Order-card-details';
 
 const ModalPersonalOrderCardDetailsPage = () => {
 
@@ -19,7 +19,7 @@ const ModalPersonalOrderCardDetailsPage = () => {
 
   return (
     <Modal onClose={closeModal} title={`#${cardCurrentPersonal?.number}`}>
-            <OrderCardPersonalDetails />
+            <OrderCardDetails flag={true} />
         </Modal>
   )
 }
