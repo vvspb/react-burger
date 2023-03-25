@@ -37,7 +37,7 @@ const OrderCardDetails: FC<IOrderCardDetailsProps> = ({ flag }: IOrderCardDetail
     const currentOrderCard = flag ? orderFeedPersonal?.orders?.find(item => item._id === id) :
         orderFeed?.orders?.find(item => item._id === id)
 
-    const order = flag ? dataOrderPersonal: dataOrder;
+    const order = flag ? dataOrderPersonal : dataOrder;
     const card = flag ? cardCurrentPersonal : cardCurrent;
 
     const { sumOrder, ingredientsOrder } = funcSumOrderAndIngerdientsOrder(currentOrderCard?.ingredients!, ingredients)
@@ -85,7 +85,7 @@ const OrderCardDetails: FC<IOrderCardDetailsProps> = ({ flag }: IOrderCardDetail
     if (card?.createdAt) { date = new Date(card?.createdAt) }
 
     const statusOrder = card?.status === 'done' ? 'Выполнен' :
-    card?.status === 'created' ? 'Создан' : 'Готовится';
+        card?.status === 'created' ? 'Создан' : 'Готовится';
 
     return (
         <section className={styles.contentModal}>
@@ -104,7 +104,9 @@ const OrderCardDetails: FC<IOrderCardDetailsProps> = ({ flag }: IOrderCardDetail
                     {ingredientsPrice?.map(item => (
                         <li className={`${styles.itemList} mr-6`} key={Math.random() * item.price * 100}>
                             <div className={styles.imgWrapp}>
-                                <img src={item.image} alt={item.name} width='112' height='56' />
+                                <div className={styles.imgBack}>
+                                    <img src={item.image} alt={item.name} width='112' height='56' />
+                                </div>
                             </div>
                             <p className={`${styles.descriptionIngredName} text text_type_main-default`}>{item.name}</p>
                             <div className={styles.wrappPrice}>

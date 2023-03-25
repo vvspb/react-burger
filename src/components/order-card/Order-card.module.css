@@ -60,18 +60,26 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 62px;
-    height: 62px;
+    width: 64px;
+    height: 64px;
     border-radius: 100%;
-    border: 2px solid #4C4CFF ;
     position: relative;
-    background: #000000;
+    background: linear-gradient(63.18deg, #801AB3 0%, #4C4CFF 100%);
 }
 
 .quantityIngredients{
     position: absolute;
 }
 
+.imgWrapp .imgBack{
+    background: #131316;
+    width: calc(62px - 2%);
+    height: calc(62px - 2%);
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .lastImg {
     opacity: 0.5;
 }

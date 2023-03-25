@@ -67,7 +67,18 @@
     height: 64px;
     box-sizing: border-box;
     border-radius: 100%;
-    border: 2px solid #4C4CFF ;
+    background: linear-gradient(63.18deg, #801AB3 0%, #4C4CFF 100%);
+}
+
+.imgBack {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #131316;
+    box-sizing: border-box;
+    border-radius: 100%;
+    width: calc(62px - 2%);
+    height: calc(62px - 2%);
 }
 
 .descriptionIngredName {

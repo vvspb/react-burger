@@ -40,27 +40,29 @@ const OrderCard: FC<IPropsOrderCard> = (props: IPropsOrderCard) => {
 
     const imgIngredientsForCard = imgLineArr.slice(0, 6)
     const quantImg = imgIngredientsForCard.length
-  
+
     return imgIngredientsForCard.map((item, index) => (
       <li
         key={index}
         className={styles.imgWrapp}
         style={{ zIndex: quantImg - index, right: index * 20 }}>
-        <img 
-        src={item.image} 
-        alt={item.name} 
-        width='112' height='56'
-        className={imgLineArr.length - quantImg > 0 &&
-          index === quantImg - 1 ? styles.lastImg : ''} />
-        {
-          imgLineArr.length - quantImg > 0 &&
-          index === quantImg - 1 &&
-          <span
-            className={`${styles.quantityIngredients} text text_type_digits-default`}
-            style={{zIndex: quantImg + 1 }}>
-            +{imgLineArr.length - quantImg}
-          </span>
-        }
+        <div className={styles.imgBack}>
+          <img
+            src={item.image}
+            alt={item.name}
+            width='112' height='56'
+            className={imgLineArr.length - quantImg > 0 &&
+              index === quantImg - 1 ? styles.lastImg : ''} />
+          {
+            imgLineArr.length - quantImg > 0 &&
+            index === quantImg - 1 &&
+            <span
+              className={`${styles.quantityIngredients} text text_type_digits-default`}
+              style={{ zIndex: quantImg + 1 }}>
+              +{imgLineArr.length - quantImg}
+            </span>
+          }
+        </div>
       </li>
     ))
   }
