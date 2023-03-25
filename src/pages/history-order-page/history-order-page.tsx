@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import NavPanel from '../../components/nav-panel/Nav-panel';
 import OrderList from '../../components/order-list/Order-list';
 import { useDispatch, useSelector } from '../../hooks/hooks';
-import { connectPersonalFeed } from '../../services/actions/ws-action';
+import { connectPersonalFeed, disconnectPersonalFeed } from '../../services/actions/ws-action';
 import config from '../../utils/config';
 import { getCookie } from '../../utils/cookie';
 
@@ -12,9 +12,12 @@ const HistoryOrdersPage = () => {
   const dispatch = useDispatch();
   const { name } = useSelector(store => store.authUserData.userData);
   const accessToken = getCookie('accessToken');
-  
+
   useEffect(() => {
     if (name) { dispatch(connectPersonalFeed(`${config.wsUrl}/orders?token=${accessToken}`)) }
+    return () => {
+      dispatch(disconnectPersonalFeed());
+    }
   }, [dispatch, name, accessToken])
 
   return (
@@ -22,7 +25,7 @@ const HistoryOrdersPage = () => {
       <div className={styles.wrapperProfile}>
         <NavPanel />
         <section aria-label='список персональных заказов' className={styles.wrappOrderList}>
-          <OrderList  flag={true}/>
+          <OrderList flag={true} />
         </section>
       </div>
     </main>

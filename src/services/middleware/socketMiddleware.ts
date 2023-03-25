@@ -33,7 +33,9 @@ export const createSocketMiddleware = (wsActions: TWSActionTypes): Middleware<{}
             if (action.type === wsConnectType) {
                 // объект класса WebSocket
                 socket = new WebSocket((action as { payload: string }).payload);
-
+            }
+            
+            if(socket){
                 // функция, которая вызывается при открытии сокета
                 socket.onopen = event => {
                     dispatch({ type: onOpenType });

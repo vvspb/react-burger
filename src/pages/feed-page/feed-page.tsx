@@ -2,7 +2,7 @@
 import { useEffect } from 'react'
 import OrderList from '../../components/order-list/Order-list'
 import { useDispatch, useSelector } from '../../hooks/hooks'
-import { connect } from '../../services/actions/ws-action'
+import { connect, disconnect } from '../../services/actions/ws-action'
 import config from '../../utils/config'
 
 import styles from './feed-page.module.css'
@@ -17,7 +17,10 @@ const FeedPage = () => {
     const orderDoing = orderFeed?.orders.filter(item => item.status === 'pending').slice(0, 5)
 
     useEffect(() => {
-        dispatch(connect(`${config.wsUrl}/orders/all`));
+        dispatch(connect(`${config.wsUrl}/orders/all`))
+        return () => {
+            dispatch(disconnect()) 
+        }
     }, [dispatch])
 
     return (

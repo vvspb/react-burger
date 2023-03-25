@@ -8,9 +8,6 @@ import ResetPasswordPage from '../../pages/reset-password-page/reset-password-pa
 import AppHeader from '../app-header/App-header';
 import { ProtectedRoute } from '../protected-route/Protected-route';
 import HistoryOrdersPage from '../../pages/history-order-page/history-order-page';
-
-import styles from './App.module.css'
-
 import { useEffect } from 'react';
 import { useDispatch } from '../../hooks/hooks';
 import { checkUserAuth } from '../../services/actions/auth-action';
@@ -19,11 +16,11 @@ import IngredientsPage from '../../pages/ingredients-page/ingredients-page';
 import { fechIngredients } from '../../services/actions/burger-ingredients-list-action';
 import FeedPage from '../../pages/feed-page/feed-page';
 import ModalOrderCardDetailsPage from '../../pages/modal-order-card-details-page/modal-order-card-details-page';
-import { connect } from '../../services/actions/ws-action';
-import config from '../../utils/config';
 import ModalPersonalOrderCardDetailsPage from '../../pages/modal-personal-order-card-details-page/modal-personal-order-card-details-page';
 import OrderCardDetaisPage from '../../pages/order-card-details-page/order-card-detais-page';
 import OrderCardDetaisPersonalPage from '../../pages/order-card-details-personal-page/order-card-details-personal-page';
+
+import styles from './App.module.css'
 
 function App() {
 
@@ -35,7 +32,6 @@ function App() {
   useEffect(() => {
     dispatch(checkUserAuth());
     dispatch(fechIngredients());
-    dispatch(connect(`${config.wsUrl}/orders/all`));
   }, [dispatch])
 
   return (
