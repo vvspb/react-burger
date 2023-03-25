@@ -12,17 +12,16 @@ import HistoryOrdersPage from '../../pages/history-order-page/history-order-page
 import styles from './App.module.css'
 
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from '../../hooks/hooks';
+import { useDispatch } from '../../hooks/hooks';
 import { checkUserAuth } from '../../services/actions/auth-action';
 import ModalDetailesIngredientPage from '../../pages/modal-detailes-ingredient-page/modal-detailes-ingredient-page';
 import IngredientsPage from '../../pages/ingredients-page/ingredients-page';
 import { fechIngredients } from '../../services/actions/burger-ingredients-list-action';
 import FeedPage from '../../pages/feed-page/feed-page';
 import ModalOrderCardDetailsPage from '../../pages/modal-order-card-details-page/modal-order-card-details-page';
-import { connect, connectPersonalFeed } from '../../services/actions/ws-action';
+import { connect } from '../../services/actions/ws-action';
 import config from '../../utils/config';
 import ModalPersonalOrderCardDetailsPage from '../../pages/modal-personal-order-card-details-page/modal-personal-order-card-details-page';
-import { getCookie } from '../../utils/cookie';
 import OrderCardDetaisPage from '../../pages/order-card-details-page/order-card-detais-page';
 import OrderCardDetaisPersonalPage from '../../pages/order-card-details-personal-page/order-card-details-personal-page';
 
@@ -38,14 +37,6 @@ function App() {
     dispatch(fechIngredients());
     dispatch(connect(`${config.wsUrl}/orders/all`));
   }, [dispatch])
-
-  const { name } = useSelector(store => store.authUserData.userData);
-
-  const accessToken = getCookie('accessToken');
-
-  useEffect(() => {
-    if (name) { dispatch(connectPersonalFeed(`${config.wsUrl}/orders?token=${accessToken}`)) }
-  }, [dispatch, name, accessToken])
 
   return (
     <div className={styles.app}>

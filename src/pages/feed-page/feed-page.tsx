@@ -1,23 +1,31 @@
 
+import { useEffect } from 'react'
 import OrderList from '../../components/order-list/Order-list'
-import { useSelector } from '../../hooks/hooks'
+import { useDispatch, useSelector } from '../../hooks/hooks'
+import { connect } from '../../services/actions/ws-action'
+import config from '../../utils/config'
 
 import styles from './feed-page.module.css'
 
 const FeedPage = () => {
-   
+    const dispatch = useDispatch();
+
     const { orderFeed } = useSelector(store => store.wsOrderFeed)
 
     const orderDone = orderFeed?.orders.filter(item => item.status === 'done').slice(0, 10)
 
     const orderDoing = orderFeed?.orders.filter(item => item.status === 'pending').slice(0, 5)
 
+    useEffect(() => {
+        dispatch(connect(`${config.wsUrl}/orders/all`));
+    }, [dispatch])
+
     return (
         <main className={styles.wrapp}>
             <h2 className={`${styles.title} text text_type_main-large`}>Лента заказов</h2>
             <div className={styles.gridContainer}>
                 <section aria-label='список заказов'>
-                    <OrderList flag={false}/>
+                    <OrderList flag={false} />
                 </section>
                 <section aria-label='статистика заказов' className={styles.statOrder}>
                     <div className={styles.ordersCurrent}>
