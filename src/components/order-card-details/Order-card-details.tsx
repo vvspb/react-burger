@@ -42,7 +42,7 @@ const OrderCardDetails = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch, currentOrderCard])
 
-    const funcMakeListIngredientsForPrice = (arr: TOrderIngredientsDetais) => {
+    const funcMakeListIngredientsForPrice = (arr: TOrderIngredientsDetais): TOrderIngredientsDetais => {
         const resultArr: TOrderIngredientsDetais = [];
         if (arr) {
             for (let i = 0; i < arr.length; i++) {

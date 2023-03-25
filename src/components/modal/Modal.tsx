@@ -14,7 +14,7 @@ interface IModalProps {
 const Modal: FC<PropsWithChildren<IModalProps>> = ({ onClose, children, title }: PropsWithChildren<IModalProps>): React.ReactPortal => {
 
   useEffect(() => {
-    const handleDownEsc = (e: { key: string }) => {
+    const handleDownEsc = (e: KeyboardEvent) => {
       e.key === 'Escape' && onClose();
     }
 

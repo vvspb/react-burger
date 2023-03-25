@@ -1,5 +1,5 @@
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
-import React, { SyntheticEvent, useCallback } from 'react';
+import React, { FormEvent, useCallback } from 'react';
 import { useDispatch } from '../../hooks/hooks';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
@@ -14,7 +14,7 @@ const RegisterPage = () => {
 
     const {values, handleChange} = useForm({email:'', password:'', name:''});
     
-    const handleSubmit = useCallback((e: SyntheticEvent) => {
+    const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         if(values.name && values.email && values.password) {
             dispatch(fetchAuthUserData(values.email, values.password, values.name))

@@ -5,12 +5,13 @@ import { addIngredientDetails } from '../../services/actions/ingredients-details
 import { useDispatch } from '../../hooks/hooks';
 import { InView, useInView } from 'react-intersection-observer';
 import { TIngredients } from '../../utils/types';
+import { SyntheticEvent } from 'react';
 
 const BurgerIngredients = () => {
 
     const dispatch = useDispatch()
 
-    const handleClickTab = (e: { currentTarget: { id: string; }; }) => {
+    const handleClickTab = (e: SyntheticEvent) => {
         if (entryBun?.target && e.currentTarget.id === 'tabBun') {
             entryBun.target.scrollIntoView({ block: "start", behavior: "smooth" });
         }

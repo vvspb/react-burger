@@ -39,13 +39,13 @@ function App() {
     dispatch(connect(`${config.wsUrl}/orders/all`));
   }, [dispatch])
 
-  const {name} = useSelector(store => store.authUserData.userData);
+  const { name } = useSelector(store => store.authUserData.userData);
 
   const accessToken = getCookie('accessToken');
 
-  useEffect(()=>{
-    if(name){dispatch(connectPersonalFeed(`${config.wsUrl}/orders?token=${accessToken}`))}
-  },[dispatch, name, accessToken])
+  useEffect(() => {
+    if (name) { dispatch(connectPersonalFeed(`${config.wsUrl}/orders?token=${accessToken}`)) }
+  }, [dispatch, name, accessToken])
 
   return (
     <div className={styles.app}>
@@ -65,7 +65,7 @@ function App() {
         />
         <Route
           path='/profile/orders/:id'
-          element={<ProtectedRoute element={<OrderCardPersonalDetails/>} />
+          element={<ProtectedRoute element={<OrderCardPersonalDetails />} />
           } />
 
         <Route
@@ -99,7 +99,7 @@ function App() {
           } />
         <Route path='ingredients/:id' element={<IngredientsPage />} />
         <Route path='feed/:id' element={<OrderCardDetails />} />
-    
+
       </Routes>
 
       {background && (
@@ -107,9 +107,9 @@ function App() {
           <Route path='ingredients/:id' element={< ModalDetailesIngredientPage />}></Route>
           <Route path='feed/:id' element={< ModalOrderCardDetailsPage />}></Route>
           <Route
-          path='profile/orders/:id'
-          element={<ProtectedRoute element={<ModalPersonalOrderCardDetailsPage />} />
-          } />
+            path='profile/orders/:id'
+            element={<ProtectedRoute element={<ModalPersonalOrderCardDetailsPage />} />
+            } />
         </Routes>
       )}
     </div>

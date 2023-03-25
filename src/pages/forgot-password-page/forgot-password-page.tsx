@@ -1,5 +1,5 @@
 import { Button, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { SyntheticEvent } from 'react';
+import React, { FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
 import api from '../../utils/api';
@@ -15,7 +15,7 @@ const ForgotPasswordPage = () => {
     const navigate = useNavigate()
     const location = useLocation()
 
-    const handleSubmit = (e: SyntheticEvent) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         api.passwordResetSendEmail(values.email)
         .then((data) => data.message === 'Reset email sent' && navigate('/reset-password', {state: {from:location}}))   

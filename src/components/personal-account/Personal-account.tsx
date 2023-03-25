@@ -1,5 +1,5 @@
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
-import React, { FormEvent, SyntheticEvent, useState } from 'react';
+import React, { SyntheticEvent, useState } from 'react';
 
 import { useForm } from '../../hooks/useForm';
 import { useSelector, useDispatch } from '../../hooks/hooks';
