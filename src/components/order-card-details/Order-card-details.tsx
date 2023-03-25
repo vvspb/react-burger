@@ -90,7 +90,7 @@ const OrderCardDetails: FC<IOrderCardDetailsProps> = ({ flag }: IOrderCardDetail
     return (
         <section className={styles.contentModal}>
             {!background && <p className={`text text_type_digits-default mt-5`}>#{card?.number}</p>}
-            <h3 className={`${styles.descriptionName} text text_type_main-medium mt-10 mb-3 pl-4`}>
+            <h3 className={`${styles.descriptionName} text text_type_main-medium mb-3 pl-4`}>
                 {card?.name}
             </h3>
             <p className={`${styles.description} text text_type_main-default mb-15 pl-4`}>

@@ -6,8 +6,13 @@
 }
 
 .descriptionName {
+    margin-top: 20px;
     width: 640px;
     text-align: start;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
 }
 
 .description {
