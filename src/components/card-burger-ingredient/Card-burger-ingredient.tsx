@@ -2,10 +2,9 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import styles from './Card-burger-ingredient.module.css';
 
 import { useDrag } from "react-dnd";
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../hooks/hooks';
 import { FC } from 'react';
 import { TIngredients } from '../../utils/types';
-import { IBurgerConstructorReducer } from '../../services/reducers/burger-constructor-reducer';
 
 interface IPropsCardBurgerIngredient {
     id: string;
@@ -16,7 +15,7 @@ interface IPropsCardBurgerIngredient {
 
 const CardBurgerIngredient: FC<IPropsCardBurgerIngredient> = ({ id, image, name, price }: IPropsCardBurgerIngredient): JSX.Element => {
 
-    const { choiceIngredients, choiceBun } = useSelector((state: { burgerConstructor: IBurgerConstructorReducer }) => state.burgerConstructor);
+    const { choiceIngredients, choiceBun } = useSelector(state => state.burgerConstructor);
 
     const [{ isDrag }, dragRef] = useDrag({
         type: 'ingredients',

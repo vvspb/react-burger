@@ -1,12 +1,11 @@
 import React from 'react'
-// import PropTypes from 'prop-types'
+
 import CardBurgerIngredient from '../card-burger-ingredient/Card-burger-ingredient'
 
 import styles from './Burger-ingredients-list.module.css'
 
-import { useSelector } from 'react-redux'
+import { useSelector } from '../../hooks/hooks';
 import { Link, useLocation } from 'react-router-dom'
-import { IIngredientsReducer } from '../../services/reducers/burger-ingredients-list-reducer'
 
 interface IPropsBurgerIngredientsList {
     category: string;
@@ -25,8 +24,7 @@ export interface IIngredientsForCard {
 const BurgerIngredientsList = React.forwardRef<HTMLElement, IPropsBurgerIngredientsList>(({ category, title, onClick }, ref) => {
 
     const location = useLocation()
-    //типизировать на 5 спринте
-    const { ingredients } = useSelector((state: {ingredients: IIngredientsReducer} )=> state.ingredients)
+    const { ingredients } = useSelector(state=> state.ingredients)
 
     return (
         <article ref={ref} >
@@ -51,11 +49,5 @@ const BurgerIngredientsList = React.forwardRef<HTMLElement, IPropsBurgerIngredie
         </article>
     )
 })
-
-// BurgerIngredientsList.propTypes = {
-//     category: PropTypes.string.isRequired,
-//     title: PropTypes.string.isRequired,
-//     onClick: PropTypes.func.isRequired
-// }
 
 export default BurgerIngredientsList

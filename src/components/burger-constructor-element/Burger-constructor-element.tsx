@@ -2,7 +2,7 @@ import  { FC, useRef } from "react";
 
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { deleteBurgerConstructor, sortIngredients } from '../../services/actions/burger-constructor-action';
-import { useDispatch } from "react-redux";
+import { useDispatch } from '../../hooks/hooks';
 
 import styles from './Burger-constructor-element.module.css';
 import { useDrag, useDrop } from "react-dnd";
@@ -14,8 +14,8 @@ interface IBurgerConstructorElementProps {
     choiceIngredient: IChoiceIngredients;
 }
 const BurgerConstructorElement: FC<IBurgerConstructorElementProps> = ({ id, index, choiceIngredient }: IBurgerConstructorElementProps): JSX.Element => {
-    // затипизировать на 5 спринте
-    const dispatch: any = useDispatch()
+
+    const dispatch = useDispatch()
 
     const ref = useRef<HTMLDivElement>(null)
 

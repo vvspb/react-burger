@@ -1,0 +1,85 @@
+.container {
+    background: #1C1C21;
+    border-radius: 40px;
+    box-sizing: border-box;
+    padding: 24px;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.containerPersonalOrder {
+    max-width: 828px;
+    height: 246px;
+}
+
+.containerFeedOrder {
+    max-width: 584px;
+    height: 214px;
+}
+
+
+.description {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.descriptionName {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.greenSpan {
+    color: #00CCCC;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+}
+
+.ingredients {
+    max-width: 436px;
+    overflow-x: hidden;
+}
+
+.sumOrder{
+    display: flex;
+    align-items: center;
+}
+
+.imgLine {
+    display: flex;
+    width: 304px;
+}
+
+.imgWrapp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 100%;
+    position: relative;
+    background: linear-gradient(63.18deg, #801AB3 0%, #4C4CFF 100%);
+}
+
+.quantityIngredients{
+    position: absolute;
+}
+
+.imgWrapp .imgBack{
+    background: #131316;
+    width: calc(62px - 2%);
+    height: calc(62px - 2%);
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.lastImg {
+    opacity: 0.5;
+}

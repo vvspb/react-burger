@@ -3,37 +3,35 @@ import styles from './Burger-constructor.module.css';
 import Modal from '../modal/Modal';
 import { useState, useEffect } from 'react';
 import OrderDetails from '../order-details/Order-details';
-import { useSelector, useDispatch } from 'react-redux'
+
 import { addBurgerConstructor, deleteAllIngredientsBurgerConstructor } from '../../services/actions/burger-constructor-action';
 import { fechOrderData } from '../../services/actions/order-details-action';
 import { useDrop } from "react-dnd";
 import BurgerConstructorElement from '../burger-constructor-element/Burger-constructor-element';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { IIngredientsReducer } from '../../services/reducers/burger-ingredients-list-reducer';
-import { IBurgerConstructorReducer, IChoiceIngredients } from '../../services/reducers/burger-constructor-reducer';
-import { IAuthReducer } from '../../services/reducers/auth-reducer';
-import { addNewOrderReducer } from '../../services/reducers/order-details-reducer';
-import { TIngredients } from '../../utils/types';
+import { IChoiceIngredients } from '../../services/reducers/burger-constructor-reducer';
 
+import { TIngredients } from '../../utils/types';
+import { useSelector, useDispatch } from '../../hooks/hooks';
 
 const BurgerConstructor = () => {
-    // типизировать на 5 спринте
-    const dispatch: any = useDispatch()
+
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const location = useLocation()
     const [modalOpenClose, setModalOpenClose] = useState<boolean>(false)
 
-    const { ingredients, isLoading } = useSelector((state: { ingredients: IIngredientsReducer }) => state.ingredients)
-    const { choiceBun, choiceIngredients } = useSelector((state: { burgerConstructor: IBurgerConstructorReducer }) => state.burgerConstructor)
-    const userName = useSelector((state: { authUserData: IAuthReducer }) => state.authUserData.userData.name);
-    const addOrder = useSelector((state: { orderData: addNewOrderReducer }) => state.orderData.orderNumber)
+    const { ingredients, isLoading } = useSelector(state => state.ingredients)
+    const { choiceBun, choiceIngredients } = useSelector(state => state.burgerConstructor)
+    const userName = useSelector(state => state.authUserData.userData.name);
+    const addOrder = useSelector(state => state.orderData.orderNumber)
 
     const [sumOrder, setSumOrder] = useState<number>(0)
 
     const openModal = () => setModalOpenClose(true)
     const closeModal = () => setModalOpenClose(false)
 
-    const [, dropTarget] = useDrop({
+    const [, dropTarget] = useDrop<{id: string}>({
         accept: "ingredients",
         collect: monitor => ({
             isHover: monitor.isOver()
@@ -48,7 +46,7 @@ const BurgerConstructor = () => {
             if (choiceBun !== null) {
                 setSumOrder(choiceIngredients.reduce((acc, item) => acc + item.price, 0) + choiceBun.price * 2)
             } else {
-                setSumOrder(0)
+                setSumOrder(choiceIngredients.reduce((acc, item) => acc + item.price, 0))
             }
         }, [setSumOrder, choiceIngredients, choiceBun]
     )
@@ -57,7 +55,7 @@ const BurgerConstructor = () => {
         const mainSauceID = arrMainSauce.map((item: { _id: string }) => item._id)
         if (objectBun !== null) {
             const bunID = objectBun._id
-            return [...mainSauceID, bunID]
+            return [...mainSauceID, bunID, bunID]
         }
         return [...mainSauceID]
     }

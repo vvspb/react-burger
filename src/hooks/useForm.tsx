@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {ChangeEvent, useState} from 'react';
 
 type TUseFormProps = {
   email: string,
@@ -9,7 +9,7 @@ type TUseFormProps = {
 export function useForm(inputValues: TUseFormProps) {
     const [values, setValues] = useState(inputValues);
   
-    const handleChange = (event: { target: { value: string; name: string;} }) => {
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
       const {value, name} = event.target;
       setValues({...values, [name]: value});
     };

@@ -1,4 +1,5 @@
 import { GET_USERDATA, GET_USERDATA_SUCCESS, GET_USERDATA_FAILURE, DELETE_USERDATA_SUCCESS, AUTH_CHECKED, UPDATE_USERDATA, HASERROR_DEFAULT } from '../actions-types/auth-action-type';
+import type {TAuthActions} from '../actions/auth-action';
 
 export interface IAuthReducer {
     authenticated: boolean;
@@ -19,7 +20,7 @@ const initialState: IAuthReducer= {
     hasError: false,
 }
 
-export const authReducer = (state = initialState, action: any): IAuthReducer => {
+export const authReducer = (state = initialState, action: TAuthActions): IAuthReducer => {
     switch (action.type) {
         case GET_USERDATA:
             return {

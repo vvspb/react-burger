@@ -1,3 +1,0 @@
-export const ADD_ORDER = 'ADD_ORDER';
-export const ADD_ORDER_SUCCESS = 'ADD_ORDER_SUCCESS';
-export const ADD_ORDER_FAILURE = 'ADD_ORDER_FAILURE';

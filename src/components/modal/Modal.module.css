@@ -6,7 +6,7 @@
     width: 720px;
     max-height: 718px;
     margin: auto;
-    z-index: 3;
+    z-index: 100;
     background: #1C1C21;
     border-radius: 40px;
 }
@@ -22,6 +22,10 @@
 
 .title {
     width: 580px;
+}
+
+.titleNum{
+    width: 620px;
 }
 
 .closeButtonIcon {

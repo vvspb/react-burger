@@ -8,83 +8,91 @@ import ResetPasswordPage from '../../pages/reset-password-page/reset-password-pa
 import AppHeader from '../app-header/App-header';
 import { ProtectedRoute } from '../protected-route/Protected-route';
 import HistoryOrdersPage from '../../pages/history-order-page/history-order-page';
-
-import styles from './App.module.css'
-import OrderPage from '../../pages/order-page/order-page';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../hooks/hooks';
 import { checkUserAuth } from '../../services/actions/auth-action';
 import ModalDetailesIngredientPage from '../../pages/modal-detailes-ingredient-page/modal-detailes-ingredient-page';
 import IngredientsPage from '../../pages/ingredients-page/ingredients-page';
 import { fechIngredients } from '../../services/actions/burger-ingredients-list-action';
+import FeedPage from '../../pages/feed-page/feed-page';
+import ModalOrderCardDetailsPage from '../../pages/modal-order-card-details-page/modal-order-card-details-page';
+import ModalPersonalOrderCardDetailsPage from '../../pages/modal-personal-order-card-details-page/modal-personal-order-card-details-page';
+import OrderCardDetaisPage from '../../pages/order-card-details-page/order-card-detais-page';
+import OrderCardDetaisPersonalPage from '../../pages/order-card-details-personal-page/order-card-details-personal-page';
 
+import styles from './App.module.css'
 
 function App() {
-// типизировать dispatch на 5 спринте
-  const dispatch: any = useDispatch()
+
+  const dispatch = useDispatch()
   const location = useLocation()
 
   const background: Location = location.state && location.state.background
 
   useEffect(() => {
     dispatch(checkUserAuth());
-    dispatch(fechIngredients())
+    dispatch(fechIngredients());
   }, [dispatch])
 
- 
   return (
     <div className={styles.app}>
-       <AppHeader />
+      <AppHeader />
       <Routes location={background || location}>
         <Route
-          path='/profile/*'
+          path='/profile'
           element={
             <ProtectedRoute element={<ProfilePage />} />
-          }
-        >
-          <Route
-            path='orders'
-            element={
-              <ProtectedRoute element={<HistoryOrdersPage />} />
-            }
-          />
-          <Route
-            path='orders/:id'
-            element={<ProtectedRoute element={<OrderPage />} />
-            }
-          />
-        </Route>
+          } />
+
+        <Route
+          path='/profile/orders'
+          element={
+            <ProtectedRoute element={<HistoryOrdersPage />} />
+          }/>
+
+        <Route
+          path='/profile/orders/:id'
+          element={<ProtectedRoute element={<OrderCardDetaisPersonalPage />} />
+          } />
+
         <Route
           path='/'
-          element={<MainPage />}
-        />
+          element={<MainPage />}/>
+        <Route
+          path='/feed'
+          element={<FeedPage />}/>
         <Route
           path='/login'
           element={
             <ProtectedRoute element={<LoginPage />} onlyUnAuth={true} />
-          }
-        />
+          }/>
         <Route
           path='/register'
           element={
             <ProtectedRoute element={<RegisterPage />} onlyUnAuth={true} />
-          }/>
+          } />
         <Route
           path='/forgot-password'
           element={
             <ProtectedRoute element={<ForgotPasswordPage />} onlyUnAuth={true} />
-          }/>
+          } />
         <Route
           path='/reset-password'
           element={
-            <ProtectedRoute element={<ResetPasswordPage />} onlyUnAuth={true}/>
+            <ProtectedRoute element={<ResetPasswordPage />} onlyUnAuth={true} />
           } />
-             <Route path='ingredients/:id' element={< IngredientsPage />} />
+        <Route path='ingredients/:id' element={<IngredientsPage />} />
+        <Route path='feed/:id' element={<OrderCardDetaisPage />} />
       </Routes>
 
       {background && (
         <Routes>
           <Route path='ingredients/:id' element={< ModalDetailesIngredientPage />}></Route>
+          <Route path='feed/:id' element={< ModalOrderCardDetailsPage />}></Route>
+          <Route
+            path='profile/orders/:id'
+            element={<ProtectedRoute element={<ModalPersonalOrderCardDetailsPage />} />
+            } />
         </Routes>
       )}
     </div>

@@ -1,10 +1,9 @@
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../hooks/hooks';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { makeHasErrorDefault } from '../../services/actions/auth-action';
 import styles from '../../pages/login-page/login-page.module.css'
 import { FC } from 'react';
-import { IAuthReducer } from '../../services/reducers/auth-reducer';
 
 interface IProtectedRouteProps {
     element: JSX.Element;
@@ -14,9 +13,9 @@ interface IProtectedRouteProps {
 export const ProtectedRoute: FC<IProtectedRouteProps> = ({ element, onlyUnAuth = false }: IProtectedRouteProps): JSX.Element => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const { authenticated } = useSelector((state: {authUserData: IAuthReducer}) => state.authUserData);
-    const userName = useSelector((state: {authUserData: IAuthReducer}) => state.authUserData.userData.name);
-    const hasError = useSelector((state: {authUserData: IAuthReducer}) => state.authUserData.hasError)
+    const { authenticated } = useSelector(state => state.authUserData);
+    const userName = useSelector(state => state.authUserData.userData.name);
+    const hasError = useSelector(state => state.authUserData.hasError)
     const location = useLocation();
 
     const handleClickYet = () => {

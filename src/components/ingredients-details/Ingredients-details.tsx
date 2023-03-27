@@ -1,27 +1,21 @@
 import React, { useEffect } from 'react'
 
 import styles from './Ingredients-details.module.css'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector, useDispatch } from '../../hooks/hooks';
 import { useParams } from 'react-router-dom'
 import { addIngredientDetails } from '../../services/actions/ingredients-details-action'
-import { IIngredientsDetailsReducer } from '../../services/reducers/ingredients-details-reducer'
-import { IIngredientsReducer } from '../../services/reducers/burger-ingredients-list-reducer'
 
 const InredientsDetails = () => {
-    // затипизировать dispatch на 5 спринте
-    const dispatch: any = useDispatch()
 
-    const { ingredientCurrent } = useSelector((state: {ingredientCurrent: IIngredientsDetailsReducer}) => state.ingredientCurrent)
+    const dispatch= useDispatch()
+
+    const { ingredientCurrent } = useSelector(state => state.ingredientCurrent)
     const { id } = useParams()
-    const ingredients = useSelector((state: {ingredients: IIngredientsReducer}) => state.ingredients.ingredients)
+    const ingredients = useSelector(state => state.ingredients.ingredients)
 
     useEffect(() => {
-        if(ingredients.length) dispatch(addIngredientDetails(ingredients.find(item => item._id === id)))
+        if(ingredients.length) dispatch(addIngredientDetails(ingredients.find(item => item._id === id)!))
     }, [dispatch, id, ingredients])
-
-    
-
-    console.log(typeof ingredientCurrent)
     
     const description: string = 'text text_type_main-small text_color_inactive'
 

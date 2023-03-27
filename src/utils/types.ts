@@ -1,5 +1,6 @@
+
 // get ingredients api
-export type TIngredients  = {
+export type TIngredients = {
     _id: string,
     name: string,
     type: string,
@@ -76,4 +77,31 @@ export interface CustomResponse<T> extends CustomBody<T> {
     readonly type: ResponseType;
     readonly url: string;
     clone(): Response;
+}
+
+// ws order/all
+
+export interface IOrderFeed {
+    success:    boolean;
+    orders:     IOrders[];
+    total:      number;
+    totalToday: number;
+}
+
+export interface IOrders {
+    ingredients: string[];
+    _id:         string;
+    status:      string;
+    name:        string;
+    number:      number;
+    createdAt:   Date;
+    updatedAt:   Date;
+}
+
+//websocket status
+
+export enum WebSocketStatus {
+    CONNECTING = 'CONNECTING...',
+    ONLINE = 'ONLINE',
+    OFFLINE = 'OFFLINE'
 }
