@@ -102,7 +102,7 @@ const OrderCardDetails: FC<IOrderCardDetailsProps> = ({ flag }: IOrderCardDetail
             <article className={styles.wrapList}>
                 <ul className={`${styles.ul}`}>
                     {ingredientsPrice?.map(item => (
-                        <li className={`${styles.itemList} mr-6`} key={Math.random() * item.price * 100}>
+                        <li className={`${styles.itemList} mr-6`} key={item._id}>
                             <div className={styles.imgWrapp}>
                                 <div className={styles.imgBack}>
                                     <img src={item.image} alt={item.name} width='112' height='56' />
