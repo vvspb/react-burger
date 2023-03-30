@@ -34,7 +34,7 @@ const BurgerIngredientsList = React.forwardRef<HTMLElement, IPropsBurgerIngredie
             <ul className={`${styles.cardsBurgerIngredients}`}>
                 {
                     ingredients.filter((item: IIngredientsForCard) => item.type === category).map((el: IIngredientsForCard) =>
-                        < li className={styles.cardWrapper} key={el._id} onClick={() => onClick(el)}>
+                        < li className={styles.cardWrapper} key={el._id} data-cy={el._id} onClick={() => onClick(el)}>
                             <Link 
                             className={styles.link}
                             to={`ingredients/${el._id}`}

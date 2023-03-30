@@ -73,7 +73,7 @@ const BurgerConstructor = () => {
     }, [addOrder, dispatch])
 
     return (
-        <section className={`${styles.burgerConstructor} pt-25`} ref={dropTarget}>
+        <section className={`${styles.burgerConstructor} pt-25`} ref={dropTarget} data-cy={'consrtuctor'}>
             {!isLoading && <>
                 <div className={`${styles.cardBurgerConstructor} ml-8`}>
                     {choiceBun !== null ?

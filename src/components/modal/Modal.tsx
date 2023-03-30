@@ -34,7 +34,7 @@ const Modal: FC<PropsWithChildren<IModalProps>> = ({ onClose, children, title }:
             className={styleTitle}>
             {title}
           </h3>
-          <button className={styles.closeButtonIcon} type='button'>
+          <button className={styles.closeButtonIcon} type='button' data-cy={'close'}>
             <CloseIcon type='primary' onClick={onClose} />
           </button>
         </header>
