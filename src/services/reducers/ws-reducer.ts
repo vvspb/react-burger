@@ -9,7 +9,7 @@ export interface IOrderFeedState {
     orderFeedPersonal: IOrderFeed | undefined
 }
 
-const initialState: IOrderFeedState = {
+export const initialState: IOrderFeedState = {
     status: WebSocketStatus.OFFLINE,
     connectingError: '',
     orderFeed: undefined,

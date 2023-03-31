@@ -10,7 +10,7 @@ export interface IAuthReducer {
     isLoading: boolean;
     hasError: boolean;
 }
-const initialState: IAuthReducer= {
+export const initialState: IAuthReducer= {
     authenticated: false,
     userData: {
         email: '',

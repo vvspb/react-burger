@@ -9,7 +9,7 @@ export interface IOrderCardDetailsReducer {
     cardCurrentPersonal?: IOrders;
     dataOrderPersonal?: IDataOrder;
 }
-const initialState: IOrderCardDetailsReducer = {
+export const initialState: IOrderCardDetailsReducer = {
     cardCurrent: undefined,
     dataOrder: undefined,
     cardCurrentPersonal: undefined,

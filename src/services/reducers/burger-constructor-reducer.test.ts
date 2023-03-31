@@ -1,4 +1,4 @@
-import { burgerConstructorReducer } from './burger-constructor-reducer';
+import { burgerConstructorReducer, initialState } from './burger-constructor-reducer';
 import * as types from '../actions-types/burger-constructor-action-type';
 
 const ingredients = [{
@@ -31,11 +31,6 @@ const ingredients = [{
     image_large: 'test',
     __v: 0,
 }]
-
-const initialState = {
-    choiceIngredients: [],
-    choiceBun: null,
-}
 
 describe('burger-constructor-reducer', () => {
     it('should return the initial state', () => {

@@ -5,7 +5,7 @@ import {IAddIngredientDetails} from '../actions/ingredients-details-action'
 export interface IIngredientsDetailsReducer {
     ingredientCurrent: TIngredients;
 }
-const initialState: IIngredientsDetailsReducer = {
+export const initialState: IIngredientsDetailsReducer = {
     ingredientCurrent: {
         _id: '',
         name: '',

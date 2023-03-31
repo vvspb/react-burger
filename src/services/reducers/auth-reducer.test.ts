@@ -1,15 +1,5 @@
-import { authReducer } from './auth-reducer';
+import { authReducer, initialState } from './auth-reducer';
 import * as types from '../actions-types/auth-action-type';
-
-const initialState = {
-    authenticated: false,
-    userData: {
-        email: '',
-        name: ''
-    },
-    isLoading: false,
-    hasError: false,
-}
 
 const user = {
     email: 'test',

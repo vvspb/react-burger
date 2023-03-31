@@ -1,12 +1,5 @@
-import { orderCardDetailsReducer } from './order-card-details-reducer';
+import { orderCardDetailsReducer , initialState} from './order-card-details-reducer';
 import * as types from '../actions-types/order-card-details-action-type';
-
-const intialState = {
-    cardCurrent: undefined,
-    dataOrder: undefined,
-    cardCurrentPersonal: undefined,
-    dataOrderPersonal: undefined
-}
 
 const orderFeed = {
     order: {
@@ -58,11 +51,11 @@ const orderFeedPersonal = {
 
 describe('order-card-details-reducer', () => {
     it('should return the initial state', () => {
-        expect(orderCardDetailsReducer(undefined, {} as any)).toEqual(intialState)
+        expect(orderCardDetailsReducer(undefined, {} as any)).toEqual(initialState)
     })
 
     it('should handle ORDER_CARD_CURRENT', () => {
-        expect(orderCardDetailsReducer(intialState, {
+        expect(orderCardDetailsReducer(initialState, {
             type: types.ORDER_CARD_CURRENT,
             payload: orderFeed
         })).toEqual({
@@ -72,7 +65,7 @@ describe('order-card-details-reducer', () => {
     })
 
     it('should handle ORDER_PERSONAL_CARD_CURRENT', ()=>{
-        expect(orderCardDetailsReducer(intialState, {
+        expect(orderCardDetailsReducer(initialState, {
             type: types.ORDER_PERSONAL_CARD_CURRENT,
             payload: orderFeedPersonal
         })).toEqual({

@@ -1,11 +1,5 @@
-import { addNewOrderReducer } from './order-details-reducer';
+import { addNewOrderReducer, initialState } from './order-details-reducer';
 import * as types from '../actions-types/order-details-action-type';
-
-const initialState = {
-    orderNumber: null,
-    isLoading: false,
-    hasError: false
-}
 
 describe('order-details-reducer', () => {
     it('should return the initial state', () => {

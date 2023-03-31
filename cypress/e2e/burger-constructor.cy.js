@@ -14,7 +14,7 @@ describe('test burger-constructor', () => {
             '60d3b41abdacab0026a733c9',
             '60d3b41abdacab0026a733c9']
 
-        cy.visit('http://localhost:3000/login');
+        cy.visit('login');
         cy.get('[name= email]').type(`${email}{enter}`);
         cy.get('[name= password]').type(`${password}{enter}`)
         cy.get('[data-cy= 60d3b41abdacab0026a733c7]').click();
@@ -27,11 +27,10 @@ describe('test burger-constructor', () => {
         }
 
         cy.get("button").click();
-
     });
 
     it('should be sign out', () => {
-        cy.visit('http://localhost:3000/profile');
+        cy.visit('profile');
         cy.get('[name= email]').type(`${email}{enter}`);
         cy.get('[name= password]').type(`${password}{enter}`);
 

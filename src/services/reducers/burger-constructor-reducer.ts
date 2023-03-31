@@ -11,7 +11,7 @@ export interface IBurgerConstructorReducer {
     choiceBun: IChoiceIngredients | null
 }
 
-const initialState: IBurgerConstructorReducer = {
+export const initialState: IBurgerConstructorReducer = {
     choiceIngredients: [],
     choiceBun: null,
 }

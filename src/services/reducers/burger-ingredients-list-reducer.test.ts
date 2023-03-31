@@ -1,22 +1,14 @@
-import { ingredientsReducer } from './burger-ingredients-list-reducer';
+import { ingredientsReducer, initialState } from './burger-ingredients-list-reducer';
 import * as types from '../actions-types/burger-ingredients-list-action-type';
 
 describe('ingredientsReducer', () => {
     it('should return the initial state', () => {
-        expect(ingredientsReducer(undefined, {} as any)).toEqual({
-            ingredients: [],
-            isLoading: false,
-            hasError: false,
-        })
+        expect(ingredientsReducer(undefined, {} as any)).toEqual(initialState)
     })
 
     it('should handle GET_INGREDIENTS', () => {
 
-        expect(ingredientsReducer({
-            ingredients: [],
-            isLoading: false,
-            hasError: false,
-        },
+        expect(ingredientsReducer(initialState,
             {
                 type: types.GET_INGREDIENTS
             }
@@ -29,12 +21,7 @@ describe('ingredientsReducer', () => {
 
     it('should handle GET_INGREDIENTS_SUCCESS', () => {
 
-
-        expect(ingredientsReducer({
-            ingredients: [],
-            isLoading: false,
-            hasError: false,
-        },
+        expect(ingredientsReducer(initialState,
             {
                 type: types.GET_INGREDIENTS_SUCCESS,
                 payload: [{
@@ -74,11 +61,7 @@ describe('ingredientsReducer', () => {
 
     it('should handle GET_INGREDIENTS_FAILURE', () => {
 
-        expect(ingredientsReducer({
-            ingredients: [],
-            isLoading: false,
-            hasError: false,
-        },
+        expect(ingredientsReducer(initialState,
             {
                 type: types.GET_INGREDIENTS_FAILURE
             }

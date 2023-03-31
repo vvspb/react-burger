@@ -1,13 +1,6 @@
-import {IOrderFeedState, orderFeedReducer} from './ws-reducer';
+import { orderFeedReducer, initialState} from './ws-reducer';
 import { WebSocketStatus } from '../../utils/types';
 import *  as types from '../actions-types/ws-action-types';
-
-const initialState: IOrderFeedState = {
-    status: WebSocketStatus.OFFLINE,
-    connectingError: '',
-    orderFeed: undefined,
-    orderFeedPersonal: undefined
-};
 
 const resp = {
     success:    true,
