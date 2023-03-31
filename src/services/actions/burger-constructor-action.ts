@@ -1,4 +1,3 @@
-import { TIngredients } from "../../utils/types";
 import { ADD_INGREDIENT_CONSTRUCTOR, DELETE_INGREDIENT_CONSTRUCTOR, SORT_INGRIDIENTS_CONSTRUCTOR, DELETE_ALL_INGREDIENTS_CONSTRUCTOR } from "../actions-types/burger-constructor-action-type";
 import { IChoiceIngredients } from "../reducers/burger-constructor-reducer";
 
@@ -32,15 +31,10 @@ export interface IDeleteAllIngredientsBurgerConstructor {
 export type TBurgerConstructorActions = IAddBurgerConstructor | IDeleteBurgerConstructor | ISortIngredients | IDeleteAllIngredientsBurgerConstructor
 
 
-export const addBurgerConstructor = (ingredients: TIngredients[], itemId: {id: string} ): IAddBurgerConstructor => ({
+export const addBurgerConstructor = (ingredients: IChoiceIngredients[], itemId: {id: string} ): IAddBurgerConstructor => ({
     type: ADD_INGREDIENT_CONSTRUCTOR,
     payload: {
-        ingredients: ingredients?.map((item: TIngredients) => {
-            return {
-                ...item,
-                __id: item._id + Math.random() * 10000
-            }
-        }),
+        ingredients,
         ...itemId
     }
 })

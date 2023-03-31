@@ -31,13 +31,19 @@ const BurgerConstructor = () => {
     const openModal = () => setModalOpenClose(true)
     const closeModal = () => setModalOpenClose(false)
 
+    const ingredientsForConstructor = ingredients?.map((item: TIngredients) => {
+        return {
+            ...item,
+            __id: item._id + Math.random() * 10000
+        }})
+
     const [, dropTarget] = useDrop<{id: string}>({
         accept: "ingredients",
         collect: monitor => ({
             isHover: monitor.isOver()
         }),
         drop(itemId) {
-            dispatch(addBurgerConstructor(ingredients, itemId))
+            dispatch(addBurgerConstructor(ingredientsForConstructor, itemId))
         },
     });
 
