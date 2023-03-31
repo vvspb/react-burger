@@ -7,7 +7,7 @@ describe('test burger-constructor', () => {
 
     it('should be signin and ingredient that can drag and drop and add order', () => {
         const dataTransfer = new DataTransfer();
-        const ingredinetsId = [
+        const ingredientsId = [
             '60d3b41abdacab0026a733c7',
             '60d3b41abdacab0026a733cd',
             '60d3b41abdacab0026a733c9',
@@ -21,7 +21,7 @@ describe('test burger-constructor', () => {
         cy.get('[data-cy= close]').click();
         cy.get('[data-cy= consrtuctor]');
 
-        for (const id of ingredinetsId) {
+        for (const id of ingredientsId) {
             cy.get(`[data-cy= ${id}]`).trigger('dragstart', { dataTransfer });
             cy.get('[data-cy= consrtuctor]').trigger('drop', { dataTransfer });
         }
