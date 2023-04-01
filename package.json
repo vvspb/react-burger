@@ -2,11 +2,10 @@
   "name": "react-burger",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/https://vvspb.github.io/react-burger/", 
+  "homepage": "https://vvspb.github.io/react-burger/",
   "dependencies": {
     "@redux-devtools/extension": "^3.2.5",
     "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.11",
@@ -32,7 +31,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "deploy-script": "npm run build && scp -r ./build/* vvspb@51.250.3.74:/home/vvspb/stellar-frontend",
+    "cypress:open": "./node_modules/.bin/cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -53,6 +54,12 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^5.0.0"
+    "@testing-library/react": "^14.0.0",
+    "cypress": "^12.9.0",
+    "eslint-plugin-cypress": "^2.13.2",
+    "fetch-mock": "^9.11.0",
+    "gh-pages": "^5.0.0",
+    "react-test-renderer": "^18.2.0",
+    "redux-mock-store": "^1.5.4"
   }
 }

@@ -35,7 +35,7 @@ const NavPanel = () => {
                         История заказов
                     </NavLink>
                 </li>
-                <li className={styles.navLi}>
+                <li className={styles.navLi} data-cy={'signOut'}>
                     <NavLink
                         to={'/'}
                         className={`${styles.inactiveClasses} ${textStyle}`}

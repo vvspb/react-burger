@@ -1,11 +1,11 @@
-import { TIngredients } from "../../utils/types";
 import { ADD_INGREDIENT_CONSTRUCTOR, DELETE_INGREDIENT_CONSTRUCTOR, SORT_INGRIDIENTS_CONSTRUCTOR, DELETE_ALL_INGREDIENTS_CONSTRUCTOR } from "../actions-types/burger-constructor-action-type";
+import { IChoiceIngredients } from "../reducers/burger-constructor-reducer";
 
 export interface IAddBurgerConstructor {
     readonly type: typeof ADD_INGREDIENT_CONSTRUCTOR,
     payload: {
         id: string;
-        ingredients: TIngredients[]
+        ingredients: IChoiceIngredients[]
     }
 }
 
@@ -31,7 +31,7 @@ export interface IDeleteAllIngredientsBurgerConstructor {
 export type TBurgerConstructorActions = IAddBurgerConstructor | IDeleteBurgerConstructor | ISortIngredients | IDeleteAllIngredientsBurgerConstructor
 
 
-export const addBurgerConstructor = (ingredients: TIngredients[], itemId: {id: string} ): IAddBurgerConstructor => ({
+export const addBurgerConstructor = (ingredients: IChoiceIngredients[], itemId: {id: string} ): IAddBurgerConstructor => ({
     type: ADD_INGREDIENT_CONSTRUCTOR,
     payload: {
         ingredients,
@@ -57,4 +57,3 @@ export const sortIngredients = (dragIndex: number, hoverIndex: number): ISortIng
 export const deleteAllIngredientsBurgerConstructor = (): IDeleteAllIngredientsBurgerConstructor =>({
     type: DELETE_ALL_INGREDIENTS_CONSTRUCTOR
  })
-

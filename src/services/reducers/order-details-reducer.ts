@@ -7,7 +7,7 @@ export interface IAddNewOrderReducer {
     hasError: boolean;
 }
 
-const initialState: IAddNewOrderReducer = {
+export const initialState: IAddNewOrderReducer = {
     orderNumber: null,
     isLoading: false,
     hasError: false

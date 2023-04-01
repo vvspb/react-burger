@@ -8,32 +8,26 @@ export interface IChoiceIngredients extends TIngredients {
 
 export interface IBurgerConstructorReducer {
     choiceIngredients: Array<IChoiceIngredients>;
-    choiceBun: TIngredients | null
+    choiceBun: IChoiceIngredients | null
 }
 
-const initialState: IBurgerConstructorReducer = {
+export const initialState: IBurgerConstructorReducer = {
     choiceIngredients: [],
     choiceBun: null,
 }
 export const burgerConstructorReducer = (state = initialState, action: TBurgerConstructorActions): IBurgerConstructorReducer => {
     switch (action.type) {
         case ADD_INGREDIENT_CONSTRUCTOR:
-            let copyChoiceBun: TIngredients | null ={
+            let copyChoiceBun: IChoiceIngredients | null ={
                 ...state.choiceBun,
-                ...action.payload.ingredients.find((item: TIngredients) => (item._id === action.payload.id) && (item.type === 'bun'))!
+                ...action.payload.ingredients.find((item: IChoiceIngredients) => (item._id === action.payload.id) && (item.type === 'bun'))!
             }
             if (copyChoiceBun !== null && !Object.keys(copyChoiceBun).length) copyChoiceBun = null
             return {
                 ...state,
                 choiceIngredients: [
                     ...state.choiceIngredients,
-                    ...action.payload.ingredients?.filter((item: TIngredients) => (item._id === action.payload.id) && (item.type !== 'bun'))
-                        .map((item: TIngredients) => {
-                            return {
-                                ...item,
-                                __id: item._id + Math.random() * 10000
-                            }
-                        })
+                    ...action.payload.ingredients?.filter((item: IChoiceIngredients) => (item._id === action.payload.id) && (item.type !== 'bun'))
                 ],
                 choiceBun: copyChoiceBun ? { ...copyChoiceBun } : copyChoiceBun
             }
