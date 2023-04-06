@@ -20,7 +20,7 @@ const MainPage = () => {
               :
               <DndProvider backend={HTML5Backend}>
                 <BurgerIngredients />
-                <BurgerConstructor />
+               <div hidden={false} className={styles.containerConstructor}><BurgerConstructor /></div> 
               </DndProvider>
           }
         </main>

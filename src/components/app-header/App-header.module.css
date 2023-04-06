@@ -9,6 +9,10 @@ header {
     height: 88px;
 }
 
+.wrappMobileLogo {
+    display: none;
+}
+
 .container {
     width: 100%;
     max-width: 1280px;
@@ -31,6 +35,7 @@ header {
     height: 56px;
     border-radius: 40px;
 }
+
 .headeLink:nth-child(2n){
     width: 197px;
 }
@@ -43,4 +48,105 @@ header {
     position: absolute;
     right: 50%;
     transform: translateX(50%);
+}
+
+.visualHidden{
+    display: none;
+}
+
+.navToggle {
+    display: none;
+}
+
+@media (max-width: 500px) {
+    .header {
+        height: 64px;
+    }
+
+    .container{
+        width:100%;
+        height: 144px;
+        flex-direction: column;
+        position: absolute;
+        top: 112px;
+        background: #1C1C21;
+        display: none;
+    }
+
+    .headeLink{
+        height: 48px;
+        box-sizing: border-box;
+    }
+
+    .wrapperLogo {
+      display: none;
+    }
+
+    .navUl {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 48px 48px;
+        gap: 0;
+ 
+        width: 320px;
+        height: 96px;
+        top: 112px;
+        left: 0;
+    }
+    
+    .navToggle{
+        display: block;
+        position: absolute; 
+        border: 0;
+        content: "";
+        width: 22px;
+        height: 2px;
+        top: 30px;
+        right: 11px;
+        border-radius: 10px;
+        background-color: white;
+    }
+
+    .navToggle::before {
+        position: absolute; 
+        content: "";
+        width: 22px;
+        height: 2px;
+        top: -6px;
+        right: 0;
+        background-color: white;
+        border-radius: 10px;
+    }
+
+    .navToggle::after {
+        position: absolute; 
+        content: "";
+        width: 22px;
+        height: 2px;
+        top: 6px;
+        right: 0;
+        background-color: white;
+        border-radius: 10px;
+    }
+
+    .visualHidden {
+        display: hidden;
+    }
+
+    .headeLinkProfile{
+        position: absolute;
+        left: 0;
+        top: -48px;
+        height: 48px;
+        background-color: #1C1C21;
+        width: 100%;
+    }
+
+    .wrappMobileLogo {
+        display: block;
+       position: absolute;
+       top: 12px;
+       left: 2vh;
+    }
+   
 }

@@ -32,7 +32,7 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "deploy-script": "npm run build && scp -r ./build/* vvspb@51.250.3.74:/home/praktikum/stellar-frontend",
+    "deploy-script": "npm run build && scp -r ./build/* vvspb@51.250.3.74:~/home/praktikum/stellar-frontend",
     "cypress:open": "./node_modules/.bin/cypress open"
   },
   "eslintConfig": {

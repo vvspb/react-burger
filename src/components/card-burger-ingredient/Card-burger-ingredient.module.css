@@ -22,3 +22,21 @@
     height: 56px;
     color: #F2F2F3;
 }
+
+@media (max-width: 500px){
+    .card {
+        width: 144px;
+        height: 220px;
+    }
+
+    .description{
+        font-size: 22px;
+        line-height: 24px;
+    }
+
+    .descriptionName {
+        height: 60px;
+        font-size: 14px;
+        line-height: 20px;
+    }
+}

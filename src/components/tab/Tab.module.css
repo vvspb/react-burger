@@ -1,0 +1,30 @@
+.tab {
+    cursor: pointer;
+    background-color:#131316;
+    min-width: 200px;
+    text-align: center;
+    box-shadow: inset 0px -1px 0px #2F2F37;
+    color: #8585AD;
+    transition: all .3s ease-in;
+    box-sizing: border-box;
+  }
+  
+  .tab:hover {
+    color: white;
+  }
+  
+  .tabTypeCurrent {
+    box-shadow: inset 0px -2px 0px #4C4CFF;
+    pointer-events: none;
+    color: white;
+  }
+
+  @media (max-width: 500px){
+    .tab{
+        min-width: 100px;
+        width: 100%;
+        padding-left: 0;
+        padding-right:0;
+        text-align: center;
+    }
+  }

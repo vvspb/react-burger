@@ -10,14 +10,22 @@
     max-width: 207px;
 }
 
-.link > svg{
+.link>svg {
     fill: #8585AD;
 }
 
-.link:hover{
+.link:hover {
     color: #F2F2F3;
 }
 
-.link:hover > svg{
+.link:hover>svg {
     fill: #F2F2F3;
+}
+
+@media (max-width: 500px) {
+    .link {
+        width: 100%;
+        box-sizing: border-box;
+        height: 48px;
+    }
 }

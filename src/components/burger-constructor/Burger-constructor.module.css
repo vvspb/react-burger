@@ -75,3 +75,13 @@
         max-height: 260px;
     }
 }
+
+@media (max-width: 500px) {
+    .burgerConstructor {
+        width: 100%;
+    }
+
+    .constructorElement{
+        width: 100%;
+    }
+}
