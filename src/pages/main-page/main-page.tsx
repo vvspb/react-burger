@@ -4,27 +4,37 @@ import BurgerConstructor from '../../components/burger-constructor/Burger-constr
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useSelector } from '../../hooks/hooks';
+import Footer from '../../components/footer/Footer';
 
 import styles from './main-page.module.css'
 
 
 const MainPage = () => {
 
-  const { isLoading } = useSelector(state => state.ingredients)
+  const { isLoading } = useSelector(state => state.ingredients);
+  const screenWidth = window.screen.width;
 
   return (
-        <main className={styles.main}>
-          {
-            isLoading ?
-              <p className={styles.load}><span className='text text_type_main-medium'>идет загрузка...</span></p>
-              :
+    <>
+      <main className={styles.main}>
+        {
+          isLoading ?
+            <p className={styles.load}><span className='text text_type_main-medium'>идет загрузка...</span></p>
+            :
               <DndProvider backend={HTML5Backend}>
                 <BurgerIngredients />
-               <div hidden={false} className={styles.containerConstructor}><BurgerConstructor /></div> 
+                <div hidden={false} className={styles.containerConstructor}>
+                  <BurgerConstructor />
+                </div>
               </DndProvider>
-          }
-        </main>
+        }
+      </main>
+      {
+        screenWidth < 500 &&
+        <Footer btnDescription='Смотреть заказ' />
+      }
+    </>
   )
 }
 
-export default MainPage
+export default MainPage;

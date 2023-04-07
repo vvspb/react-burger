@@ -19,3 +19,13 @@
     color: #8585AD;
     text-decoration: none;
 }
+
+@media (max-width: 500px){
+    .navLi {
+        width: 100%;
+        height: 40px;
+        margin-left: 40px;
+        background: #1C1C21;
+
+    }
+}

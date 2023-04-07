@@ -48,7 +48,7 @@ ul[class] {
 
 @media (max-width: 1440px) {
     .container {
-        max-height: 536px;
+        height: 536px;
     }
 }
 
@@ -59,16 +59,12 @@ ul[class] {
         margin: 0 auto;
     }
 
-    .mainContainer{
-        height: 100%;
-    }
-
     .wrapperContainer {
         margin-left: 2.5vw;
     }
 
     .container {
-        height: 60.2vh;
+        height: 65vh;
         overflow-x: hidden;
     }
 

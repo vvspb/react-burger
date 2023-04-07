@@ -43,3 +43,43 @@
     align-items: center;
     justify-content: center;
 }
+
+@media (max-width: 500px) {
+    .modalContainer {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #131316;
+        border-radius:0;
+        transform: translate(0, 0);
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+    }
+    
+    .headerModal {
+        width: 100%;
+        height: 64px;
+        margin-top: 0;
+        background: #131316;
+    }
+    
+    .title {
+        width: 100%;
+        margin-left: 5vw;
+    }
+    
+    .titleNum{
+        width: 272px;
+    }
+
+    .closeButtonIcon {
+        margin-right: 11px;
+        background: #131316;
+    }
+
+    .bgModalForMenu {
+        background: #1C1C21;
+    }
+}

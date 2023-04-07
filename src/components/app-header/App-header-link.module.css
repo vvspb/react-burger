@@ -24,7 +24,7 @@
 
 @media (max-width: 500px) {
     .link {
-        width: 100%;
+        max-width: 100%;
         box-sizing: border-box;
         height: 48px;
     }

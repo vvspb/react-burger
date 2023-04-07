@@ -6,14 +6,14 @@ import styles from './App-header-link.module.css'
 
 interface IPropsAppHeaderLink extends PropsWithChildren {
     icon: ReactNode;
-    to: string;
+    to?: string;
 }
 
 const AppHeaderLink: FC<IPropsAppHeaderLink> = (props: IPropsAppHeaderLink) => {
 
     return (
         <Link
-            to={props.to}
+            to={props.to!}
             className={styles.link}
         >
             <>

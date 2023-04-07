@@ -26,15 +26,17 @@ const Modal: FC<PropsWithChildren<IModalProps>> = ({ onClose, children, title }:
   const styleTitle = title?.[0] === '#' ?
     `${styles.titleNum} text text_type_digits-default` : `${styles.title} text text_type_main-medium`
 
+  const styleBgModal = title === 'Меню' ? `${styles.bgModalForMenu}` : '';
+
   return ReactDOM.createPortal(
     <>
-      <div className={styles.modalContainer}>
-        <header className={styles.headerModal}>
+      <div className={`${styles.modalContainer} ${styleBgModal}`}>
+        <header className={`${styles.headerModal}  ${styleBgModal}`}>
           <h3
             className={styleTitle}>
             {title}
           </h3>
-          <button className={styles.closeButtonIcon} type='button' data-cy={'close'}>
+          <button className={`${styles.closeButtonIcon}  ${styleBgModal}`} type='button' data-cy={'close'}>
             <CloseIcon type='primary' onClick={onClose} />
           </button>
         </header>
@@ -44,6 +46,5 @@ const Modal: FC<PropsWithChildren<IModalProps>> = ({ onClose, children, title }:
     </>, modalRoot!
   )
 }
-
 
 export default Modal;

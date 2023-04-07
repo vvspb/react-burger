@@ -1,0 +1,15 @@
+@media (max-width: 500px){
+    .navContainer {
+        width: 100%;
+        background: #1C1C21;
+    }
+    .navUl {
+        padding: 0;
+        display: grid;
+        grid-template-rows: 48px 48px 48px;
+    }
+    
+    .headeLink {
+        width: 100%;
+    }
+}

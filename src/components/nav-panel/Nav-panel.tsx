@@ -13,8 +13,9 @@ const NavPanel = () => {
     const handleClick = () => {
         dispatch(fetchLogoutUserData())
     }
+    const screenWidth = window.screen.width;
 
-    const textStyle: string = 'text text_type_main-medium';
+    const textStyle: string = screenWidth <= 500 ? 'text text_type_main-small':'text text_type_main-medium';
     
     return (
         <nav className={styles.navProfile}>

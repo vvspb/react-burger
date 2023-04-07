@@ -1,5 +1,4 @@
 import Tab from '../tab/Tab';
-import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './Burger-ingredients.module.css';
 import BurgerIngredientsList from '../burger-ingredients-list/Burger-ingredients-list';
 import { addIngredientDetails } from '../../services/actions/ingredients-details-action';
@@ -8,11 +7,10 @@ import { InView, useInView } from 'react-intersection-observer';
 import { TIngredients } from '../../utils/types';
 import { SyntheticEvent } from 'react';
 
+
 const BurgerIngredients = () => {
 
     const dispatch = useDispatch();
-
-    const screenWidth = window.screen.width;
 
     const handleClickTab = (e: SyntheticEvent) => {
         if (entryBun?.target && e.currentTarget.id === 'tabBun') {
@@ -71,17 +69,6 @@ const BurgerIngredients = () => {
                     </div>
                 </InView>
             </div>
-            {screenWidth < 500 &&
-                <footer className={styles.footer}>
-                    <div className={styles.sumOrderContainer}>
-                        <p className={`${styles.sumOrder} text text_type_digits-default`}>420</p>
-                        <CurrencyIcon type="primary" />
-                    </div>
-                    <Button htmlType="button" type="primary" size="small" extraClass="pl-10 pr-10">
-                        Смотреть заказ
-                    </Button>
-                </footer>
-            }
         </section>
     );
 }

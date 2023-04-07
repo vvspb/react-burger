@@ -7,11 +7,15 @@ import { addIngredientDetails } from '../../services/actions/ingredients-details
 
 const InredientsDetails = () => {
 
-    const dispatch= useDispatch()
+    const dispatch= useDispatch();
 
-    const { ingredientCurrent } = useSelector(state => state.ingredientCurrent)
+    const { ingredientCurrent } = useSelector(state => state.ingredientCurrent);
     const { id } = useParams()
-    const ingredients = useSelector(state => state.ingredients.ingredients)
+    const ingredients = useSelector(state => state.ingredients.ingredients);
+
+    const screenWidth = window.screen.width;
+
+    const imgSize = screenWidth < 500 ? { width: '240', height: '120' } : { width: '480', height: '240' };
 
     useEffect(() => {
         if(ingredients.length) dispatch(addIngredientDetails(ingredients.find(item => item._id === id)!))
@@ -21,8 +25,8 @@ const InredientsDetails = () => {
 
     return (
         <div className={`${styles.container} mb-15`} >
-            <img src={ingredientCurrent.image_large} alt={ingredientCurrent.name} width='480' height='240' />
-            <p className={`text text_type_main-medium mt-4 mb-8 ${styles.text}`}>{ingredientCurrent!.name}</p>
+            <img src={ingredientCurrent.image_large} alt={ingredientCurrent.name} width={imgSize.width} height={imgSize.height} />
+            <p className={`text text_type_main-medium mt-4 mb-8 ${styles.descriptName} ${styles.text}`}>{ingredientCurrent!.name}</p>
             <ul className={styles.macronutrients}>
                 <li>
                     <p className={`${description} ${styles.text} mb-2`}>Калории,ккал</p>

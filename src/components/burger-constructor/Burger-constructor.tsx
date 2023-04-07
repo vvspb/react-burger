@@ -55,7 +55,7 @@ const BurgerConstructor = () => {
                 setSumOrder(choiceIngredients.reduce((acc, item) => acc + item.price, 0))
             }
         }, [setSumOrder, choiceIngredients, choiceBun]
-    )
+    );
 
     const ingredientsID = (arrMainSauce: Array<IChoiceIngredients>, objectBun: TIngredients | null): Array<string> => {
         const mainSauceID = arrMainSauce.map((item: { _id: string }) => item._id)

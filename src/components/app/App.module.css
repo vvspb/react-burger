@@ -1,9 +1,7 @@
 .app {
   background: #131316;
-  position: relative;
   margin: 0;
   box-sizing: border-box;
-  height: 100vh;
 }
 
 @media (max-width: 500px) {
